@@ -604,8 +604,8 @@
 
     </main>
 
-    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE -->
-    <div id="pdf-wrapper" style="display: none; position: relative; width: 100%;">
+    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Posicionada fuera de pantalla para garantizar renderizado correcto en html2canvas) -->
+    <div id="pdf-wrapper" style="position: absolute; left: -9999px; top: 0; opacity: 0; pointer-events: none; width: 100%;">
         <div id="pdf-template" class="bg-white text-slate-900 font-sans text-[10px] space-y-4" style="width: 190mm; padding: 5px; margin: 0 auto;">
             
             <div class="border-b-2 border-sky-800 pb-3 flex justify-between items-end">
@@ -2013,9 +2013,6 @@
                 `;
             }).join('');
 
-            const pdfWrapperEl = document.getElementById('pdf-wrapper');
-            pdfWrapperEl.style.display = 'block';
-
             const targetElement = document.getElementById('pdf-template');
             
             setTimeout(() => {
@@ -2027,11 +2024,8 @@
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                html2pdf().set(fileConfiguration).from(targetElement).save().then(() => {
-                    pdfWrapperEl.style.display = 'none';
-                }).catch(err => {
+                html2pdf().set(fileConfiguration).from(targetElement).save().catch(err => {
                     console.error(err);
-                    pdfWrapperEl.style.display = 'none';
                 });
             }, 300);
         }
