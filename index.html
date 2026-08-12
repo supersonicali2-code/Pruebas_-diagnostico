@@ -35,7 +35,7 @@
                 <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Guía de Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v1.0</span>
+            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v8.30</span>
         </div>
     </header>
 
@@ -608,8 +608,8 @@
 
     </main>
 
-    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Blindado contra PDFs en blanco) -->
-    <div id="pdf-wrapper" style="position: absolute; left: -9999px; top: 0; width: 190mm; background: white; visibility: visible; z-index: -1000;">
+    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Blindaje con opacidad 0 y renderizado activo) -->
+    <div id="pdf-wrapper" style="position: fixed; top: 0; left: 0; width: 190mm; background: white; opacity: 0; pointer-events: none; z-index: 99999;">
         <div id="pdf-template" class="bg-white text-slate-900 font-sans text-[10px] space-y-4" style="width: 190mm; padding: 10px; margin: 0 auto;">
             
             <div class="border-b-2 border-[#2B4763] pb-3 flex justify-between items-end">
@@ -2013,17 +2013,27 @@
 
             const targetElement = document.getElementById('pdf-template');
             
+            // Forzar reflow de renderizado para evitar PDFs en blanco por optimización del navegador
+            void targetElement.offsetHeight;
+
             setTimeout(() => {
                 const fileConfiguration = {
                     margin:       10, 
                     filename:     `Reporte_Auditoria_GeoVision.pdf`,
-                    image:        { type: 'jpeg', quality: 0.92 },
-                    html2canvas:  { scale: 1.5, useCORS: true, letterRendering: true, logging: false, allowTaint: true },
+                    image:        { type: 'jpeg', quality: 0.95 },
+                    html2canvas:  { 
+                        scale: 1.5, 
+                        useCORS: true, 
+                        letterRendering: true, 
+                        logging: false, 
+                        allowTaint: true,
+                        windowWidth: 794 // Ancho fijo en píxeles equivalente a A4
+                    },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
                 html2pdf().set(fileConfiguration).from(targetElement).save();
-            }, 800);
+            }, 1000);
         }
     </script>
 </body>
