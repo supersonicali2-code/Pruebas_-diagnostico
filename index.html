@@ -26,45 +26,88 @@
         }
 
         /* ==========================================
-           REGLAS DEFINITIVAS DE IMPRESIÓN (NATIVA)
+           REGLAS DEFINITIVAS DE IMPRESIÓN (DESKTOP & MÓVIL)
            ========================================== */
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 10mm;
+            }
+
             html, body {
-                background: #ffffff !important;
-                color: #000000 !important;
-            }
-            body * {
-                visibility: hidden;
-            }
-            #pdf-wrapper, #pdf-wrapper * {
-                visibility: visible;
-            }
-            #pdf-wrapper {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100% !important;
+                background: #fff !important;
+                color: #000 !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #ffffff !important;
-                color: #000000 !important;
+                width: 100% !important;
+                min-height: 0 !important;
             }
+
+            /* Ocultar interfaz activa mediante display para evitar vistas en blanco en navegadores móviles */
+            body > header,
+            body > main {
+                display: none !important;
+            }
+
+            #pdf-wrapper {
+                display: block !important;
+                position: static !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                width: 100% !important;
+                min-height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #fff !important;
+                color: #000 !important;
+            }
+
+            #pdf-wrapper *,
+            #pdf-template {
+                visibility: visible !important;
+                opacity: 1 !important;
+                box-sizing: border-box;
+            }
+
             #pdf-template {
                 width: 100% !important;
-                padding: 0 !important;
+                max-width: none !important;
                 margin: 0 !important;
-                background: #ffffff !important;
-                color: #000000 !important;
+                padding: 0 !important;
+                background: #fff !important;
+                color: #000 !important;
             }
+
             .pdf-server-card {
+                break-inside: avoid;
                 page-break-inside: avoid;
-                margin-bottom: 20px;
-                background: #ffffff !important;
-                border: 1px solid #cbd5e1 !important;
+                margin-bottom: 8mm !important;
             }
+
+            table {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .pdf-page-break {
+                break-before: page;
+                page-break-before: always;
+            }
+
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+            }
+        }
+
+        @media screen {
+            #pdf-wrapper {
+                display: none;
             }
         }
     </style>
@@ -193,7 +236,7 @@
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
                             <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comando (CMD - 100 Pings):</p>
                             <p>1. Presiona <strong>Win + R</strong>, escribe <code class="bg-slate-800 px-1 text-sky-400 rounded">cmd</code> y da Enter.</p>
-                            <p>2. Ejecuta el comando para enviar exactamente 100 paquetes y estandarizar la medición:</p>
+                            <p>2. Ejecuta el comando para enviar exactamente 100 paquetes:</p>
                             <div class="bg-slate-900 p-1.5 rounded border border-slate-700 font-mono text-emerald-400 text-[10px] mt-1 select-all">ping -n 100 [IP_del_Servidor]</div>
                         </div>
 
@@ -231,7 +274,7 @@
 
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
                             <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comandos (PowerShell / CMD):</p>
-                            <p>1. Abra PowerShell o CMD como administrador para verificar la apertura de puertos del sistema con:</p>
+                            <p>1. Abra PowerShell o CMD como administrador con:</p>
                             <div class="bg-slate-900 p-1.5 rounded border border-slate-700 font-mono text-emerald-400 text-[10px] mt-1 select-all">Test-NetConnection -ComputerName [IP_Servidor] -Port [Puerto]</div>
                         </div>
 
@@ -444,6 +487,7 @@
                         </button>
                     </div>
 
+                    <!-- Contenedor de Cámaras IP -->
                     <div id="wrapper-camaras" class="space-y-4"></div>
 
                     <!-- Configuración 3.2: Log Eventos Aplicativo GeoVision -->
@@ -457,7 +501,7 @@
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Eventos de Sistema GeoVision</label>
-                                <input type="text" id="val_event_gv" placeholder="Ej: Sin errores de conexión" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                <input type="text" id="val_event_gv" placeholder="Ej: Sin errores de conexión / Alertas" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
@@ -467,7 +511,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_software_core" placeholder="Observaciones detalladas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_software_core" placeholder="Observaciones detalladas de eventos..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                             <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
@@ -497,7 +541,7 @@
                                     <button type="button" onclick="agregarControladorExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
                                 </div>
                             </div>
-                            <input type="text" id="obs_sw_ctrl" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_sw_ctrl" placeholder="Observaciones de controladores..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
                                 <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                                 <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -506,7 +550,7 @@
                             <div id="wrapper-extra-ctrl" class="space-y-2 mt-2"></div>
                         </div>
 
-                        <!-- Sub-bloque 2: Actualización -->
+                        <!-- Sub-bloque 2: Actualización de controladores -->
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] font-bold text-slate-300">Actualización de Controladores</span>
@@ -518,7 +562,7 @@
                                     <button type="button" onclick="agregarActualizacionExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
                                 </div>
                             </div>
-                            <input type="text" id="obs_sw_upd" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_sw_upd" placeholder="Observaciones de actualización..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
                                 <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                                 <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -527,7 +571,7 @@
                             <div id="wrapper-extra-upd" class="space-y-2 mt-2"></div>
                         </div>
 
-                        <!-- Sub-bloque 3: Licenciamiento -->
+                        <!-- Sub-bloque 3: Tipo de Licenciamiento -->
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
                                 <span class="text-[10px] font-bold text-sky-300">Tipo de Licenciamiento</span>
@@ -549,14 +593,14 @@
                                 </div>
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Nombre de Licencia</label>
-                                    <input type="text" id="val_lic_name" placeholder="Ej: Control Center" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_lic_name" placeholder="Ej: GV-VMS / Control Center" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="col-span-2">
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Número de Licencia / Serial</label>
                                     <input type="text" id="val_lic_num" placeholder="Ej: SN-99887766" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                                 </div>
                             </div>
-                            <input type="text" id="obs_lic" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_lic" placeholder="Observaciones de licenciamiento..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
                                 <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                                 <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -573,10 +617,16 @@
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">4. Evidencia Fotográfica General (Rack/Site)</h2>
+            <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1">
+                <p class="font-bold text-amber-400 mb-1">📖 Instrucciones Técnicas:</p>
+                <p>1. Capture fotografías del rack, el cableado y las condiciones ambientales.</p>
+            </div>
+            
             <div class="pt-1">
                 <input type="file" id="foto-input" accept="image/*" multiple 
                        class="block w-full text-xs text-slate-300 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#E52724] file:text-white hover:file:bg-red-700 bg-slate-950 rounded-lg border border-slate-700 p-1.5 cursor-pointer">
             </div>
+
             <div id="foto-preview-container" class="grid grid-cols-3 gap-2 mt-2"></div>
         </section>
 
@@ -624,7 +674,7 @@
                 <div><strong>Dirección Física Evaluada:</strong> <span id="pdf-address"></span></div>
                 <div><strong>Cliente / Integrador Comercial:</strong> <span id="pdf-client"></span></div>
                 <div><strong>Cliente Final / Sede Operativa:</strong> <span id="pdf-end-client"></span></div>
-                <div class="col-span-2 border-t border-slate-300 pt-1 text-[9px] text-slate-500"><strong>Coordenadas GPS:</strong> <span id="pdf-gps"></span></div>
+                <div class="col-span-2 border-t border-slate-300 pt-1 text-[9px] text-slate-500"><strong>Coordenadas de Geolocalización (GPS):</strong> <span id="pdf-gps"></span></div>
             </div>
 
             <div id="pdf-servers-container" class="space-y-6"></div>
@@ -646,6 +696,16 @@
         let contadorUpdExtra = 0;
         let contadorLicExtra = 0;
         let fotosActualesBase64 = []; 
+
+        function escaparHTML(valor) {
+            return String(valor ?? '').replace(/[&<>"']/g, caracter => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[caracter]));
+        }
 
         function comprimirImagen(file, callback) {
             const reader = new FileReader();
@@ -1340,7 +1400,7 @@
             listElement.innerHTML = backendColaServidores.map((s, idx) => `
                 <div class="bg-slate-800/80 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center shadow-md">
                     <div>
-                        <p class="font-bold text-slate-100 text-sm">${s.nombre} <span class="text-xs text-sky-300 font-normal">[IP: ${s.ip}]</span></p>
+                        <p class="font-bold text-slate-100 text-sm">${escaparHTML(s.nombre)} <span class="text-xs text-sky-300 font-normal">[IP: ${escaparHTML(s.ip)}]</span></p>
                         <p class="text-[10px] text-slate-300">Cámaras: ${s.camarasIP.length} | Discos: ${s.discosFisicos.length}</p>
                     </div>
                     <button onclick="removerServidorLista(${idx})" class="text-rose-400 bg-rose-500/10 px-2 py-1.5 rounded-lg text-xs font-bold">Eliminar</button>
@@ -1374,8 +1434,8 @@
                 let bloqueFotosHtml = '';
                 if (srv.fotosEvidencia && srv.fotosEvidencia.length > 0) {
                     bloqueFotosHtml = `
-                        <div style="page-break-before: always; padding-top: 10px;"></div>
-                        <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-bottom: 8px; border-left: 3px solid #E52724; padding-left: 5px;">III. ANEXO: EVIDENCIA FOTOGRÁFICA (${srv.nombre.toUpperCase()})</div>
+                        <div class="pdf-page-break" style="padding-top: 10px;"></div>
+                        <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-bottom: 8px; border-left: 3px solid #E52724; padding-left: 5px;">III. ANEXO: EVIDENCIA FOTOGRÁFICA (${escaparHTML(srv.nombre).toUpperCase()})</div>
                         <div style="width: 100%; text-align: center;">
                             ${srv.fotosEvidencia.map(foto => `
                                 <div style="width: 48%; border: 1px solid #cbd5e1; padding: 6px; border-radius: 4px; display: inline-block; margin-bottom: 10px; margin-right: 1%;">
@@ -1386,38 +1446,38 @@
                     `;
                 }
 
-                let extraPortsHtml = `[Tipo: ${srv.pruebasFijas.portTestType}]`;
+                let extraPortsHtml = `[Tipo: ${escaparHTML(srv.pruebasFijas.portTestType)}]`;
                 if (srv.pruebasFijas.extraPorts && srv.pruebasFijas.extraPorts.length > 0) {
                     srv.pruebasFijas.extraPorts.forEach(ep => {
-                        extraPortsHtml += `<br>Puerto ${ep.num}: <b>${ep.status}</b>`;
+                        extraPortsHtml += `<br>Puerto ${escaparHTML(ep.num)}: <b>${escaparHTML(ep.status)}</b>`;
                     });
                 }
 
                 return `
                 <div class="pdf-server-card border border-[#2B4763] rounded-md p-3.5 bg-white font-sans text-slate-900">
                     <div style="background-color: #2B4763; color: white; padding: 6px 12px; font-weight: bold; font-size: 11px; border-radius: 4px; margin-bottom: 8px;">
-                        EQUIPO EVALUADO #${index + 1}: ${srv.nombre.toUpperCase()} (Indexación: ${srv.timestamp})
+                        EQUIPO EVALUADO #${index + 1}: ${escaparHTML(srv.nombre).toUpperCase()} (Indexación: ${escaparHTML(srv.timestamp)})
                     </div>
                     
                     <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-bottom: 4px; border-left: 3px solid #2B4763; padding-left: 5px;">I. DIAGNÓSTICO DE ARQUITECTURA DE INVENTARIO</div>
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 9px;">
                         <tr>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; width: 22%;"><strong>Dirección IP:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; width: 28%;">${srv.ip}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; width: 28%;">${escaparHTML(srv.ip)}</td>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; width: 22%;"><strong>Sistema Operativo:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; width: 28%;">${srv.os}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; width: 28%;">${escaparHTML(srv.os)}</td>
                         </tr>
                         <tr>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Marca / Modelo:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${srv.brand}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.brand)}</td>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Serial:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${srv.serial}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.serial)}</td>
                         </tr>
                         <tr>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>CPU / RAM:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${srv.cpu} / ${srv.ram}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.cpu)} / ${escaparHTML(srv.ram)}</td>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Almacenamiento:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${srv.disk_cap} (${srv.disk_qty} discos)</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.disk_cap)} (${escaparHTML(srv.disk_qty)} discos)</td>
                         </tr>
                     </table>
 
@@ -1434,10 +1494,10 @@
                         <tbody>
                             <tr>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1 Ping (100 Pings)</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${srv.pruebasFijas.ping_cc_val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : '#E52724'};">${srv.pruebasFijas.ping_cc_status}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(srv.pruebasFijas.ping_cc_val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.ping_cc_status)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                    ${srv.pruebasFijas.ping_cc_obs}
+                                    ${escaparHTML(srv.pruebasFijas.ping_cc_obs)}
                                     ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}
                                 </td>
                             </tr>
@@ -1446,19 +1506,19 @@
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;">${extraPortsHtml}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold;">SOCKETS</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                    ${srv.pruebasFijas.ports_obs}
+                                    ${escaparHTML(srv.pruebasFijas.ports_obs)}
                                     ${renderPdfImg(srv.pruebasFijas.ports_foto)}
                                 </td>
                             </tr>
                             ${srv.camarasIP.map((c) => `
                                 <tr style="background-color: #faf5ff;">
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce;"><strong>[CÁMARA #${c.channel}]<br>${c.name}</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce;"><strong>[CÁMARA #${escaparHTML(c.channel)}]</strong><br>${escaparHTML(c.name)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px;">
-                                        Ubicación: ${c.loc}<br>IP: ${c.ip}
+                                        Ubicación: ${escaparHTML(c.loc)}<br>IP: ${escaparHTML(c.ip)}
                                     </td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#E52724'};">${c.status}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(c.status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                        ${c.obs}
+                                        ${escaparHTML(c.obs)}
                                         ${renderPdfImg(c.fotoGen)}
                                     </td>
                                 </tr>
@@ -1466,10 +1526,10 @@
                             ${srv.discosFisicos.map((d, i) => `
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.1 Disco Físico #${i+1}</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${d.ref} | Cap: ${d.cap}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${d.status}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${escaparHTML(d.status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                        ${d.obs}
+                                        ${escaparHTML(d.obs)}
                                         ${renderPdfImg(d.foto)}
                                     </td>
                                 </tr>
@@ -1484,12 +1544,15 @@
             const pdfWrapper = document.getElementById('pdf-wrapper');
             pdfWrapper.style.display = 'block';
 
+            const restaurarVista = () => {
+                pdfWrapper.style.display = 'none';
+                window.removeEventListener('afterprint', restaurarVista);
+            };
+            window.addEventListener('afterprint', restaurarVista);
+
             setTimeout(() => {
                 window.print();
-                setTimeout(() => {
-                    pdfWrapper.style.display = 'none';
-                }, 500);
-            }, 300);
+            }, 150);
         }
     </script>
 </body>
