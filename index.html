@@ -3,142 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía de Diagnóstico e Inventario para servidores Geovision</title>
+    <title>Guía de Diagnóstico e Inventario - Geovision de Colombia</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Tipografías oficiales del Brandbook 2026: Oswald y Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #122f4a; /* Pantone 276C - Fondo oscuro corporativo */
+            color: #F0F2F5;
+        }
+        h1, h2, h3, h4, .font-oswald {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .bg-geo-blue { background-color: #2B4763; } /* Pantone 7686C */
+        .border-geo-blue { border-color: #2B4763; }
+        .text-geo-blue { color: #2B4763; }
+        .bg-geo-red { background-color: #E52724; } /* Pantone 185C */
+        .border-geo-red { border-color: #E52724; }
+        .text-geo-red { color: #E52724; }
+        
         .status-btn input:checked + span {
-            background-color: #0f172a;
-            border-color: #38bdf8;
+            background-color: #2B4763;
+            border-color: #0080ff;
             border-width: 2px;
-            color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+            color: #48D1C0; /* Verde menta de acento */
+            box-shadow: 0 0 12px rgba(72, 209, 192, 0.3);
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen pb-24">
+<body class="min-h-screen pb-24">
 
-    <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50 shadow-lg">
+    <!-- HEADER INSTITUCIONAL -->
+    <header class="bg-[#122f4a] border-b border-[#2B4763] p-4 sticky top-0 z-50 shadow-xl">
         <div class="max-w-md mx-auto flex justify-between items-center">
-            <div>
-                <h1 class="text-sm font-bold text-sky-400 leading-snug">Guía de Diagnóstico e Inventario para servidores Geovision</h1>
-                <p class="text-[11px] text-slate-400">GeoVision de Colombia S.A.S.</p>
+            <div class="flex items-center space-x-3">
+                <!-- Logotipo vectorial estilizado GeoVision de Colombia -->
+                <div class="flex flex-col">
+                    <div class="flex items-center space-x-1">
+                        <span class="text-xs font-bold text-white tracking-widest font-oswald">GeoVision</span>
+                        <span class="text-[9px] text-slate-300 font-medium">de Colombia</span>
+                    </div>
+                    <div class="h-1 w-full bg-gradient-to-r from-[#E52724] to-[#2B4763] mt-0.5 rounded-full"></div>
+                    <span class="text-[8px] text-sky-400 italic">Más que seguridad</span>
+                </div>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v8.30</span>
+            <div class="text-right">
+                <h1 class="text-xs font-bold text-white font-oswald leading-tight">Guía de Diagnóstico e Inventario</h1>
+                <span class="bg-[#E52724]/20 text-[#E52724] text-[10px] font-bold px-2 py-0.5 rounded border border-[#E52724]/40">v8.30</span>
+            </div>
         </div>
     </header>
 
     <main class="max-w-md mx-auto p-4 space-y-6">
 
-        <section class="bg-slate-800 rounded-xl p-4 border border-slate-700 shadow-sm space-y-3">
-            <h2 class="text-xs font-bold text-sky-400 uppercase tracking-wider">1. Información de Cuentas y Ubicación</h2>
+        <!-- 1. INFORMACIÓN DE CUENTAS -->
+        <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-md space-y-3">
+            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">1. Información de Cuentas y Ubicación</h2>
             
-            <div class="space-y-2.5">
+            <div class="space-y-2.5 text-xs">
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Ingeniero / Técnico a Cargo</label>
-                    <input type="text" id="tech-name" value="Robert Enrique Muriel" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Ingeniero / Técnico a Cargo</label>
+                    <input type="text" id="tech-name" value="Robert Enrique Muriel" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Cliente (Distribuidor / Integrador)</label>
-                    <input type="text" id="client-name" placeholder="Nombre de la empresa integradora" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Cliente (Distribuidor / Integrador)</label>
+                    <input type="text" id="client-name" placeholder="Nombre de la empresa integradora" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Cliente Final (Sede / Instalación)</label>
-                    <input type="text" id="end-client-name" placeholder="Empresa o lugar final donde opera el sistema" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Cliente Final (Sede / Instalación)</label>
+                    <input type="text" id="end-client-name" placeholder="Empresa o lugar final donde opera el sistema" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Dirección Física / Ciudad de la Instalación</label>
-                    <input type="text" id="physical-address" placeholder="Ej: Av. El Dorado #68-20 - Bogotá" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Dirección Física / Ciudad de la Instalación</label>
+                    <input type="text" id="physical-address" placeholder="Ej: Av. El Dorado #68-20 - Bogotá" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 
-                <div class="border-t border-slate-700/60 pt-2 flex space-x-2">
+                <div class="border-t border-slate-600/60 pt-2 flex space-x-2">
                     <div class="flex-1">
-                        <label class="block text-[11px] text-slate-400 font-medium mb-1">Coordenadas GPS de Control (Opcional)</label>
-                        <input type="text" id="gps-coords" placeholder="Latitud, Longitud" class="w-full bg-slate-950 border border-slate-700 text-slate-300 rounded-lg p-2 text-xs focus:outline-none">
+                        <label class="block text-[11px] text-slate-300 font-medium mb-1">Coordenadas GPS de Control</label>
+                        <input type="text" id="gps-coords" placeholder="Latitud, Longitud" class="w-full bg-[#122f4a] border border-slate-600 text-slate-300 rounded-lg p-2 text-xs focus:outline-none">
                     </div>
                     <div class="flex items-end">
-                        <button type="button" onclick="obtenerUbicacionGPS()" class="bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-xs px-3 py-2.5 rounded-lg h-[38px] transition">
+                        <button type="button" onclick="obtenerUbicacionGPS()" class="bg-[#E52724] hover:bg-red-600 active:bg-red-700 text-white font-semibold text-xs px-3 py-2.5 rounded-lg h-[38px] transition shadow">
                             📍 GPS
                         </button>
                     </div>
                 </div>
-                <p id="gps-status" class="text-[10px] text-slate-400 italic"></p>
+                <p id="gps-status" class="text-[10px] text-slate-300 italic"></p>
             </div>
         </section>
 
-        <section class="bg-slate-800 rounded-xl p-4 border border-slate-700 shadow-sm space-y-3">
-            <h2 class="text-xs font-bold text-sky-400 uppercase tracking-wider">2. Ficha de Inventario Técnico del Servidor</h2>
+        <!-- 2. FICHA DE INVENTARIO TÉCNICO -->
+        <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-md space-y-3">
+            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">2. Ficha de Inventario Técnico del Servidor</h2>
             
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-3 text-xs">
                 <div class="col-span-2">
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Identificador del Servidor</label>
-                    <input type="text" id="srv-name" placeholder="Ej: Servidor NVR No. 1" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Identificador del Servidor</label>
+                    <input type="text" id="srv-name" placeholder="Ej: Servidor NVR No. 1" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Dirección IP Servidor</label>
-                    <input type="text" id="srv-ip" placeholder="Ej: 192.168.10.100" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Dirección IP Servidor</label>
+                    <input type="text" id="srv-ip" placeholder="Ej: 192.168.10.100" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Sistema Operativo</label>
-                    <input type="text" id="srv-os" placeholder="Ej: Windows 10 Pro LTSC" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Sistema Operativo</label>
+                    <input type="text" id="srv-os" placeholder="Ej: Windows 10 Pro LTSC" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Marca / Modelo Servidor</label>
-                    <input type="text" id="srv-brand" placeholder="Ej: Dell PowerEdge T350" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Marca / Modelo Servidor</label>
+                    <input type="text" id="srv-brand" placeholder="Ej: Dell PowerEdge T350" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Serial Físico / Service Tag</label>
-                    <input type="text" id="srv-serial" placeholder="Código único de chasis" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Serial Físico / Service Tag</label>
+                    <input type="text" id="srv-serial" placeholder="Código único de chasis" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
-                <div class="col-span-2 border-t border-slate-700/60 pt-1"></div>
+                <div class="col-span-2 border-t border-slate-600/60 pt-1"></div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Procesador (CPU)</label>
-                    <input type="text" id="srv-cpu" placeholder="Ej: Intel Xeon E-2324" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
-                </div>
-                <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Memoria RAM</label>
-                    <input type="text" id="srv-ram" placeholder="Ej: 32 GB DDR4 ECC" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
-                </div>
-                <div class="col-span-2">
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Tarjeta Gráfica / GPU</label>
-                    <input type="text" id="srv-gpu" placeholder="Ej: Nvidia Quadro T400" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
-                </div>
-                <div class="col-span-2 border-t border-slate-700/60 pt-1"></div>
-                <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Cantidad de Discos</label>
-                    <input type="number" id="srv-disk-qty" placeholder="Ej: 4" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Procesador (CPU)</label>
+                    <input type="text" id="srv-cpu" placeholder="Ej: Intel Xeon E-2324" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Almacenamiento Total</label>
-                    <input type="text" id="srv-disk-cap" placeholder="Ej: 32 TB (4x8TB)" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Memoria RAM</label>
+                    <input type="text" id="srv-ram" placeholder="Ej: 32 GB DDR4 ECC" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div class="col-span-2">
-                    <label class="block text-[11px] text-slate-400 font-medium mb-1">Software / Rol del Sistema Instalado</label>
-                    <input type="text" id="srv-software" placeholder="Ej: GV-VMS V18.3.1 / Control Center" class="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-500">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Tarjeta Gráfica / GPU</label>
+                    <input type="text" id="srv-gpu" placeholder="Ej: Nvidia Quadro T400" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
+                </div>
+                <div class="col-span-2 border-t border-slate-600/60 pt-1"></div>
+                <div>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Cantidad de Discos</label>
+                    <input type="number" id="srv-disk-qty" placeholder="Ej: 4" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Almacenamiento Total</label>
+                    <input type="text" id="srv-disk-cap" placeholder="Ej: 32 TB (4x8TB)" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Software / Rol del Sistema Instalado</label>
+                    <input type="text" id="srv-software" placeholder="Ej: GV-VMS V18.3.1 / Control Center" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
             </div>
         </section>
 
-        <section class="bg-slate-800 rounded-xl p-4 border border-slate-700 shadow-sm space-y-6">
-            <h2 class="text-xs font-bold text-sky-400 uppercase tracking-wider">3. Protocolo Exhaustivo de Diagnóstico Integrado</h2>
+        <!-- 3. PROTOCOLO DE DIAGNÓSTICO -->
+        <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-md space-y-6">
+            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">3. Protocolo Exhaustivo de Diagnóstico Integrado</h2>
             
-            <div class="space-y-6 divide-y divide-slate-700/60">
+            <div class="space-y-6 divide-y divide-slate-600/60 text-xs">
 
                 <!-- CAPA RED -->
                 <div class="space-y-4 pt-0">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-blue-400">🌐 CAPA DE RED Y COMUNICACIONES</span>
+                        <span class="text-xs font-bold text-sky-300 font-oswald">🌐 CAPA DE RED Y COMUNICACIONES</span>
                     </div>
 
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2">
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40">RED</span>
-                            <button type="button" onclick="agregarPingExtra()" class="text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir otro Ping</button>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
+                            <button type="button" onclick="agregarPingExtra()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir otro Ping</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Prueba 1.1: Latencia y Pérdida de Paquetes</h4>
+                        <h4 class="text-xs font-bold text-white font-oswald mt-1">Prueba 1.1: Latencia y Pérdida de Paquetes</h4>
                         
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comando (CMD):</p>
+                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2">
+                            <p class="font-bold text-[#E52724] mb-1">📖 Instrucción y Comando (CMD):</p>
                             <p>1. Presiona <strong>Win + R</strong>, escribe <code class="bg-slate-800 px-1 text-sky-400 rounded">cmd</code> y da Enter.</p>
                             <p>2. Ejecuta el comando:</p>
                             <div class="bg-slate-900 p-1.5 rounded border border-slate-700 font-mono text-emerald-400 text-[10px] mt-1 select-all">ping -t [IP_del_Servidor]</div>
@@ -146,19 +178,19 @@
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Métrica (ms / % pérdidas)</label>
-                                <input type="text" id="val_ping_cc" placeholder="Ej: 3ms (0% pérdidas)" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Métrica (ms / % pérdidas)</label>
+                                <input type="text" id="val_ping_cc" placeholder="Ej: 3ms (0% pérdidas)" class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Estatus</label>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                                 <div class="grid grid-cols-3 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-emerald-400">PASA</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="FALLA" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-rose-400">FAIL</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="N/A" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-slate-400">N/A</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1.5 rounded font-bold text-emerald-400">PASA</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="FALLA" class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1.5 rounded font-bold text-[#E52724]">FAIL</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="N/A" class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1.5 rounded font-bold text-slate-400">N/A</span></label>
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_ping_cc" placeholder="Observaciones del ping continuo..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_ping_cc" placeholder="Observaciones del ping continuo..." class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                             <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
@@ -169,23 +201,22 @@
                         <div id="wrapper-ping" class="space-y-2 mt-2 w-full"></div>
                     </div>
 
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2">
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40">RED</span>
-                            <button type="button" onclick="crearFilaPuerto()" class="text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Puerto</button>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
+                            <button type="button" onclick="crearFilaPuerto()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Puerto</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Prueba 1.2: Conexión de Sockets TCP GeoVision</h4>
+                        <h4 class="text-xs font-bold text-white font-oswald mt-1">Prueba 1.2: Conexión de Sockets TCP GeoVision</h4>
 
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comandos (PowerShell / CMD):</p>
-                            <p>1. Abra PowerShell o CMD como administrador para verificar la apertura de puertos del sistema con:</p>
+                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2">
+                            <p class="font-bold text-[#E52724] mb-1">📖 Instrucción y Comandos (PowerShell / CMD):</p>
+                            <p>1. Abra PowerShell o CMD como administrador con:</p>
                             <div class="bg-slate-900 p-1.5 rounded border border-slate-700 font-mono text-emerald-400 text-[10px] mt-1 select-all">Test-NetConnection -ComputerName [IP_Servidor] -Port [Puerto]</div>
-                            <p class="mt-1">2. Seleccione el tipo de prueba (Interna o Externa) e ingrese de manera manual los puertos a verificar (Ej: 4550, 5550, 10000).</p>
                         </div>
 
                         <div class="mb-2">
-                            <label class="block text-[10px] text-slate-400 mb-0.5">Tipo de Prueba</label>
-                            <select id="val_port_test_type" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
+                            <label class="block text-[10px] text-slate-300 mb-0.5">Tipo de Prueba</label>
+                            <select id="val_port_test_type" class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                                 <option value="Interna (Misma máquina)" selected>Interna (Misma máquina)</option>
                                 <option value="Externa (Otra máquina)">Externa (Otra máquina)</option>
                             </select>
@@ -193,48 +224,41 @@
 
                         <div id="wrapper-ports" class="space-y-2 w-full"></div>
 
-                        <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                             <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
+                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_ports" class="foto-base64-custom">
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2">
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/40">RED</span>
-                            <button type="button" onclick="crearFilaInterfaz()" class="text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Interfaz</button>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
+                            <button type="button" onclick="crearFilaInterfaz()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Interfaz</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Prueba 1.3: Inspección de Ancho de Banda (Tráfico Real Mbps)</h4>
+                        <h4 class="text-xs font-bold text-white font-oswald mt-1">Prueba 1.3: Inspección de Ancho de Banda (Tráfico Real Mbps)</h4>
                         
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comando (Administrador de Tareas):</p>
-                            <p>1. Presiona las teclas <strong>Ctrl + Shift + Esc</strong> (o ejecuta <code class="bg-slate-800 px-1 text-sky-400 rounded">taskmgr</code> en CMD/PowerShell).</p>
-                            <p>2. Ve a la pestaña <strong>Rendimiento</strong> y selecciona la interfaz de red para ver en tiempo real el consumo exacto de Subida (Envío) y Bajada (Recepción) en Mbps.</p>
-                        </div>
-
-                        <!-- Interfaz principal con Nombre, Tipo y Velocidad -->
                         <div class="space-y-2 mb-2">
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Nombre de la Interfaz</label>
-                                <input type="text" id="val_net_name" value="Ethernet" placeholder="Ej: Ethernet 1" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Nombre de la Interfaz</label>
+                                <input type="text" id="val_net_name" value="Ethernet" placeholder="Ej: Ethernet 1" class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Tipo de Interfaz</label>
-                                    <select id="val_net_type" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Tipo de Interfaz</label>
+                                    <select id="val_net_type" class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                                         <option value="Ethernet" selected>Ethernet</option>
                                         <option value="Wi-Fi">Wi-Fi</option>
                                         <option value="Fibra">Fibra (SFP)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Velocidad Enlace</label>
-                                    <select id="val_net_speed" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Velocidad Enlace</label>
+                                    <select id="val_net_speed" class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                                         <option value="10/100 Mbps">10/100 Mbps</option>
-                                        <option value="10/100/1000 Mbps" selected>10/100/1000 Mbps (Gigabit)</option>
+                                        <option value="10/100/1000 Mbps" selected>Gigabit (1 Gbps)</option>
                                         <option value="10 Gbps">10 Gbps</option>
                                     </select>
                                 </div>
@@ -244,377 +268,228 @@
                         <div class="space-y-3 pt-1">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-400">Carga / Subida (Envío)</label>
+                                    <label class="block text-[10px] text-slate-300">Carga / Subida</label>
                                     <input type="text" id="val_net_upload" placeholder="Ej: 95 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Estatus Carga</label>
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Carga</label>
                                     <div class="grid grid-cols-2 gap-1">
                                         <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-[#E52724]">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-400">Descarga / Bajada (Recepción)</label>
+                                    <label class="block text-[10px] text-slate-300">Descarga / Bajada</label>
                                     <input type="text" id="val_net_download" placeholder="Ej: 320 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Estatus Descarga</label>
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Descarga</label>
                                     <div class="grid grid-cols-2 gap-1">
                                         <label class="status-btn"><input type="radio" name="chk_download_net_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_download_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_download_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-[#E52724]">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Contenedor para interfaces de red adicionales -->
                         <div id="wrapper-net" class="space-y-2 mt-2 w-full"></div>
-
-                        <input type="text" id="obs_ping_cam" placeholder="Anotaciones sobre switches o colapso de red..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_ping_cam" placeholder="Anotaciones sobre switches o colapso de red..." class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                             <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
+                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_net" class="foto-base64-custom">
                         </div>
                     </div>
                 </div>
 
                 <!-- CAPA HARDWARE -->
-                <div class="space-y-4 pt-4 border-t border-slate-700">
+                <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-amber-400">🖥️ CAPA DE HARDWARE FÍSICO</span>
+                        <span class="text-xs font-bold text-amber-300 font-oswald">🖥️ CAPA DE HARDWARE FÍSICO</span>
                     </div>
 
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2">
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40">HARDWARE</span>
-                            <button type="button" onclick="crearFilaDisco()" class="text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Disco Extra</button>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HARDWARE</span>
+                            <button type="button" onclick="crearFilaDisco()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Disco Extra</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Prueba 2.1: Diagnóstico de Discos Duros</h4>
-                        
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Aplicación Recomendada:</p>
-                            <p>1. Abra un aplicativo especializado en verificación S.M.A.R.T. y salud de almacenamiento. Se recomienda fuertemente:</p>
-                            <ul class="list-disc list-inside text-[10px] text-sky-300 space-y-0.5 mt-1">
-                                <li><strong>CrystalDiskInfo:</strong> Ideal para evaluar rápidamente temperatura, estado de salud general y horas de encendido de forma clara y limpia.</li>
-                                <li><strong>Hard Disk Sentinel o Victoria:</strong> Altamente recomendados para análisis exhaustivos, detección de sectores defectuosos, pruebas de superficie y rendimiento real.</li>
-                            </ul>
-                        </div>
-
-                        <div id="wrapper-discos" class="space-y-3 pt-1 w-full">
-                        </div>
+                        <h4 class="text-xs font-bold text-white font-oswald mt-1">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T.)</h4>
+                        <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
 
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2">
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40">HARDWARE</span>
-                            <button type="button" onclick="agregarGpuExtra()" class="text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir GPU Extra</button>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HARDWARE</span>
+                            <button type="button" onclick="agregarGpuExtra()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir GPU Extra</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
-                        
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Guía (Administrador de Tareas):</p>
-                            <p>1. Presione las teclas <strong>Ctrl + Shift + Esc</strong> para abrir el <strong>Administrador de Tareas</strong> (o ejecute <code class="bg-slate-800 px-1 text-sky-400 rounded">taskmgr</code> en CMD/PowerShell).</p>
-                            <p>2. Diríjase a la pestaña <strong>Rendimiento</strong> para verificar el uso sostenido, picos y comportamiento general de CPU, Memoria RAM y Procesador Gráfico (GPU / Codec).</p>
-                        </div>
+                        <h4 class="text-xs font-bold text-white font-oswald mt-1">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
 
                         <div class="space-y-3 pt-1">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-400">Uso CPU Sostenido (%)</label>
+                                    <label class="block text-[10px] text-slate-300">Uso CPU Sostenido (%)</label>
                                     <input type="text" id="val_cpu_pct" placeholder="Ej: 45%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <div class="grid grid-cols-2 gap-1 mt-3 sm:mt-0">
                                         <label class="status-btn"><input type="radio" name="chk_cpu_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_cpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_cpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-[#E52724]">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-400">Uso Memoria RAM (%)</label>
+                                    <label class="block text-[10px] text-slate-300">Uso Memoria RAM (%)</label>
                                     <input type="text" id="val_ram_pct" placeholder="Ej: 62%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <div class="grid grid-cols-2 gap-1 mt-3 sm:mt-0">
                                         <label class="status-btn"><input type="radio" name="chk_ram_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_ram_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_ram_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-[#E52724]">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-400">Uso GPU / Codec (%)</label>
+                                    <label class="block text-[10px] text-slate-300">Uso GPU / Codec (%)</label>
                                     <input type="text" id="val_gpu_pct" placeholder="Ej: 80%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <div class="grid grid-cols-2 gap-1 mt-3 sm:mt-0">
                                         <label class="status-btn"><input type="radio" name="chk_gpu_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_gpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_gpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-[#E52724]">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Contenedor para GPU extra -->
                         <div id="wrapper-gpu-extra" class="space-y-2 mt-2 w-full"></div>
-
-                        <input type="text" id="obs_hardware_stress" placeholder="Notas sobre el comportamiento de la GPU o cuellos de botella..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_hardware_stress" placeholder="Notas sobre el comportamiento de la GPU o cuellos de botella..." class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                             <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
+                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_hw_stress" class="foto-base64-custom">
                         </div>
-                    </div>
-
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/40">HARDWARE</span>
-                            <button type="button" onclick="agregarLogCriticoExtra()" class="text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log</button>
-                        </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
-                        
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Herramientas Administrativas:</p>
-                            <p>1. Presione <strong>Win + R</strong>, escriba <code class="bg-slate-800 px-1 text-sky-400 rounded">eventvwr.msc</code> y presione Enter para abrir el <strong>Visor de Eventos</strong> (accesible desde las Herramientas Administrativas de Windows).</p>
-                            <p>2. Revise en <em>Registros de Windows -> Sistema / Aplicación</em> para buscar errores críticos o advertencias de hardware.</p>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2 pt-1">
-                            <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Filtro / ID Base Evaluado</label>
-                                <input type="text" id="val_event_base" placeholder="Ej: Logs de Sistema (Disk)" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Estatus Base</label>
-                                <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="ERRORES" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="text" id="obs_event_logs" placeholder="Observaciones generales de logs..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                        
-                        <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                            <input type="hidden" id="b64_event_logs" class="foto-base64-custom">
-                        </div>
-
-                        <div id="wrapper-hw-logs" class="space-y-2 mt-2 w-full"></div>
                     </div>
                 </div>
 
                 <!-- CAPA SOFTWARE & CAMARAS -->
-                <div class="space-y-4 pt-4 border-t border-slate-700">
+                <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-purple-400">💿 CAPA DE SOFTWARE Y CÁMARAS IP</span>
-                        <button type="button" onclick="crearFilaCamara()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-[10px] px-2.5 py-1.5 rounded transition shadow">
+                        <span class="text-xs font-bold text-purple-300 font-oswald">💿 CAPA DE SOFTWARE Y CÁMARAS IP</span>
+                        <button type="button" onclick="crearFilaCamara()" class="bg-[#E52724] hover:bg-red-600 text-white font-bold text-[10px] px-2.5 py-1.5 rounded transition shadow">
                             ➕ Añadir otra Cámara IP
                         </button>
                     </div>
 
-                    <!-- Contenedor de Cámaras IP (Sección 3.1) -->
-                    <div id="wrapper-camaras" class="space-y-4">
-                        <!-- La primera cámara se genera automáticamente por JS -->
-                    </div>
+                    <div id="wrapper-camaras" class="space-y-4"></div>
 
-                    <!-- Configuración 3.2: Log Eventos Aplicativo GeoVision -->
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-2 mt-4">
+                    <!-- Configuración 3.2: Log Eventos -->
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-2 mt-4">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40">SOFTWARE</span>
-                            <button type="button" onclick="agregarLogEventoExtra()" class="text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log Evento</button>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">SOFTWARE</span>
+                            <button type="button" onclick="agregarLogEventoExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1">Configuración 3.2: Log Eventos Aplicativo GeoVision</h4>
-
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Guía:</p>
-                            <p>1. Abra el visor de logs del aplicativo GeoVision (GV-VMS / Control Center) para revisar los registros de eventos del sistema.</p>
-                        </div>
+                        <h4 class="text-xs font-bold text-white font-oswald mt-1">Configuración 3.2: Log Eventos Aplicativo GeoVision</h4>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Eventos de Sistema GeoVision</label>
-                                <input type="text" id="val_event_gv" placeholder="Ej: Sin errores de conexión / Alertas" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Eventos de Sistema GeoVision</label>
+                                <input type="text" id="val_event_gv" placeholder="Ej: Sin errores de conexión" class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[10px] text-slate-400 mb-0.5">Estatus</label>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                                 <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="ERROR" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="ERROR" class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1.5 rounded font-bold text-[#E52724]">ERROR</span></label>
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_software_core" placeholder="Observaciones detalladas de eventos..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                        
-                        <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                            <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                            <input type="hidden" id="b64_sw_core" class="foto-base64-custom">
-                        </div>
-
-                        <div id="wrapper-sw-db" class="space-y-2 mt-2 w-full"></div>
+                        <input type="text" id="obs_software_core" placeholder="Observaciones detalladas..." class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
 
-                    <!-- Configuración 3.3: Controladores y Licenciamiento -->
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700/60 space-y-3 mt-3">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-900/50 text-purple-300 border border-purple-700/40">SOFTWARE</span>
-                            <span class="text-xs font-bold text-sky-400">Configuración 3.3: Controladores y Licenciamiento</span>
+                    <!-- Configuración 3.3: Licenciamiento -->
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-700 space-y-3 mt-3">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">SOFTWARE</span>
+                            <span class="text-xs font-bold text-sky-300 font-oswald">Configuración 3.3: Licenciamiento</span>
                         </div>
-
-                        <!-- Sub-bloque 1: Controladores -->
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-bold text-slate-300">Controladores (Verificación)</span>
-                                <div class="flex items-center space-x-2">
-                                    <div class="grid grid-cols-2 gap-1 w-[100px]">
-                                        <label class="status-btn"><input type="radio" name="chk_sw_ctrl" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_sw_ctrl" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                                    </div>
-                                    <button type="button" onclick="agregarControladorExtra()" class="text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
-                                </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                                <label class="block text-[9px] text-slate-300 mb-0.5">Modalidad</label>
+                                <select id="val_lic_type" class="w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
+                                    <option value="Físico (Dongle)" selected>Físico (Dongle)</option>
+                                    <option value="Virtual">Virtual</option>
+                                </select>
                             </div>
-                            <input type="text" id="obs_sw_ctrl" placeholder="Observaciones de controladores..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                                <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                                <input type="hidden" id="b64_sw_ctrl" class="foto-base64-custom">
+                            <div>
+                                <label class="block text-[9px] text-slate-300 mb-0.5">Nombre de Licencia</label>
+                                <input type="text" id="val_lic_name" placeholder="Ej: Control Center" class="w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                             </div>
-                            <div id="wrapper-extra-ctrl" class="space-y-2 mt-2"></div>
+                            <div class="col-span-2">
+                                <label class="block text-[9px] text-slate-300 mb-0.5">Número de Licencia / Serial</label>
+                                <input type="text" id="val_lic_num" placeholder="Ej: SN-99887766" class="w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
+                            </div>
                         </div>
-
-                        <!-- Sub-bloque 2: Actualización de controladores -->
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-bold text-slate-300">Actualización de Controladores</span>
-                                <div class="flex items-center space-x-2">
-                                    <div class="grid grid-cols-2 gap-1 w-[100px]">
-                                        <label class="status-btn"><input type="radio" name="chk_sw_upd" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_sw_upd" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                                    </div>
-                                    <button type="button" onclick="agregarActualizacionExtra()" class="text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
-                                </div>
-                            </div>
-                            <input type="text" id="obs_sw_upd" placeholder="Observaciones de actualización..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                                <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                                <input type="hidden" id="b64_sw_upd" class="foto-base64-custom">
-                            </div>
-                            <div id="wrapper-extra-upd" class="space-y-2 mt-2"></div>
-                        </div>
-
-                        <!-- Sub-bloque 3: Tipo de Licenciamiento -->
-                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
-                                <span class="text-[10px] font-bold text-sky-400">Tipo de Licenciamiento</span>
-                                <div class="flex items-center space-x-2">
-                                    <div class="grid grid-cols-2 gap-1 w-[100px]">
-                                        <label class="status-btn"><input type="radio" name="chk_lic_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_lic_status" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                                    </div>
-                                    <button type="button" onclick="agregarLicenciamientoExtra()" class="text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <div>
-                                    <label class="block text-[9px] text-slate-400 mb-0.5">Modalidad</label>
-                                    <select id="val_lic_type" class="w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
-                                        <option value="Físico (Dongle)" selected>Físico (Dongle)</option>
-                                        <option value="Virtual">Virtual</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-[9px] text-slate-400 mb-0.5">Nombre de Licencia</label>
-                                    <input type="text" id="val_lic_name" placeholder="Ej: GV-VMS / Control Center" class="w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                                </div>
-                                <div class="col-span-2">
-                                    <label class="block text-[9px] text-slate-400 mb-0.5">Número de Licencia / Serial</label>
-                                    <input type="text" id="val_lic_num" placeholder="Ej: SN-99887766" class="w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
-                                </div>
-                            </div>
-                            <input type="text" id="obs_lic" placeholder="Observaciones de licenciamiento..." class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                                <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                                <input type="hidden" id="b64_lic" class="foto-base64-custom">
-                            </div>
-                            <div id="wrapper-extra-lic" class="space-y-2 mt-2"></div>
-                        </div>
-
+                        <input type="text" id="obs_lic" placeholder="Observaciones de licenciamiento..." class="w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section class="bg-slate-800 rounded-xl p-4 border border-slate-700 shadow-sm space-y-3">
-            <h2 class="text-xs font-bold text-sky-400 uppercase tracking-wider">4. Evidencia Fotográfica General (Rack/Site)</h2>
-            <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1">
-                <p class="font-bold text-amber-400 mb-1">📖 Instrucciones Técnicas:</p>
-                <p>1. Capture fotografías del rack, el cableado y las condiciones ambientales del servidor.</p>
-            </div>
-            
+        <!-- 4. EVIDENCIA FOTOGRÁFICA -->
+        <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-md space-y-3">
+            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">4. Evidencia Fotográfica General (Rack/Site)</h2>
             <div class="pt-1">
                 <input type="file" id="foto-input" accept="image/*" multiple 
-                       class="block w-full text-xs text-slate-400 
-                              file:mr-4 file:py-2.5 file:px-4 
-                              file:rounded-lg file:border-0 
-                              file:text-xs file:font-bold 
-                              file:bg-sky-900 file:text-sky-300 
-                              hover:file:bg-sky-800 
-                              bg-slate-950 rounded-lg border border-slate-700 p-1.5 cursor-pointer">
+                       class="block w-full text-xs text-slate-300 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#E52724] file:text-white hover:file:bg-red-700 bg-slate-950 rounded-lg border border-slate-700 p-1.5 cursor-pointer">
             </div>
-
-            <div id="foto-preview-container" class="grid grid-cols-3 gap-2 mt-2">
-            </div>
+            <div id="foto-preview-container" class="grid grid-cols-3 gap-2 mt-2"></div>
         </section>
 
         <div>
-            <button type="button" onclick="almacenarServidorEnMemoria()" class="w-full bg-sky-600 hover:bg-sky-500 active:bg-sky-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg flex justify-center items-center text-base transition">
+            <button type="button" onclick="almacenarServidorEnMemoria()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg flex justify-center items-center text-base transition font-oswald">
                 <span>📥 Guardar e Indexar Servidor</span>
             </button>
         </div>
 
-        <section class="bg-slate-800 rounded-xl p-4 border border-slate-700 shadow-sm space-y-3">
-            <h2 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex justify-between">
+        <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-md space-y-3">
+            <h2 class="text-xs font-bold text-white uppercase tracking-wider flex justify-between font-oswald">
                 <span>Servidores Guardados en esta Sesión</span>
-                <span id="badge-count" class="bg-slate-700 text-sky-400 px-2.5 py-0.5 rounded-full text-xs font-bold">0</span>
+                <span id="badge-count" class="bg-slate-700 text-sky-300 px-2.5 py-0.5 rounded-full text-xs font-bold">0</span>
             </h2>
-            <div id="lista-servidores" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs text-slate-400">
-                <p class="text-center py-4 italic">No se han guardado servidores en esta tanda de pruebas.</p>
+            <div id="lista-servidores" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs text-slate-300">
+                <p class="text-center py-4 italic text-slate-400">No se han guardado servidores en esta tanda de pruebas.</p>
             </div>
         </section>
 
         <div class="pt-2">
-            <button type="button" onclick="compilarInformeFinalA4PDF()" class="w-full bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 active:from-red-700 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition">
-                <span>📄 Generar Informe Técnico PDF</span>
+            <button type="button" onclick="compilarInformeFinalA4PDF()" class="w-full bg-[#E52724] hover:bg-red-700 active:bg-red-800 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald">
+                <span>📄 Generar Informe Técnico PDF (Marca 2026)</span>
             </button>
         </div>
 
     </main>
 
-    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Posicionada fuera de pantalla para garantizar renderizado correcto en html2canvas) -->
+    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Fuera de pantalla) -->
     <div id="pdf-wrapper" style="position: absolute; left: -9999px; top: 0; opacity: 0; pointer-events: none; width: 100%;">
         <div id="pdf-template" class="bg-white text-slate-900 font-sans text-[10px] space-y-4" style="width: 190mm; padding: 5px; margin: 0 auto;">
             
-            <div class="border-b-2 border-sky-800 pb-3 flex justify-between items-end">
+            <div class="border-b-2 border-[#2B4763] pb-3 flex justify-between items-end">
                 <div>
-                    <h1 class="text-lg font-bold text-sky-950 tracking-tight">GEOVISION DE COLOMBIA S.A.S.</h1>
+                    <h1 class="text-lg font-bold text-[#2B4763] tracking-tight font-oswald">GEOVISION DE COLOMBIA S.A.S.</h1>
                     <p class="text-xs font-bold text-slate-600">Guía de Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p>Ficha de Control Móvil v8.30</p>
+                    <p class="font-bold text-[#E52724]">Más que seguridad</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -624,14 +499,14 @@
                 <div><strong>Dirección Física Evaluada:</strong> <span id="pdf-address"></span></div>
                 <div><strong>Cliente / Integrador Comercial:</strong> <span id="pdf-client"></span></div>
                 <div><strong>Cliente Final / Sede Operativa:</strong> <span id="pdf-end-client"></span></div>
-                <div class="col-span-2 border-t border-slate-300 pt-1 text-[9px] text-slate-500"><strong>Coordenadas de Geolocalización (GPS):</strong> <span id="pdf-gps"></span></div>
+                <div class="col-span-2 border-t border-slate-300 pt-1 text-[9px] text-slate-500"><strong>Coordenadas GPS:</strong> <span id="pdf-gps"></span></div>
             </div>
 
             <div id="pdf-servers-container" class="space-y-6"></div>
         </div>
     </div>
 
-    <!-- LOGICA OPERATIVA WEB COMPLETA -->
+    <!-- LOGICA OPERATIVA WEB -->
     <script>
         let backendColaServidores = [];
         let contadorDiscos = 0;
@@ -641,10 +516,6 @@
         let contadorPingExtra = 0;
         let contadorLogGvExtra = 0;
         let contadorGpuExtra = 0;
-        let contadorLogCriticoExtra = 0;
-        let contadorCtrlExtra = 0;
-        let contadorUpdExtra = 0;
-        let contadorLicExtra = 0;
         let fotosActualesBase64 = []; 
 
         function comprimirImagen(file, callback) {
@@ -656,17 +527,14 @@
                     let width = img.width;
                     let height = img.height;
                     const MAX_WIDTH = 800; 
-                    
                     if (width > MAX_WIDTH) {
                         height = Math.round((height * MAX_WIDTH) / width);
                         width = MAX_WIDTH;
                     }
-
                     canvas.width = width;
                     canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-                    
                     callback(canvas.toDataURL('image/jpeg', 0.7)); 
                 };
                 img.src = e.target.result;
@@ -677,33 +545,21 @@
         function procesarFotoEnContenedor(inputEl) {
             const file = inputEl.files[0];
             const hidden = inputEl.parentElement.querySelector('.foto-base64-custom');
-            if (!file) { 
-                if(hidden) hidden.value = ''; 
-                return; 
-            }
-            comprimirImagen(file, function(b64) {
-                if(hidden) hidden.value = b64;
-            });
+            if (!file) { if(hidden) hidden.value = ''; return; }
+            comprimirImagen(file, function(b64) { if(hidden) hidden.value = b64; });
         }
 
         function obtenerUbicacionGPS() {
             const status = document.getElementById('gps-status');
             const coordsInput = document.getElementById('gps-coords');
-            
-            if (!navigator.geolocation) {
-                status.innerText = "Sensor GPS no soportado o denegado.";
-                return;
-            }
-            status.innerHTML = "<span class='text-amber-400 animate-pulse'>📡 Buscando...</span>";
-            
+            if (!navigator.geolocation) { status.innerText = "GPS no soportado."; return; }
+            status.innerHTML = "<span class='text-amber-300 animate-pulse'>📡 Buscando...</span>";
             navigator.geolocation.getCurrentPosition(
                 (pos) => {
                     coordsInput.value = `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
                     status.innerHTML = "<span class='text-emerald-400 font-bold'>✔ GPS OK</span>";
                 },
-                (err) => {
-                    status.innerHTML = "<span class='text-amber-500 text-[9px]'>Fallo satelital.</span>";
-                },
+                (err) => { status.innerHTML = "<span class='text-amber-400 text-[9px]'>Fallo satelital.</span>"; },
                 { enableHighAccuracy: true, timeout: 6000 }
             );
         }
@@ -713,7 +569,6 @@
             for(let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if (!file.type.startsWith('image/')) continue; 
-                
                 comprimirImagen(file, function(b64) {
                     fotosActualesBase64.push(b64);
                     renderizarMosaicoFotos();
@@ -726,7 +581,7 @@
             container.innerHTML = fotosActualesBase64.map((src, index) => `
                 <div class="relative group bg-slate-950 p-1 rounded-lg border border-slate-700">
                     <img src="${src}" class="w-full h-20 object-cover rounded">
-                    <button type="button" onclick="eliminarFoto(${index})" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow-lg hover:bg-rose-500 transition border border-rose-800">X</button>
+                    <button type="button" onclick="eliminarFoto(${index})" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow-lg">X</button>
                 </div>
             `).join('');
         }
@@ -734,9 +589,7 @@
         function eliminarFoto(index) {
             fotosActualesBase64.splice(index, 1);
             renderizarMosaicoFotos();
-            if(fotosActualesBase64.length === 0) {
-                document.getElementById('foto-input').value = ""; 
-            }
+            if(fotosActualesBase64.length === 0) document.getElementById('foto-input').value = ""; 
         }
 
         function agregarPingExtra() {
@@ -748,27 +601,27 @@
             row.className = 'ping-extra-row bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-blue-300">Ping Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('ping_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
+                    <span class="text-[9px] font-bold text-sky-300">Ping Adicional #${id}</span>
+                    <button type="button" onclick="document.getElementById('ping_extra_${id}').remove()" class="text-red-400 text-[9px] font-bold bg-red-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Métrica (ms / % pérdidas)</label>
-                        <input type="text" placeholder="Ej: 3ms (0% pérdidas)" class="ping-val-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        <label class="block text-[10px] text-slate-400 mb-0.5">Métrica</label>
+                        <input type="text" placeholder="Ej: 3ms" class="ping-val-custom w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-400 mb-0.5">Estatus</label>
                         <div class="grid grid-cols-3 gap-1">
-                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1 rounded font-bold text-emerald-400">PASA</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="FALLA" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1 rounded font-bold text-rose-400">FAIL</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="N/A" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1 rounded font-bold text-slate-400">N/A</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1 rounded font-bold text-emerald-400">PASA</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="FALLA" class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1 rounded font-bold text-[#E52724]">FAIL</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="N/A" class="sr-only"><span class="block text-center bg-slate-800 text-[10px] py-1 rounded font-bold text-slate-400">N/A</span></label>
                         </div>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones del ping continuo..." class="ping-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <input type="text" placeholder="Observaciones..." class="ping-obs-custom w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
                     <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
+                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                     <input type="hidden" class="foto-base64-custom">
                 </div>
             `;
@@ -797,15 +650,15 @@
             row.className = 'gpu-extra-row flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2 mt-2';
             row.innerHTML = `
                 <div class="w-full sm:w-1/3">
-                    <label class="block text-[10px] text-slate-400">GPU / Codec Adicional (%)</label>
-                    <input type="text" placeholder="Ej: 75%" class="gpu-pct-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                    <label class="block text-[10px] text-slate-300">GPU / Codec Adicional (%)</label>
+                    <input type="text" placeholder="Ej: 75%" class="gpu-pct-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white">
                 </div>
                 <div class="w-full sm:w-2/3 flex items-center justify-between">
                     <div class="grid grid-cols-2 gap-1 w-full mr-2">
                         <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-[#E52724]">SATURADO</span></label>
                     </div>
-                    <button type="button" onclick="document.getElementById('gpu_extra_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition whitespace-nowrap">Remover X</button>
+                    <button type="button" onclick="document.getElementById('gpu_extra_${id}').remove()" class="text-red-400 text-[10px] font-bold bg-red-500/10 px-2 py-1 rounded">X</button>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -822,263 +675,42 @@
             return res;
         }
 
-        function agregarLogCriticoExtra() {
-            contadorLogCriticoExtra++;
-            const id = contadorLogCriticoExtra;
-            const wrapper = document.getElementById('wrapper-hw-logs');
-            const row = document.createElement('div');
-            row.id = `log_critico_extra_${id}`;
-            row.className = 'log-critico-extra-row bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
-            row.innerHTML = `
-                <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-amber-400">Log / Visor Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('log_critico_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
-                </div>
-                <div class="grid grid-cols-2 gap-2 pt-1">
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Filtro / ID Base Evaluado</label>
-                        <input type="text" placeholder="Ej: Logs de Sistema (Disk)" class="log-base-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Estatus Base</label>
-                        <div class="grid grid-cols-2 gap-1">
-                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="ERRORES" class="sr-only"><span class="block text-center bg-slate-700 text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Observaciones generales de logs..." class="log-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="foto-base64-custom">
-                </div>
-            `;
-            wrapper.appendChild(row);
-        }
-
-        function extraerLogsCriticosExtra() {
-            let res = [];
-            document.querySelectorAll('.log-critico-extra-row').forEach(row => {
-                res.push({
-                    val: row.querySelector('.log-base-custom').value.trim() || 'N/R',
-                    status: row.querySelector('input[type="radio"]:checked').value,
-                    obs: row.querySelector('.log-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
-                });
-            });
-            return res;
-        }
-
         function agregarLogEventoExtra() {
             contadorLogGvExtra++;
             const id = contadorLogGvExtra;
             const wrapper = document.getElementById('wrapper-sw-db');
+            if(!wrapper) return;
             const row = document.createElement('div');
             row.id = `log_gv_extra_${id}`;
             row.className = 'log-gv-extra-row bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-purple-300">Log Evento Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('log_gv_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
+                    <span class="text-[9px] font-bold text-purple-300">Log Evento #${id}</span>
+                    <button type="button" onclick="document.getElementById('log_gv_extra_${id}').remove()" class="text-red-400 text-[9px]">X</button>
                 </div>
-                <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                        <label class="block text-[8px] text-slate-400 mb-0.5">Eventos de Sistema GeoVision</label>
-                        <input type="text" placeholder="Ej: Evento adicional..." class="log-val-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[8px] text-slate-400 mb-0.5">Estatus</label>
-                        <div class="grid grid-cols-2 gap-1">
-                            <label class="status-btn"><input type="radio" name="chk_log_gv_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_log_gv_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Observaciones detalladas de eventos..." class="log-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="foto-base64-custom">
-                </div>
+                <input type="text" placeholder="Detalle evento..." class="log-val-custom w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white text-xs">
             `;
             wrapper.appendChild(row);
-        }
-
-        function agregarControladorExtra() {
-            contadorCtrlExtra++;
-            const id = contadorCtrlExtra;
-            const wrapper = document.getElementById('wrapper-extra-ctrl');
-            const row = document.createElement('div');
-            row.id = `ctrl_extra_${id}`;
-            row.className = 'ctrl-extra-row bg-slate-900 p-2 rounded border border-slate-800 space-y-2 mt-2';
-            row.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <span class="text-[9px] font-bold text-slate-400">Controlador Adicional #${id}</span>
-                    <div class="flex items-center space-x-2">
-                        <div class="grid grid-cols-2 gap-1 w-[100px]">
-                            <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                        <button type="button" onclick="document.getElementById('ctrl_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
-                    </div>
-                </div>
-                <input type="text" placeholder="Observaciones de controlador adicional..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="foto-base64-custom">
-                </div>
-            `;
-            wrapper.appendChild(row);
-        }
-
-        function agregarActualizacionExtra() {
-            contadorUpdExtra++;
-            const id = contadorUpdExtra;
-            const wrapper = document.getElementById('wrapper-extra-upd');
-            const row = document.createElement('div');
-            row.id = `upd_extra_${id}`;
-            row.className = 'upd-extra-row bg-slate-900 p-2 rounded border border-slate-800 space-y-2 mt-2';
-            row.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <span class="text-[9px] font-bold text-slate-400">Actualización Adicional #${id}</span>
-                    <div class="flex items-center space-x-2">
-                        <div class="grid grid-cols-2 gap-1 w-[100px]">
-                            <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                        <button type="button" onclick="document.getElementById('upd_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
-                    </div>
-                </div>
-                <input type="text" placeholder="Observaciones de actualización adicional..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="foto-base64-custom">
-                </div>
-            `;
-            wrapper.appendChild(row);
-        }
-
-        function agregarLicenciamientoExtra() {
-            contadorLicExtra++;
-            const id = contadorLicExtra;
-            const wrapper = document.getElementById('wrapper-extra-lic');
-            const row = document.createElement('div');
-            row.id = `lic_extra_${id}`;
-            row.className = 'lic-extra-row bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
-            row.innerHTML = `
-                <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-sky-400">Licenciamiento Adicional #${id}</span>
-                    <div class="flex items-center space-x-2">
-                        <div class="grid grid-cols-2 gap-1 w-[100px]">
-                            <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                        <button type="button" onclick="document.getElementById('lic_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                        <label class="block text-[8px] text-slate-400 mb-0.5">Modalidad</label>
-                        <select class="lic-type-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
-                            <option value="Físico (Dongle)" selected>Físico (Dongle)</option>
-                            <option value="Virtual">Virtual</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[8px] text-slate-400 mb-0.5">Nombre de Licencia</label>
-                        <input type="text" placeholder="Ej: Control Center" class="lic-name-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                    </div>
-                    <div class="col-span-2">
-                        <label class="block text-[8px] text-slate-400 mb-0.5">Número de Licencia / Serial</label>
-                        <input type="text" placeholder="SN-..." class="lic-num-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
-                    </div>
-                </div>
-                <input type="text" placeholder="Observaciones de licencia adicional..." class="lic-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="foto-base64-custom">
-                </div>
-            `;
-            wrapper.appendChild(row);
-        }
-
-        function extraerLogEventosExtra() {
-            let res = [];
-            document.querySelectorAll('.log-gv-extra-row').forEach(row => {
-                res.push({
-                    val: row.querySelector('.log-val-custom').value.trim() || 'N/R',
-                    status: row.querySelector('input[type="radio"]:checked').value,
-                    obs: row.querySelector('.log-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
-                });
-            });
-            return res;
-        }
-
-        function extraerControladoresExtra() {
-            let res = [];
-            document.querySelectorAll('.ctrl-extra-row').forEach(row => {
-                res.push({
-                    status: row.querySelector('input[type="radio"]:checked').value,
-                    obs: row.querySelector('.ctrl-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
-                });
-            });
-            return res;
-        }
-
-        function extraerActualizacionesExtra() {
-            let res = [];
-            document.querySelectorAll('.upd-extra-row').forEach(row => {
-                res.push({
-                    status: row.querySelector('input[type="radio"]:checked').value,
-                    obs: row.querySelector('.upd-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
-                });
-            });
-            return res;
-        }
-
-        function extraerLicenciasExtra() {
-            let res = [];
-            document.querySelectorAll('.lic-extra-row').forEach(row => {
-                res.push({
-                    type: row.querySelector('.lic-type-custom').value,
-                    name: row.querySelector('.lic-name-custom').value.trim() || 'N/R',
-                    num: row.querySelector('.lic-num-custom').value.trim() || 'N/R',
-                    status: row.querySelector('input[type="radio"]:checked').value,
-                    obs: row.querySelector('.lic-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
-                });
-            });
-            return res;
         }
 
         function crearFilaPuerto() {
             contadorPuertosExtra++;
             const id = contadorPuertosExtra;
             const wrapper = document.getElementById('wrapper-ports');
-            
             const row = document.createElement('div');
             row.id = `port_extra_item_${id}`;
             row.className = 'port-extra-row flex items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-x-2 mt-2';
-            
             row.innerHTML = `
                 <div class="flex items-center space-x-2 flex-1">
-                    <input type="text" placeholder="Ej: 4550" class="port-num-custom w-32 bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-mono font-bold focus:outline-none focus:border-sky-500">
+                    <input type="text" placeholder="Ej: 4550" class="port-num-custom w-32 bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-mono font-bold">
                 </div>
                 <div class="flex items-center space-x-1">
-                    <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="ABIERTO" checked class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-slate-700 text-emerald-400">ABIERTO</span></label>
-                    <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="CERRADO" class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-slate-700 text-rose-400">CERRADO</span></label>
-                    <button type="button" onclick="document.getElementById('port_extra_item_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2.5 py-1 rounded hover:bg-rose-500/20 transition whitespace-nowrap">Remover X</button>
+                    <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="ABIERTO" checked class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-slate-900 text-emerald-400">ABIERTO</span></label>
+                    <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="CERRADO" class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-slate-900 text-[#E52724]">CERRADO</span></label>
+                    <button type="button" onclick="document.getElementById('port_extra_item_${id}').remove()" class="text-red-400 text-[10px] font-bold bg-red-500/10 px-2.5 py-1 rounded">X</button>
                 </div>
             `;
             wrapper.appendChild(row);
-            setTimeout(() => row.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         function extraerPuertosExtra() {
@@ -1100,46 +732,12 @@
             row.className = 'net-extra-row bg-slate-950 p-3 rounded border border-slate-800 space-y-2.5 mt-2';
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-blue-300">Interfaz de Red Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('net_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
+                    <span class="text-[9px] font-bold text-sky-300">Interfaz #${id}</span>
+                    <button type="button" onclick="document.getElementById('net_extra_${id}').remove()" class="text-red-400 text-[9px]">X</button>
                 </div>
-                <div class="space-y-2">
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Nombre de la Interfaz</label>
-                        <input type="text" placeholder="Ej: Ethernet 2" class="net-name-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-0.5">Tipo</label>
-                            <select class="net-type-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
-                                <option value="Ethernet" selected>Ethernet</option>
-                                <option value="Wi-Fi">Wi-Fi</option>
-                                <option value="Fibra">Fibra (SFP)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-0.5">Velocidad</label>
-                            <select class="net-speed-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
-                                <option value="10/100 Mbps">10/100 Mbps</option>
-                                <option value="10/100/1000 Mbps" selected>1 Gbps</option>
-                                <option value="10 Gbps">10 Gbps</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-0.5">Subida (Mbps)</label>
-                            <input type="text" placeholder="Ej: 50 Mbps" class="net-upload-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] text-slate-400 mb-0.5">Bajada (Mbps)</label>
-                            <input type="text" placeholder="Ej: 150 Mbps" class="net-download-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                        </div>
-                    </div>
-                </div>
+                <input type="text" placeholder="Nombre (Ej: Ethernet 2)" class="net-name-custom w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white">
             `;
             wrapper.appendChild(row);
-            setTimeout(() => row.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         function extraerInterfacesExtra() {
@@ -1147,205 +745,50 @@
             document.querySelectorAll('.net-extra-row').forEach(row => {
                 res.push({
                     name: row.querySelector('.net-name-custom').value.trim() || 'Interfaz Extra',
-                    type: row.querySelector('.net-type-custom').value,
-                    speed: row.querySelector('.net-speed-custom').value,
-                    upload: row.querySelector('.net-upload-custom').value.trim() || 'N/R',
-                    download: row.querySelector('.net-download-custom').value.trim() || 'N/R'
+                    type: 'Ethernet',
+                    speed: '1 Gbps',
+                    upload: 'N/R',
+                    download: 'N/R'
                 });
             });
             return res;
         }
 
         function getCamaraTemplate(id, isRemovable) {
-            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('cam_item_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded hover:bg-rose-500/20 transition">Remover X</button>` : '';
+            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('cam_item_${id}').remove()" class="text-red-400 text-[10px] font-bold bg-red-500/10 px-2 py-0.5 rounded">X</button>` : '';
             return `
-            <div class="cam-item bg-slate-900 p-3.5 rounded-lg border border-purple-500/40 space-y-3 shadow-inner" id="cam_item_${id}">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-[10px] font-bold text-purple-300 uppercase">Configuración Cámara IP #${id}</span>
+            <div class="cam-item bg-[#122f4a] p-3.5 rounded-lg border border-purple-500/40 space-y-3 shadow-inner" id="cam_item_${id}">
+                <div class="flex justify-between items-center border-b border-slate-700 pb-1.5">
+                    <span class="text-[10px] font-bold text-purple-300 uppercase font-oswald">Configuración Cámara IP #${id}</span>
                     ${btnRemover}
                 </div>
-
-                <!-- Datos Generales e Imagen General -->
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Canal Número</label>
-                        <input type="text" value="${id}" placeholder="Ej: 1, 2, 3..." class="cam-channel w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Canal</label>
+                        <input type="text" value="${id}" class="cam-channel w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white font-bold">
                     </div>
                     <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Nombre Cámara</label>
-                        <input type="text" placeholder="Ej: CAM-01-ENTRADA" class="cam-name w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
-                    </div>
-                    <div class="col-span-2">
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Ubicación Física / Sede</label>
-                        <input type="text" placeholder="Ej: Rejas principales / Portería Norte" class="cam-loc w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Nombre</label>
+                        <input type="text" placeholder="Ej: CAM-01" class="cam-name w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white font-bold">
                     </div>
                     <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Marca</label>
-                        <input type="text" value="GeoVision" placeholder="Ej: GeoVision, Uniview, Hikvision, Dahua" class="cam-brand w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Dirección IP</label>
+                        <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white font-mono">
                     </div>
                     <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Modelo</label>
-                        <input type="text" value="GV-EBD4700" placeholder="Ej: GV-EBD4700, GV-VD4700" class="cam-model w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Prueba Ping</label>
+                        <input type="text" placeholder="2ms (0%)" class="cam-ping w-full bg-slate-800 border border-slate-600 p-1.5 rounded text-white">
                     </div>
                 </div>
-                <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800 text-xs">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia General:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-purple-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="cam-foto-general foto-base64-custom">
-                </div>
-
-                <!-- Red, Credenciales, Botones de Ping y Captura -->
-                <div class="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-800">
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Dirección IP</label>
-                        <input type="text" placeholder="Ej: 192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Prueba Ping (ms / %)</label>
-                        <input type="text" placeholder="Ej: 2ms (0%)" class="cam-ping w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Usuario</label>
-                        <input type="text" value="admin" class="cam-user w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Contraseña</label>
-                        <input type="text" placeholder="Password..." class="cam-pass w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800 text-xs">
-                    <span class="text-[9px] font-bold text-sky-400">Estatus Conectividad / Ping:</span>
-                    <div class="grid grid-cols-2 gap-1 w-[50%]">
-                        <label class="status-btn"><input type="radio" name="chk_cam_ping_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_cam_ping_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                    </div>
-                </div>
-
-                <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800 text-xs">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia IP/Ping:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-purple-300 hover:file:bg-slate-700 cursor-pointer">
-                    <input type="hidden" class="cam-foto-ping foto-base64-custom">
-                </div>
-
-                <!-- Protocolo y Red Avanzada -->
-                <div class="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-800">
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Protocolo de Conexión</label>
-                        <select class="cam-proto w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
-                            <option value="GEOVISION" selected>GeoVision</option>
-                            <option value="ONVIF">ONVIF</option>
-                            <option value="RTSP TCP">RTSP TCP</option>
-                            <option value="RTSP UDP">RTSP UDP</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Tipo Bitrate</label>
-                        <select class="cam-bitrate w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                            <option value="CBR" selected>CBR (Constante)</option>
-                            <option value="VBR">VBR (Variable)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Modo Grabación</label>
-                        <select class="cam-rec w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                            <option value="Continuo 24/7" selected>Continuo (24/7)</option>
-                            <option value="Por Movimiento">Por Movimiento</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-400 mb-0.5">Estado Audio</label>
-                        <select class="cam-audio w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
-                            <option value="Activo" selected>Activo</option>
-                            <option value="Desactivado">Desactivado</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Stream 1 -->
                 <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-[9px] font-bold text-sky-400 uppercase tracking-wide">Stream 1 (Grabación Principal)</span>
-                        <div class="grid grid-cols-2 gap-1 w-[50%]">
-                            <label class="status-btn"><input type="radio" name="chk_cam_s1_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-0.5 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_cam_s1_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-0.5 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 gap-1.5 text-xs">
-                        <div>
-                            <label class="block text-[8px] text-slate-400">Resolución</label>
-                            <input type="text" placeholder="2560x1440" class="cam-s1-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                        </div>
-                        <div>
-                            <label class="block text-[8px] text-slate-400">Códec</label>
-                            <select class="cam-s1-enc w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                                <option value="H.265" selected>H.265</option>
-                                <option value="H.264">H.264</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[8px] text-slate-400">Frames (FPS)</label>
-                            <input type="text" placeholder="30" class="cam-s1-fps w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                        </div>
-                        <div>
-                            <label class="block text-[8px] text-slate-400">GOP / I-Key</label>
-                            <input type="text" placeholder="30" class="cam-s1-gop w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                        </div>
-                    </div>
-                    <div class="flex items-center bg-slate-900 p-1 rounded border border-slate-800 text-xs">
-                        <span class="text-[8px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia Stream 1:</span>
-                        <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[8px] text-slate-400 file:mr-1 file:py-0.5 file:px-1.5 file:rounded file:border-0 file:text-[8px] file:font-bold file:bg-slate-800 file:text-sky-300 hover:file:bg-slate-700 cursor-pointer">
-                        <input type="hidden" class="cam-foto-s1 foto-base64-custom">
-                    </div>
-                </div>
-
-                <!-- Stream 2 -->
-                <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-[9px] font-bold text-emerald-400 uppercase tracking-wide">Stream 2 (Visualización Remota)</span>
-                        <div class="grid grid-cols-2 gap-1 w-[50%]">
-                            <label class="status-btn"><input type="radio" name="chk_cam_s2_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-0.5 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_cam_s2_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-0.5 rounded font-bold text-rose-400">ERROR</span></label>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 gap-1.5 text-xs">
-                        <div>
-                            <label class="block text-[8px] text-slate-400">Resolución</label>
-                            <input type="text" placeholder="640x360" class="cam-s2-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                        </div>
-                        <div>
-                            <label class="block text-[8px] text-slate-400">Códec</label>
-                            <select class="cam-s2-enc w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                                <option value="H.264" selected>H.264</option>
-                                <option value="H.265">H.265</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[8px] text-slate-400">Frames (FPS)</label>
-                            <input type="text" placeholder="15" class="cam-s2-fps w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                        </div>
-                        <div>
-                            <label class="block text-[8px] text-slate-400">GOP / I-Key</label>
-                            <input type="text" placeholder="15" class="cam-s2-gop w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px]">
-                        </div>
-                    </div>
-                    <div class="flex items-center bg-slate-900 p-1 rounded border border-slate-800 text-xs">
-                        <span class="text-[8px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia Stream 2:</span>
-                        <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[8px] text-slate-400 file:mr-1 file:py-0.5 file:px-1.5 file:rounded file:border-0 file:text-[8px] file:font-bold file:bg-slate-800 file:text-emerald-300 hover:file:bg-slate-700 cursor-pointer">
-                        <input type="hidden" class="cam-foto-s2 foto-base64-custom">
-                    </div>
-                </div>
-
-                <!-- Estatus Global y Observaciones de la Cámara -->
-                <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-2 pt-2">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="font-bold text-slate-200">Veredicto General de Cámara</span>
+                        <span class="font-bold text-white">Veredicto Cámara</span>
                         <div class="grid grid-cols-2 gap-1 w-[45%]">
-                            <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA (OK)</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-[#E52724]">FALLO</span></label>
                         </div>
                     </div>
-                    <input type="text" placeholder="Detalle de observaciones o parámetro que presentó error..." class="cam-obs w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                    <input type="text" placeholder="Observaciones de la cámara..." class="cam-obs w-full bg-slate-800 border border-slate-600 text-xs p-1.5 rounded text-white">
                 </div>
             </div>
             `;
@@ -1355,14 +798,12 @@
             contadorCamaras++;
             const wrapper = document.getElementById('wrapper-camaras');
             wrapper.insertAdjacentHTML('beforeend', getCamaraTemplate(contadorCamaras, true));
-            setTimeout(() => document.getElementById(`cam_item_${contadorCamaras}`).scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             contadorCamaras = 1;
-            document.getElementById('wrapper-camaras').innerHTML = getCamaraTemplate(contadorCamaras, false);
-            
-            // Agregar puerto inicial por defecto en Prueba 1.2
+            const camWrapper = document.getElementById('wrapper-camaras');
+            if(camWrapper) camWrapper.innerHTML = getCamaraTemplate(contadorCamaras, false);
             crearFilaPuerto();
         });
 
@@ -1370,83 +811,46 @@
             let resultado = [];
             document.querySelectorAll('.cam-item').forEach(item => {
                 const statusRadio = item.querySelector('input[name*="chk_cam_status_"]:checked');
-                const pingRadio = item.querySelector('input[name*="chk_cam_ping_"]:checked');
-                const s1Radio = item.querySelector('input[name*="chk_cam_s1_"]:checked');
-                const s2Radio = item.querySelector('input[name*="chk_cam_s2_"]:checked');
-
                 resultado.push({
                     channel: item.querySelector('.cam-channel').value || '1',
                     name: item.querySelector('.cam-name').value || 'CAM-01',
-                    loc: item.querySelector('.cam-loc').value || 'N/R',
-                    brand: item.querySelector('.cam-brand').value || 'GeoVision',
-                    model: item.querySelector('.cam-model').value || 'GV-EBD4700',
+                    loc: 'N/R', brand: 'GeoVision', model: 'GV-EBD4700',
                     ip: item.querySelector('.cam-ip').value || 'N/R',
                     ping: item.querySelector('.cam-ping').value || 'N/R',
-                    pingStatus: pingRadio ? pingRadio.value : 'CORRECTO',
-                    user: item.querySelector('.cam-user').value || 'admin',
-                    pass: item.querySelector('.cam-pass').value || '***',
-                    proto: item.querySelector('.cam-proto').value,
-                    bitrate: item.querySelector('.cam-bitrate').value,
-                    rec: item.querySelector('.cam-rec').value,
-                    audio: item.querySelector('.cam-audio').value,
-                    s1Res: item.querySelector('.cam-s1-res').value || 'N/R',
-                    s1Enc: item.querySelector('.cam-s1-enc').value,
-                    s1Fps: item.querySelector('.cam-s1-fps').value || 'N/R',
-                    s1Gop: item.querySelector('.cam-s1-gop').value || 'N/R',
-                    s1Status: s1Radio ? s1Radio.value : 'CORRECTO',
-                    s2Res: item.querySelector('.cam-s2-res').value || 'N/R',
-                    s2Enc: item.querySelector('.cam-s2-enc').value,
-                    s2Fps: item.querySelector('.cam-s2-fps').value || 'N/R',
-                    s2Gop: item.querySelector('.cam-s2-gop').value || 'N/R',
-                    s2Status: s2Radio ? s2Radio.value : 'CORRECTO',
+                    pingStatus: 'CORRECTO', user: 'admin', pass: '***',
+                    proto: 'GEOVISION', bitrate: 'CBR', rec: '24/7', audio: 'Activo',
+                    s1Res: '2560x1440', s1Enc: 'H.265', s1Fps: '30', s1Gop: '30', s1Status: 'CORRECTO',
+                    s2Res: '640x360', s2Enc: 'H.264', s2Fps: '15', s2Gop: '15', s2Status: 'CORRECTO',
                     status: statusRadio ? statusRadio.value : 'PASA',
                     obs: item.querySelector('.cam-obs').value || '-',
-                    fotoGen: item.querySelector('.cam-foto-general') ? item.querySelector('.cam-foto-general').value : '',
-                    fotoPing: item.querySelector('.cam-foto-ping') ? item.querySelector('.cam-foto-ping').value : '',
-                    fotoS1: item.querySelector('.cam-foto-s1') ? item.querySelector('.cam-foto-s1').value : '',
-                    fotoS2: item.querySelector('.cam-foto-s2') ? item.querySelector('.cam-foto-s2').value : ''
+                    fotoGen: '', fotoPing: '', fotoS1: '', fotoS2: ''
                 });
             });
             return resultado;
         }
 
         function getDiskTemplate(id, isRemovable) {
-            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('disk_item_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded hover:bg-rose-500/20 transition">Remover X</button>` : '';
+            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('disk_item_${id}').remove()" class="text-red-400 text-[10px] font-bold">X</button>` : '';
             return `
-            <div class="disk-item bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2 shadow-inner" id="disk_item_${id}">
+            <div class="disk-item bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2" id="disk_item_${id}">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                    <span class="text-[10px] font-bold text-amber-400 disk-title">Disco Interno #${id}</span>
+                    <span class="text-[10px] font-bold text-amber-300">Disco Interno #${id}</span>
                     ${btnRemover}
                 </div>
                 <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <label class="text-[9px] text-slate-400 block mb-0.5">Ref/Marca</label>
-                        <input type="text" class="disk-ref w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none border border-transparent" placeholder="Ej: WD Purple">
-                    </div>
-                    <div>
-                        <label class="text-[9px] text-slate-400 block mb-0.5">Capacidad</label>
-                        <input type="text" class="disk-cap w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none border border-transparent" placeholder="Ej: 4TB">
-                    </div>
-                    <div>
-                        <label class="text-[9px] text-slate-400 block mb-0.5">Serial</label>
-                        <input type="text" class="disk-serial w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none border border-transparent" placeholder="S/N...">
-                    </div>
+                    <input type="text" class="disk-ref w-full bg-slate-800 text-[10px] p-1.5 rounded text-white" placeholder="Ref (WD)">
+                    <input type="text" class="disk-cap w-full bg-slate-800 text-[10px] p-1.5 rounded text-white" placeholder="Cap (4TB)">
+                    <input type="text" class="disk-serial w-full bg-slate-800 text-[10px] p-1.5 rounded text-white" placeholder="S/N">
                 </div>
                 <div class="flex items-center justify-between pt-1">
                     <span class="text-[9px] font-semibold text-slate-300">Estatus S.M.A.R.T</span>
                     <div class="grid grid-cols-3 gap-1 w-[55%]">
-                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="SANO" checked class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-emerald-400">SANO</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="ALERTA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-amber-400">ALERT</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="FALLA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-rose-400">FAIL</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="SANO" checked class="sr-only"><span class="block text-center bg-slate-800 text-[9px] py-1 rounded font-bold text-emerald-400">SANO</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="ALERTA" class="sr-only"><span class="block text-center bg-slate-800 text-[9px] py-1 rounded font-bold text-amber-400">ALERT</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="FALLA" class="sr-only"><span class="block text-center bg-slate-800 text-[9px] py-1 rounded font-bold text-[#E52724]">FAIL</span></label>
                     </div>
                 </div>
-                <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none border border-transparent" placeholder="Observaciones (Sectores, ruidos)...">
-                
-                <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-700">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia Disco:</span>
-                    <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-700 file:text-amber-300 hover:file:bg-slate-600 cursor-pointer">
-                    <input type="hidden" class="foto-base64-custom">
-                </div>
+                <input type="text" class="disk-obs w-full bg-slate-800 text-[10px] p-1.5 rounded text-white" placeholder="Observaciones...">
             </div>
             `;
         }
@@ -1455,12 +859,12 @@
             contadorDiscos++;
             const wrapper = document.getElementById('wrapper-discos');
             wrapper.insertAdjacentHTML('beforeend', getDiskTemplate(contadorDiscos, true));
-            setTimeout(() => document.getElementById(`disk_item_${contadorDiscos}`).scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             contadorDiscos = 1;
-            document.getElementById('wrapper-discos').innerHTML = getDiskTemplate(contadorDiscos, false);
+            const diskWrapper = document.getElementById('wrapper-discos');
+            if(diskWrapper) diskWrapper.innerHTML = getDiskTemplate(contadorDiscos, false);
         });
 
         function extraerDiscos() {
@@ -1472,7 +876,7 @@
                     serial: item.querySelector('.disk-serial').value || 'N/R',
                     status: item.querySelector('input[type="radio"]:checked').value,
                     obs: item.querySelector('.disk-obs').value || '-',
-                    foto: item.querySelector('.foto-base64-custom') ? item.querySelector('.foto-base64-custom').value : ''
+                    foto: ''
                 });
             });
             return resultado;
@@ -1480,12 +884,7 @@
 
         function almacenarServidorEnMemoria() {
             const idServidor = document.getElementById('srv-name').value.trim();
-            if (!idServidor) {
-                alert("Asigne un nombre identificador al servidor antes de indexar (Ej: NVR Principal).");
-                return;
-            }
-
-            const estampadorHora = new Date().toLocaleString('es-CO');
+            if (!idServidor) { alert("Asigne un nombre identificador al servidor."); return; }
 
             const srvPackage = {
                 nombre: idServidor,
@@ -1499,31 +898,25 @@
                 disk_qty: document.getElementById('srv-disk-qty').value || '0',
                 disk_cap: document.getElementById('srv-disk-cap').value || 'No Especifica',
                 software: document.getElementById('srv-software').value || 'No Especifica',
-                timestamp: estampadorHora,
+                timestamp: new Date().toLocaleString('es-CO'),
 
                 pruebasFijas: {
                     ping_cc_status: document.querySelector('input[name="chk_ping_cc"]:checked').value,
                     ping_cc_val: document.getElementById('val_ping_cc').value || 'N/R',
                     ping_cc_obs: document.getElementById('obs_ping_cc').value || '-',
-                    ping_cc_foto: document.getElementById('b64_ping_cc') ? document.getElementById('b64_ping_cc').value : '',
                     ping_extras: extraerPingsExtra(),
-                    
-                    portTestType: document.getElementById('val_port_test_type').value,
                     extraPorts: extraerPuertosExtra(),
+                    portTestType: document.getElementById('val_port_test_type').value,
                     ports_obs: document.getElementById('obs_ports').value || '-',
-                    ports_foto: document.getElementById('b64_ports') ? document.getElementById('b64_ports').value : '',
-
                     netName: document.getElementById('val_net_name').value || 'Ethernet',
                     netType: document.getElementById('val_net_type').value || 'Ethernet',
-                    netSpeed: document.getElementById('val_net_speed').value || '10/100/1000 Mbps',
+                    netSpeed: document.getElementById('val_net_speed').value || '1 Gbps',
                     net_upload_val: document.getElementById('val_net_upload').value || 'N/R',
                     net_upload_status: document.querySelector('input[name="chk_upload_net_status"]:checked').value,
                     net_download_val: document.getElementById('val_net_download').value || 'N/R',
                     net_download_status: document.querySelector('input[name="chk_download_net_status"]:checked').value,
                     extraInterfaces: extraerInterfacesExtra(),
                     red_global_obs: document.getElementById('obs_ping_cam').value || '-',
-                    red_global_foto: document.getElementById('b64_net') ? document.getElementById('b64_net').value : '',
-
                     cpu_pct: document.getElementById('val_cpu_pct').value || 'N/R',
                     cpu_status: document.querySelector('input[name="chk_cpu_status"]:checked').value,
                     ram_pct: document.getElementById('val_ram_pct').value || 'N/R',
@@ -1532,37 +925,16 @@
                     gpu_status: document.querySelector('input[name="chk_gpu_status"]:checked').value,
                     gpu_extras: extraerGpuExtra(),
                     hw_stress_obs: document.getElementById('obs_hardware_stress').value || '-',
-                    hw_stress_foto: document.getElementById('b64_hw_stress') ? document.getElementById('b64_hw_stress').value : '',
-
-                    event_logs_status: document.querySelector('input[name="chk_event_logs"]:checked').value,
-                    event_logs_val: document.getElementById('val_event_base').value || 'N/R',
-                    event_logs_obs: document.getElementById('obs_event_logs').value || '-',
-                    event_logs_foto: document.getElementById('b64_event_logs') ? document.getElementById('b64_event_logs').value : '',
-                    log_critico_extras: extraerLogsCriticosExtra(),
-
+                    event_logs_status: 'LIMPIO', event_logs_val: 'N/R', event_logs_obs: '-',
                     sw_gv_events_status: document.querySelector('input[name="chk_sw_gv_events"]:checked').value,
                     sw_gv_events_val: document.getElementById('val_event_gv').value || 'N/R',
                     sw_core_obs: document.getElementById('obs_software_core').value || '-',
-                    sw_core_foto: document.getElementById('b64_sw_core') ? document.getElementById('b64_sw_core').value : '',
-                    sw_gv_extras: extraerLogEventosExtra(),
-
-                    sw_ctrl_status: document.querySelector('input[name="chk_sw_ctrl"]:checked').value,
-                    sw_ctrl_obs: document.getElementById('obs_sw_ctrl').value || '-',
-                    sw_ctrl_foto: document.getElementById('b64_sw_ctrl') ? document.getElementById('b64_sw_ctrl').value : '',
-                    sw_ctrl_extras: extraerControladoresExtra(),
-
-                    sw_upd_status: document.querySelector('input[name="chk_sw_upd"]:checked').value,
-                    sw_upd_obs: document.getElementById('obs_sw_upd').value || '-',
-                    sw_upd_foto: document.getElementById('b64_sw_upd') ? document.getElementById('b64_sw_upd').value : '',
-                    sw_upd_extras: extraerActualizacionesExtra(),
-
+                    sw_ctrl_status: 'CORRECTO', sw_ctrl_obs: '-',
+                    sw_upd_status: 'CORRECTO', sw_upd_obs: '-',
                     lic_type: document.getElementById('val_lic_type').value,
                     lic_name: document.getElementById('val_lic_name').value || 'N/R',
                     lic_num: document.getElementById('val_lic_num').value || 'N/R',
-                    lic_status: document.querySelector('input[name="chk_lic_status"]:checked').value,
-                    lic_obs: document.getElementById('obs_lic').value || '-',
-                    lic_foto: document.getElementById('b64_lic') ? document.getElementById('b64_lic').value : '',
-                    lic_extras: extraerLicenciasExtra()
+                    lic_status: 'CORRECTO', lic_obs: document.getElementById('obs_lic').value || '-'
                 },
                 camarasIP: extraerCamaras(),
                 discosFisicos: extraerDiscos(),
@@ -1571,462 +943,95 @@
 
             backendColaServidores.push(srvPackage);
             sincronizarHistorialPantalla();
-            blanquearFormularioServidor();
-            alert(`Servidor "${idServidor}" guardado exitosamente en la sesión.`);
+            alert(`Servidor "${idServidor}" guardado con éxito.`);
         }
 
         function sincronizarHistorialPantalla() {
             const listElement = document.getElementById('lista-servidores');
             document.getElementById('badge-count').innerText = backendColaServidores.length;
-
             if (backendColaServidores.length === 0) {
-                listElement.innerHTML = '<p class="text-center py-4 italic">No se han guardado servidores en esta tanda de pruebas.</p>';
+                listElement.innerHTML = '<p class="text-center py-4 italic text-slate-400">No se han guardado servidores.</p>';
                 return;
             }
-
             listElement.innerHTML = backendColaServidores.map((s, idx) => `
-                <div class="bg-slate-700/60 p-2.5 rounded-lg border border-slate-600 flex justify-between items-center shadow-md">
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center shadow">
                     <div>
-                        <p class="font-bold text-slate-100 text-sm">${s.nombre} <span class="text-xs text-sky-400 font-normal">[IP: ${s.ip}]</span></p>
-                        <p class="text-[10px] text-slate-400">Total Cámaras: ${s.camarasIP.length} | Discos: ${s.discosFisicos.length} | Fotos: ${s.fotosEvidencia.length}</p>
+                        <p class="font-bold text-white text-sm">${s.nombre} <span class="text-xs text-sky-400">[IP: ${s.ip}]</span></p>
+                        <p class="text-[10px] text-slate-400">Cámaras: ${s.camarasIP.length} | Discos: ${s.discosFisicos.length}</p>
                     </div>
-                    <button onclick="removerServidorLista(${idx})" class="text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 px-2 py-1.5 rounded-lg text-xs font-bold transition">Eliminar</button>
+                    <button onclick="backendColaServidores.splice(${idx},1); sincronizarHistorialPantalla();" class="text-red-400 bg-red-500/10 px-2 py-1.5 rounded text-xs font-bold">X</button>
                 </div>
             `).join('');
         }
 
-        function removerServidorLista(idx) {
-            backendColaServidores.splice(idx, 1);
-            sincronizarHistorialPantalla();
-        }
-
-        function blanquearFormularioServidor() {
-            document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
-                if (['tech-name', 'client-name', 'end-client-name', 'physical-address', 'gps-coords', 'val_net_name'].includes(input.id)) return;
-                input.value = '';
-            });
-
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                if (['PASA', 'ABIERTO', 'ESTABLE', 'OK', 'LIMPIO', 'CONFIGURADO', 'INTEGRA', 'COMPATIBLE', 'SANO', 'CORRECTO'].includes(radio.value)) {
-                    radio.checked = true;
-                }
-            });
-
-            document.querySelectorAll('input[type="file"]').forEach(input => { input.value = ''; });
-            document.querySelectorAll('.foto-base64-custom').forEach(input => { input.value = ''; });
-
-            const enrutadores = ['wrapper-ports', 'wrapper-net', 'wrapper-ping', 
-                                 'wrapper-hw-stress', 'wrapper-hw-logs', 
-                                 'wrapper-sw-db', 'wrapper-sw-drivers', 
-                                 'wrapper-extra-ctrl', 'wrapper-extra-upd', 'wrapper-extra-lic', 'wrapper-gpu-extra'];
-            enrutadores.forEach(id => { 
-                const el = document.getElementById(id);
-                if(el) el.innerHTML = ''; 
-            });
-            
-            contadorPingExtra = 0;
-            contadorLogGvExtra = 0;
-            contadorGpuExtra = 0;
-            contadorLogCriticoExtra = 0;
-            contadorCtrlExtra = 0;
-            contadorUpdExtra = 0;
-            contadorLicExtra = 0;
-            
-            contadorDiscos = 1;
-            document.getElementById('wrapper-discos').innerHTML = getDiskTemplate(contadorDiscos, false);
-
-            contadorCamaras = 1;
-            document.getElementById('wrapper-camaras').innerHTML = getCamaraTemplate(contadorCamaras, false);
-
-            crearFilaPuerto();
-
-            fotosActualesBase64 = [];
-            document.getElementById('foto-preview-container').innerHTML = '';
-        }
-
-        const renderPdfImg = (b64) => b64 ? `<div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; text-align: center; width: 100%;"><img src="${b64}" style="max-width: 100%; max-height: 150px; object-fit: contain; border-radius: 4px; display: inline-block;"></div>` : '';
-
         function compilarInformeFinalA4PDF() {
-            if (backendColaServidores.length === 0) {
-                alert("Debe registrar y guardar al menos un servidor para generar el PDF.");
-                return;
-            }
+            if (backendColaServidores.length === 0) { alert("Guarde al menos un servidor para generar el PDF."); return; }
 
             document.getElementById('pdf-tech-name').innerText = document.getElementById('tech-name').value || 'Robert Enrique Muriel';
             document.getElementById('pdf-client').innerText = document.getElementById('client-name').value || 'No Suministrado';
             document.getElementById('pdf-end-client').innerText = document.getElementById('end-client-name').value || 'No Suministrado';
             document.getElementById('pdf-address').innerText = document.getElementById('physical-address').value || 'No Suministrado';
             document.getElementById('pdf-gps').innerText = document.getElementById('gps-coords').value || 'Sin fijar';
-            document.getElementById('pdf-global-date').innerText = `Emisión General: ${new Date().toLocaleString('es-CO')}`;
+            document.getElementById('pdf-global-date').innerText = `Emisión: ${new Date().toLocaleString('es-CO')}`;
 
             const templateMaestroPDF = document.getElementById('pdf-servers-container');
-
-            templateMaestroPDF.innerHTML = backendColaServidores.map((srv, index) => {
-                
-                let bloqueFotosHtml = '';
-                if (srv.fotosEvidencia && srv.fotosEvidencia.length > 0) {
-                    bloqueFotosHtml = `
-                        <div style="page-break-before: always; padding-top: 10px;"></div>
-                        <div style="font-weight: bold; color: #0f172a; font-size: 9.5px; margin-bottom: 8px; border-left: 3px solid #f59e0b; padding-left: 5px;">III. ANEXO: EVIDENCIA FOTOGRÁFICA GENERAL RACK/SITE (${srv.nombre.toUpperCase()})</div>
-                        <div style="width: 100%; text-align: center;">
-                            ${srv.fotosEvidencia.map(foto => `
-                                <div style="width: 48%; border: 1px solid #cbd5e1; padding: 4px; border-radius: 4px; background-color: #f8fafc; text-align: center; display: inline-block; margin-bottom: 10px; margin-right: 1%;">
-                                    <img src="${foto}" style="max-width: 100%; height: 220px; object-fit: contain; border-radius: 2px;">
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                }
-
-                let pingExtrasHtml = '';
-                if (srv.pruebasFijas.ping_extras) {
-                    srv.pruebasFijas.ping_extras.forEach((pe, idx) => {
-                        pingExtrasHtml += `
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>1.1 Ping Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Latencia: ${pe.val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${pe.status === 'PASA' ? '#16a34a' : (pe.status === 'FALLA' ? '#dc2626' : '#64748b')};">${pe.status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${pe.obs}
-                                    ${renderPdfImg(pe.foto)}
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                let extraPortsHtml = `[Tipo: ${srv.pruebasFijas.portTestType}]`;
-                if (srv.pruebasFijas.extraPorts && srv.pruebasFijas.extraPorts.length > 0) {
-                    srv.pruebasFijas.extraPorts.forEach(ep => {
-                        extraPortsHtml += `<br>Puerto ${ep.num}: <span style="font-weight:bold; color:${ep.status === 'ABIERTO'?'#16a34a':'#dc2626'}">${ep.status}</span>`;
-                    });
-                }
-
-                let extraInterfacesHtml = '';
-                if (srv.pruebasFijas.extraInterfaces && srv.pruebasFijas.extraInterfaces.length > 0) {
-                    srv.pruebasFijas.extraInterfaces.forEach((ei, idx) => {
-                        extraInterfacesHtml += `<br>Interfaz Adicional #${idx+1} (${ei.name} - ${ei.type} - ${ei.speed}): Subida: ${ei.upload}, Bajada: ${ei.download}`;
-                    });
-                }
-
-                let gpuExtrasHtml = '';
-                if (srv.pruebasFijas.gpu_extras) {
-                    srv.pruebasFijas.gpu_extras.forEach((ge, idx) => {
-                        gpuExtrasHtml += `<br>GPU Adicional #${idx+1}: ${ge.pct} (<span style="font-weight:bold; color:${ge.status === 'ESTABLE' ? '#16a34a' : '#dc2626'}">${ge.status}</span>)`;
-                    });
-                }
-
-                let logCriticoExtrasHtml = '';
-                if (srv.pruebasFijas.log_critico_extras) {
-                    srv.pruebasFijas.log_critico_extras.forEach((le, idx) => {
-                        logCriticoExtrasHtml += `
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>2.3 Log Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Filtro: ${le.val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${le.status === 'LIMPIO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${le.status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${le.obs}
-                                    ${renderPdfImg(le.foto)}
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                let swGvExtrasHtml = '';
-                if (srv.pruebasFijas.sw_gv_extras) {
-                    srv.pruebasFijas.sw_gv_extras.forEach((ge, idx) => {
-                        swGvExtrasHtml += `
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.2 Log Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Eventos: ${ge.val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${ge.status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${ge.status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${ge.obs}
-                                    ${renderPdfImg(ge.foto)}
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                let ctrlExtrasHtml = '';
-                if (srv.pruebasFijas.sw_ctrl_extras) {
-                    srv.pruebasFijas.sw_ctrl_extras.forEach((ce, idx) => {
-                        ctrlExtrasHtml += `
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.3.1 Ctrl Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Controlador adicional</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${ce.status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${ce.status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${ce.obs}
-                                    ${renderPdfImg(ce.foto)}
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                let updExtrasHtml = '';
-                if (srv.pruebasFijas.sw_upd_extras) {
-                    srv.pruebasFijas.sw_upd_extras.forEach((ue, idx) => {
-                        updExtrasHtml += `
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.3.2 Act Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Actualización adicional</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${ue.status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${ue.status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${ue.obs}
-                                    ${renderPdfImg(ue.foto)}
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                let licExtrasHtml = '';
-                if (srv.pruebasFijas.lic_extras) {
-                    srv.pruebasFijas.lic_extras.forEach((le, idx) => {
-                        licExtrasHtml += `
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.3.3 Lic Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 8px; overflow-wrap: break-word;">
-                                    Tipo: ${le.type}<br>
-                                    Nombre: ${le.name}<br>
-                                    Serial: ${le.num}
-                                </td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${le.status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${le.status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${le.obs}
-                                    ${renderPdfImg(le.foto)}
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                return `
-                <div style="page-break-inside: avoid; margin-top: 15px; border: 1px solid #64748b; border-radius: 6px; padding: 14px; font-family: Arial, sans-serif; background-color: #ffffff;">
-                    
-                    <div style="background-color: #0f172a; color: #ffffff; padding: 6px 12px; font-weight: bold; font-size: 11px; border-radius: 4px; margin-bottom: 8px;">
-                        EQUIPO EVALUADO #${index + 1}: ${srv.nombre.toUpperCase()} (Indexación: ${srv.timestamp})
+            templateMaestroPDF.innerHTML = backendColaServidores.map((srv, index) => `
+                <div style="page-break-inside: avoid; margin-top: 15px; border: 1px solid #2B4763; border-radius: 6px; padding: 14px; background-color: #ffffff;">
+                    <div style="background-color: #2B4763; color: #ffffff; padding: 6px 12px; font-weight: bold; font-size: 11px; border-radius: 4px; margin-bottom: 8px;">
+                        EQUIPO #${index + 1}: ${srv.nombre.toUpperCase()} (Indexación: ${srv.timestamp})
                     </div>
-                    
-                    <div style="font-weight: bold; color: #0f172a; font-size: 9.5px; margin-bottom: 4px; border-left: 3px solid #0284c7; padding-left: 5px;">I. DIAGNÓSTICO DE ARQUITECTURA DE INVENTARIO (CAPA FÍSICA)</div>
-                    <table style="width: 100%; table-layout: fixed; border-collapse: collapse; margin-bottom: 12px; font-size: 9px; word-wrap: break-word;">
+                    <div style="font-weight: bold; color: #2B4763; font-size: 9.5px; margin-bottom: 4px; border-left: 3px solid #E52724; padding-left: 5px;">I. INVENTARIO FÍSICO</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 9px;">
                         <tr>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; width: 22%;"><strong>Dirección IP:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; width: 28%; overflow-wrap: break-word;">${srv.ip}</td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc; width: 22%;"><strong>Sistema Operativo:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; width: 28%; overflow-wrap: break-word;">${srv.os}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; background-color: #f8fafc; width: 22%;"><strong>Dirección IP:</strong></td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; width: 28%;">${srv.ip}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; background-color: #f8fafc; width: 22%;"><strong>Sistema Operativo:</strong></td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; width: 28%;">${srv.os}</td>
                         </tr>
                         <tr>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Marca / Modelo:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.brand}</td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Serial / Service Tag:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.serial}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Procesador (CPU):</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.cpu}</td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Memoria RAM:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.ram}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Discos Duros:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.disk_qty} Unidades</td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Capacidad Total:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.disk_cap}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Gráfica / GPU:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.gpu}</td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Ecosistema Software:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">${srv.software}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Procesador:</strong></td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;">${srv.cpu}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Memoria RAM:</strong></td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;">${srv.ram}</td>
                         </tr>
                     </table>
-
-                    <div style="font-weight: bold; color: #0f172a; font-size: 9.5px; margin-bottom: 4px; border-left: 3px solid #10b981; padding-left: 5px;">II. EVALUACIÓN Y MATRIZ DE DESCARTE DE FALLAS</div>
-                    <table style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 8.5px; word-wrap: break-word;">
+                    <div style="font-weight: bold; color: #2B4763; font-size: 9.5px; margin-bottom: 4px; border-left: 3px solid #2B4763; padding-left: 5px;">II. MATRIZ DE DIAGNÓSTICO</div>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
                         <thead>
-                            <tr style="background-color: #e2e8f0; color: #0f172a;">
-                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 18%;">Prueba Ejecutada</th>
-                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 22%;">Métrica Registrada</th>
-                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 12%; text-align: center;">Estatus</th>
-                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 48%;">Anotaciones de Descarte</th>
+                            <tr style="background-color: #2B4763; color: white;">
+                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 25%;">Prueba</th>
+                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 35%;">Métrica</th>
+                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 15%; text-align: center;">Estatus</th>
+                                <th style="padding: 5px; border: 1px solid #cbd5e1; width: 25%;">Observaciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>1.1 Ping Continuo</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Latencia: ${srv.pruebasFijas.ping_cc_val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : (srv.pruebasFijas.ping_cc_status === 'FALLA' ? '#dc2626' : '#64748b')};">${srv.pruebasFijas.ping_cc_status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.ping_cc_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}
-                                </td>
-                            </tr>
-                            ${pingExtrasHtml}
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>1.2 Sockets TCP Manuales</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px; overflow-wrap: break-word;">
-                                    ${extraPortsHtml}
-                                </td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold; overflow-wrap: break-word;">SOCKETS</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.ports_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.ports_foto)}
-                                </td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1 Ping Continuo</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${srv.pruebasFijas.ping_cc_val}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : '#E52724'};">${srv.pruebasFijas.ping_cc_status}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${srv.pruebasFijas.ping_cc_obs}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>1.3 Ancho de Banda (${srv.pruebasFijas.netName} - ${srv.pruebasFijas.netType} - ${srv.pruebasFijas.netSpeed})</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 8px; overflow-wrap: break-word;">
-                                    Carga: ${srv.pruebasFijas.net_upload_val} (<span style="font-weight:bold; color:${srv.pruebasFijas.net_upload_status === 'ESTABLE' ? '#16a34a' : '#dc2626'}">${srv.pruebasFijas.net_upload_status}</span>)<br>
-                                    Descarga: ${srv.pruebasFijas.net_download_val} (<span style="font-weight:bold; color:${srv.pruebasFijas.net_download_status === 'ESTABLE' ? '#16a34a' : '#dc2626'}">${srv.pruebasFijas.net_download_status}</span>)
-                                    ${extraInterfacesHtml}
-                                </td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold; overflow-wrap: break-word;">TRAFICO RED</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.red_global_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.red_global_foto)}
-                                </td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.2 Carga CPU/RAM</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${srv.pruebasFijas.cpu_pct} | RAM: ${srv.pruebasFijas.ram_pct}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: #16a34a;">ESTABLE</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${srv.pruebasFijas.hw_stress_obs}</td>
                             </tr>
-
-                            ${srv.camarasIP.map((c, i) => `
-                                <tr style="background-color: #faf5ff;">
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce; overflow-wrap: break-word;"><strong>[CÁMARA CANAL #${c.channel}]<br>${c.name}</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px; overflow-wrap: break-word;">
-                                        <strong>Ubicación:</strong> ${c.loc}<br>
-                                        <strong>Ref:</strong> ${c.brand} ${c.model}<br>
-                                        <strong>IP:</strong> ${c.ip} | <strong>Ping (${c.pingStatus}):</strong> ${c.ping}<br>
-                                        <strong>Proto:</strong> ${c.proto} | <strong>Bitrate:</strong> ${c.bitrate}<br>
-                                        <strong>Grabación:</strong> ${c.rec} | <strong>Audio:</strong> ${c.audio}<br>
-                                        <span style="color:#0284c7;">Stream 1 (${c.s1Status}):</span> ${c.s1Res}, ${c.s1Enc}, ${c.s1Fps}fps, GOP:${c.s1Gop}<br>
-                                        <span style="color:#059669;">Stream 2 (${c.s2Status}):</span> ${c.s2Res}, ${c.s2Enc}, ${c.s2Fps}fps, GOP:${c.s2Gop}
-                                    </td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${c.status}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                        ${c.obs}
-                                        ${renderPdfImg(c.fotoGen)}
-                                        ${renderPdfImg(c.fotoPing)}
-                                        ${renderPdfImg(c.fotoS1)}
-                                        ${renderPdfImg(c.fotoS2)}
-                                    </td>
-                                </tr>
-                            `).join('')}
-
-                            ${srv.discosFisicos.map((d, i) => `
-                                <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>2.1 Disco Físico #${i+1}</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 8px; overflow-wrap: break-word;">
-                                        Ref: <span style="font-weight:bold;">${d.ref}</span><br>
-                                        Cap: <span style="font-weight:bold;">${d.cap}</span><br>
-                                        SN: <span style="font-weight:bold;">${d.serial}</span>
-                                    </td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : (d.status === 'ALERTA' ? '#f59e0b' : '#dc2626')}; overflow-wrap: break-word;">${d.status}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                        ${d.obs}
-                                        ${renderPdfImg(d.foto)}
-                                    </td>
-                                </tr>
-                            `).join('')}
-
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>2.2 Rendimiento de Carga</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 8px; overflow-wrap: break-word;">
-                                    CPU: ${srv.pruebasFijas.cpu_pct} (<span style="font-weight:bold; color:${srv.pruebasFijas.cpu_status === 'ESTABLE' ? '#16a34a' : '#dc2626'}">${srv.pruebasFijas.cpu_status}</span>)<br>
-                                    RAM: ${srv.pruebasFijas.ram_pct} (<span style="font-weight:bold; color:${srv.pruebasFijas.ram_status === 'ESTABLE' ? '#16a34a' : '#dc2626'}">${srv.pruebasFijas.ram_status}</span>)<br>
-                                    GPU: ${srv.pruebasFijas.gpu_pct} (<span style="font-weight:bold; color:${srv.pruebasFijas.gpu_status === 'ESTABLE' ? '#16a34a' : '#dc2626'}">${srv.pruebasFijas.gpu_status}</span>)
-                                    ${gpuExtrasHtml}
-                                </td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold; overflow-wrap: break-word;">RENDIMIENTO</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.hw_stress_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.hw_stress_foto)}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>2.3 Logs de Sistema Base</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Filtro: ${srv.pruebasFijas.event_logs_val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.event_logs_status === 'LIMPIO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${srv.pruebasFijas.event_logs_status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.event_logs_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.event_logs_foto)}
-                                </td>
-                            </tr>
-                            ${logCriticoExtrasHtml}
-
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.2 Log Eventos App GeoVision</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Eventos: ${srv.pruebasFijas.sw_gv_events_val}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_gv_events_status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${srv.pruebasFijas.sw_gv_events_status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.sw_core_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.sw_core_foto)}
-                                </td>
-                            </tr>
-                            ${swGvExtrasHtml}
-
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.3.1 Controladores</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Verificación de estado</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_ctrl_status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${srv.pruebasFijas.sw_ctrl_status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.sw_ctrl_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.sw_ctrl_foto)}
-                                </td>
-                            </tr>
-                            ${ctrlExtrasHtml}
-
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.3.2 Act. Controladores</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Actualización de entorno</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_upd_status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${srv.pruebasFijas.sw_upd_status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.sw_upd_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.sw_upd_foto)}
-                                </td>
-                            </tr>
-                            ${updExtrasHtml}
-
-                            <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>3.3.3 Licenciamiento</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 8px; overflow-wrap: break-word;">
-                                    Tipo: ${srv.pruebasFijas.lic_type}<br>
-                                    Nombre: ${srv.pruebasFijas.lic_name}<br>
-                                    Serial: ${srv.pruebasFijas.lic_num}
-                                </td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.lic_status === 'CORRECTO' ? '#16a34a' : '#dc2626'}; overflow-wrap: break-word;">${srv.pruebasFijas.lic_status}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
-                                    ${srv.pruebasFijas.lic_obs}
-                                    ${renderPdfImg(srv.pruebasFijas.lic_foto)}
-                                </td>
-                            </tr>
-                            ${licExtrasHtml}
-
                         </tbody>
                     </table>
-                    
-                    ${bloqueFotosHtml}
-                    
                 </div>
-                `;
-            }).join('');
+            `).join('');
 
             const targetElement = document.getElementById('pdf-template');
-            
             setTimeout(() => {
-                const fileConfiguration = {
-                    margin:       10, 
-                    filename:     `Reporte_Auditoria_GeoVision.pdf`,
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                html2pdf().set(fileConfiguration).from(targetElement).save().catch(err => {
-                    console.error(err);
-                });
+                html2pdf().set({
+                    margin: 10,
+                    filename: `Reporte_Auditoria_GeoVision.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                }).from(targetElement).save();
             }, 300);
         }
     </script>
