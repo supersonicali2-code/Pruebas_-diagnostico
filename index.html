@@ -146,13 +146,13 @@
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
                             <button type="button" onclick="agregarPingExtra()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir otro Ping</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes (100 Pings Exactos)</h4>
                         
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-[11px] text-slate-300 space-y-1 my-2 shadow-inner">
-                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comando (CMD):</p>
+                            <p class="font-bold text-amber-400 mb-1">📖 Instrucción y Comando (CMD - 100 Pings):</p>
                             <p>1. Presiona <strong>Win + R</strong>, escribe <code class="bg-slate-800 px-1 text-sky-400 rounded">cmd</code> y da Enter.</p>
-                            <p>2. Ejecuta el comando:</p>
-                            <div class="bg-slate-900 p-1.5 rounded border border-slate-700 font-mono text-emerald-400 text-[10px] mt-1 select-all">ping -t [IP_del_Servidor]</div>
+                            <p>2. Ejecuta el comando para enviar exactamente 100 paquetes y estandarizar la medición:</p>
+                            <div class="bg-slate-900 p-1.5 rounded border border-slate-700 font-mono text-emerald-400 text-[10px] mt-1 select-all">ping -n 100 [IP_del_Servidor]</div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_ping_cc" placeholder="Observaciones del ping continuo..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_ping_cc" placeholder="Observaciones de la prueba de 100 pings..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                             <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
@@ -421,7 +421,7 @@
                     </div>
                 </div>
 
-                <!-- CAPA SOFTWARE & CAMARAS (Sección 3.1 con numeración original preservada) -->
+                <!-- CAPA SOFTWARE & CAMARAS -->
                 <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
                         <span class="text-xs font-bold text-purple-300 font-oswald">3.1 CAPA DE SOFTWARE Y CÁMARAS IP</span>
@@ -608,8 +608,8 @@
 
     </main>
 
-    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Corregido con posicionamiento off-screen para evitar PDFs en blanco) -->
-    <div id="pdf-wrapper" style="position: absolute; left: 0; top: -99999px; z-index: -1000; width: 190mm; background: white;">
+    <!-- ÁREA DE COMPILACIÓN IMPRIMIBLE (Corregido con position fixed off-screen para evitar PDFs en blanco) -->
+    <div id="pdf-wrapper" style="position: fixed; left: -9999px; top: 0; z-index: -9999; width: 190mm; background: white;">
         <div id="pdf-template" class="bg-white text-slate-900 font-sans text-[10px] space-y-4" style="width: 190mm; padding: 10px; margin: 0 auto;">
             
             <div class="border-b-2 border-[#2B4763] pb-3 flex justify-between items-end">
@@ -659,7 +659,7 @@
                     const canvas = document.createElement('canvas');
                     let width = img.width;
                     let height = img.height;
-                    const MAX_WIDTH = 1000; // Alta resolución para nitidez en impresión PDF
+                    const MAX_WIDTH = 1000; 
                     
                     if (width > MAX_WIDTH) {
                         height = Math.round((height * MAX_WIDTH) / width);
@@ -769,7 +769,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones del ping continuo..." class="ping-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <input type="text" placeholder="Observaciones..." class="ping-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
                     <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                     <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -927,7 +927,7 @@
                         <button type="button" onclick="document.getElementById('ctrl_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones de controlador adicional..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <input type="text" placeholder="Observaciones..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                     <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                     <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -955,7 +955,7 @@
                         <button type="button" onclick="document.getElementById('upd_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded hover:bg-rose-500/20 transition">Remover X</button>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones de actualización adicional..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <input type="text" placeholder="Observaciones..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                     <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                     <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -1000,7 +1000,7 @@
                         <input type="text" placeholder="SN-..." class="lic-num-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones de licencia adicional..." class="lic-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <input type="text" placeholder="Observaciones..." class="lic-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
                     <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
                     <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
@@ -1180,15 +1180,15 @@
                     </div>
                     <div class="col-span-2">
                         <label class="block text-[9px] text-slate-300 mb-0.5">Ubicación Física / Sede</label>
-                        <input type="text" placeholder="Ej: Rejas principales / Portería Norte" class="cam-loc w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Portería Norte" class="cam-loc w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Marca</label>
-                        <input type="text" value="GeoVision" placeholder="Ej: GeoVision, Uniview, Hikvision, Dahua" class="cam-brand w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" value="GeoVision" class="cam-brand w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Modelo</label>
-                        <input type="text" value="GV-EBD4700" placeholder="Ej: GV-EBD4700, GV-VD4700" class="cam-model w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" value="GV-EBD4700" class="cam-model w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                 </div>
                 <div class="flex items-center bg-slate-950 p-1.5 rounded border border-slate-800 text-xs">
@@ -1345,7 +1345,7 @@
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
                         </div>
                     </div>
-                    <input type="text" placeholder="Detalle de observaciones o parámetro que presentó error..." class="cam-obs w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                    <input type="text" placeholder="Detalle de observaciones..." class="cam-obs w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 </div>
             </div>
             `;
@@ -1438,7 +1438,7 @@
                         <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="FALLA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-rose-400">FAIL</span></label>
                     </div>
                 </div>
-                <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none border border-transparent" placeholder="Observaciones (Sectores, ruidos)...">
+                <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none border border-transparent" placeholder="Observaciones...">
                 
                 <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-700">
                     <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia Disco:</span>
@@ -1479,7 +1479,7 @@
         function almacenarServidorEnMemoria() {
             const idServidor = document.getElementById('srv-name').value.trim();
             if (!idServidor) {
-                alert("Asigne un nombre identificador al servidor antes de indexar (Ej: NVR Principal).");
+                alert("Asigne un nombre identificador al servidor antes de indexar.");
                 return;
             }
 
@@ -1642,7 +1642,6 @@
             document.getElementById('foto-preview-container').innerHTML = '';
         }
 
-        // Renderizado de imágenes ajustado para que mantengan un tamaño amplio y legible en el PDF
         const renderPdfImg = (b64) => b64 ? `<div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; text-align: center; width: 100%;"><img src="${b64}" style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 4px; display: inline-block;"></div>` : '';
 
         function compilarInformeFinalA4PDF() {
@@ -1857,7 +1856,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>1.1 Ping Continuo</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;"><strong>1.1 Ping (100 Pings)</strong></td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; overflow-wrap: break-word;">Latencia: ${srv.pruebasFijas.ping_cc_val}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : (srv.pruebasFijas.ping_cc_status === 'FALLA' ? '#E52724' : '#64748b')};">${srv.pruebasFijas.ping_cc_status}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic; overflow-wrap: break-word;">
