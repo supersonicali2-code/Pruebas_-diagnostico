@@ -126,7 +126,7 @@
                 <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.1</span>
+            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.2</span>
         </div>
     </header>
 
@@ -656,7 +656,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.1</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.2</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1224,6 +1224,14 @@
                         <label class="block text-[9px] text-slate-300 mb-0.5">Dirección IP</label>
                         <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
+                    <div>
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Stream Principal</label>
+                        <input type="text" placeholder="Ej: H.264 / 1080p / 30fps" class="cam-stream-main w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Stream Secundario (Sub)</label>
+                        <input type="text" placeholder="Ej: H.264 / D1 / 15fps" class="cam-stream-sub w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                    </div>
                 </div>
                 <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800 text-xs">
                     <span class="text-[9px] font-bold text-sky-300">Estatus Conectividad:</span>
@@ -1268,6 +1276,8 @@
                     loc: item.querySelector('.cam-loc').value || 'N/R',
                     brand: item.querySelector('.cam-brand').value || 'GeoVision',
                     ip: item.querySelector('.cam-ip').value || 'N/R',
+                    streamMain: item.querySelector('.cam-stream-main').value || 'N/R',
+                    streamSub: item.querySelector('.cam-stream-sub').value || 'N/R',
                     pingStatus: pingRadio ? pingRadio.value : 'CORRECTO',
                     status: statusRadio ? statusRadio.value : 'PASA',
                     obs: item.querySelector('.cam-obs').value || '-',
@@ -1490,7 +1500,7 @@
                 if (srv.fotosEvidencia && srv.fotosEvidencia.length > 0) {
                     bloqueFotosHtml = `
                         <div class="pdf-page-break" style="padding-top: 10px;"></div>
-                        <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-bottom: 8px; border-left: 3px solid #E52724; padding-left: 5px;">ANEXO: EVIDENCIA FOTOGRÁFICA (${escaparHTML(srv.nombre).toUpperCase()})</div>
+                        <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-bottom: 8px; border-left: 3px solid #E52724; padding-left: 5px;">ANEXO: EVIDENCIA FOTOGRÁFICA GENERAL (${escaparHTML(srv.nombre).toUpperCase()})</div>
                         <div style="width: 100%; text-align: center;">
                             ${srv.fotosEvidencia.map(foto => `
                                 <div style="width: 48%; border: 1px solid #cbd5e1; padding: 6px; border-radius: 4px; display: inline-block; margin-bottom: 10px; margin-right: 1%;">
@@ -1510,63 +1520,193 @@
                         });
                     }
 
+                    let extraPingsHtml = '';
+                    if (srv.pruebasFijas.ping_extras && srv.pruebasFijas.ping_extras.length > 0) {
+                        srv.pruebasFijas.ping_extras.forEach(pe => {
+                            extraPingsHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1.1 Ping Adicional</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Métrica: ${escaparHTML(pe.val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${pe.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(pe.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(pe.obs)} ${renderPdfImg(pe.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraInterfacesHtml = '';
+                    if (srv.pruebasFijas.extraInterfaces && srv.pruebasFijas.extraInterfaces.length > 0) {
+                        srv.pruebasFijas.extraInterfaces.forEach(ei => {
+                            extraInterfacesHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.3 Interfaz Red Extra</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(ei.name)} (${escaparHTML(ei.type)}) - ${escaparHTML(ei.speed)}<br>Subida: ${escaparHTML(ei.upload)} | Bajada: ${escaparHTML(ei.download)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; background-color: #f8fafc;">RED</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">Interfaz adicional registrada</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let discosHtml = srv.discosFisicos.map((d, i) => `
+                        <tr>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.1 Disco Físico #${i+1}</strong></td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)} | SN: ${escaparHTML(d.serial)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${escaparHTML(d.status)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(d.obs)} ${renderPdfImg(d.foto)}</td>
+                        </tr>
+                    `).join('');
+
+                    let camarasHtml = srv.camarasIP.map((c) => `
+                        <tr>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce;"><strong>[CÁMARA #${escaparHTML(c.channel)}]</strong><br>${escaparHTML(c.name)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px;">
+                                Ubicación: ${escaparHTML(c.loc)}<br>IP: ${escaparHTML(c.ip)}<br>Main: ${escaparHTML(c.streamMain)}<br>Sub: ${escaparHTML(c.streamSub)}
+                            </td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(c.status)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(c.obs)} ${renderPdfImg(c.fotoGen)}</td>
+                        </tr>
+                    `).join('');
+
+                    let extraLogsCriticos = '';
+                    if (srv.pruebasFijas.log_critico_extras && srv.pruebasFijas.log_critico_extras.length > 0) {
+                        srv.pruebasFijas.log_critico_extras.forEach(lce => {
+                            extraLogsCriticos += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.3 Log Crítico Adicional</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Filtro: ${escaparHTML(lce.val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${lce.status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(lce.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(lce.obs)} ${renderPdfImg(lce.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraSwLogs = '';
+                    if (srv.pruebasFijas.sw_gv_extras && srv.pruebasFijas.sw_gv_extras.length > 0) {
+                        srv.pruebasFijas.sw_gv_extras.forEach(sve => {
+                            extraSwLogs += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.2 Log Evento Adicional</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(sve.val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sve.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sve.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sve.obs)} ${renderPdfImg(sve.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraCtrl = '';
+                    if (srv.pruebasFijas.sw_ctrl_extras && srv.pruebasFijas.sw_ctrl_extras.length > 0) {
+                        srv.pruebasFijas.sw_ctrl_extras.forEach(sce => {
+                            extraCtrl += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Controlador Extra</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Verificación adicional</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sce.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sce.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sce.obs)} ${renderPdfImg(sce.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraUpd = '';
+                    if (srv.pruebasFijas.sw_upd_extras && srv.pruebasFijas.sw_upd_extras.length > 0) {
+                        srv.pruebasFijas.sw_upd_extras.forEach(sue => {
+                            extraUpd += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Actualización Extra</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Actualización de drivers</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sue.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sue.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sue.obs)} ${renderPdfImg(sue.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraLic = '';
+                    if (srv.pruebasFijas.lic_extras && srv.pruebasFijas.lic_extras.length > 0) {
+                        srv.pruebasFijas.lic_extras.forEach(sle => {
+                            extraLic += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Licenciamiento Extra</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Modo: ${escaparHTML(sle.type)} | ${escaparHTML(sle.name)} (${escaparHTML(sle.num)})</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sle.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sle.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sle.obs)} ${renderPdfImg(sle.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
                     seccionMatrizFallasHtml = `
-                        <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-top: 10px; margin-bottom: 4px; border-left: 3px solid #E52724; padding-left: 5px;">II. MATRIZ DE DESCARTE DE FALLAS</div>
+                        <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-top: 10px; margin-bottom: 4px; border-left: 3px solid #E52724; padding-left: 5px;">II. MATRIZ DE DESCARTE DE FALLAS Y PRUEBAS</div>
                         <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
                             <thead>
                                 <tr style="background-color: #2B4763; color: white;">
                                     <th style="padding: 5px; border: 1px solid #cbd5e1; width: 20%;">Prueba Ejecutada</th>
-                                    <th style="padding: 5px; border: 1px solid #cbd5e1; width: 25%;">Métrica Registrada</th>
+                                    <th style="padding: 5px; border: 1px solid #cbd5e1; width: 25%;">Métrica / Parámetro</th>
                                     <th style="padding: 5px; border: 1px solid #cbd5e1; width: 15%; text-align: center;">Estatus</th>
-                                    <th style="padding: 5px; border: 1px solid #cbd5e1; width: 40%;">Anotaciones</th>
+                                    <th style="padding: 5px; border: 1px solid #cbd5e1; width: 40%;">Anotaciones y Evidencia</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- 1. RED -->
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1 Ping (100 Pings)</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(srv.pruebasFijas.ping_cc_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.ping_cc_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                        ${escaparHTML(srv.pruebasFijas.ping_cc_obs)}
-                                        ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}
-                                    </td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ping_cc_obs)} ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}</td>
                                 </tr>
+                                ${extraPingsHtml}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.2 Sockets TCP</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${extraPortsHtml}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold;">SOCKETS</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                        ${escaparHTML(srv.pruebasFijas.ports_obs)}
-                                        ${renderPdfImg(srv.pruebasFijas.ports_foto)}
-                                    </td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ports_obs)} ${renderPdfImg(srv.pruebasFijas.ports_foto)}</td>
                                 </tr>
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.3 Ancho de Banda</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.netName)} (${escaparHTML(srv.pruebasFijas.netType)}) - ${escaparHTML(srv.pruebasFijas.netSpeed)}<br>Subida: ${escaparHTML(srv.pruebasFijas.net_upload_val)} | Bajada: ${escaparHTML(srv.pruebasFijas.net_download_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; background-color: #f8fafc;">RED OK</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.red_global_obs)} ${renderPdfImg(srv.pruebasFijas.red_global_foto)}</td>
+                                </tr>
+                                ${extraInterfacesHtml}
+
+                                <!-- 2. HARDWARE -->
+                                ${discosHtml}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.2 Stress Hardware</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.cpu_pct)} | RAM: ${escaparHTML(srv.pruebasFijas.ram_pct)} | GPU: ${escaparHTML(srv.pruebasFijas.gpu_pct)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.cpu_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.cpu_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.hw_stress_obs)} ${renderPdfImg(srv.pruebasFijas.hw_stress_foto)}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.3 Logs Críticos</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Base: ${escaparHTML(srv.pruebasFijas.event_logs_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.event_logs_status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.event_logs_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.event_logs_obs)} ${renderPdfImg(srv.pruebasFijas.event_logs_foto)}</td>
+                                </tr>
+                                ${extraLogsCriticos}
+
+                                <!-- 3. SOFTWARE Y CÁMARAS -->
                                 <tr>
                                     <td colspan="4" style="background-color: #f3e8ff; color: #7e22ce; font-weight: bold; padding: 5px; border: 1px solid #cbd5e1; font-size: 9px;">3.1 Configuración Cámaras IP</td>
                                 </tr>
-                                ${srv.camarasIP.map((c) => `
-                                    <tr>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce;"><strong>[CÁMARA #${escaparHTML(c.channel)}]</strong><br>${escaparHTML(c.name)}</td>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px;">
-                                            Ubicación: ${escaparHTML(c.loc)}<br>IP: ${escaparHTML(c.ip)}
-                                        </td>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(c.status)}</td>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                            ${escaparHTML(c.obs)}
-                                            ${renderPdfImg(c.fotoGen)}
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                                ${srv.discosFisicos.map((d, i) => `
-                                    <tr>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.1 Disco Físico #${i+1}</strong></td>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}</td>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${escaparHTML(d.status)}</td>
-                                        <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">
-                                            ${escaparHTML(d.obs)}
-                                            ${renderPdfImg(d.foto)}
-                                        </td>
-                                    </tr>
-                                `).join('')}
+                                ${camarasHtml}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.2 Log Eventos GeoVision</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.sw_gv_events_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_gv_events_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_gv_events_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_core_obs)} ${renderPdfImg(srv.pruebasFijas.sw_core_foto)}</td>
+                                </tr>
+                                ${extraSwLogs}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Controladores</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Verificación de Controladores</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_ctrl_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_ctrl_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_ctrl_obs)} ${renderPdfImg(srv.pruebasFijas.sw_ctrl_foto)}</td>
+                                </tr>
+                                ${extraCtrl}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Actualización</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Actualización de Drivers/Software</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_upd_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_upd_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_upd_obs)} ${renderPdfImg(srv.pruebasFijas.sw_upd_foto)}</td>
+                                </tr>
+                                ${extraUpd}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Licenciamiento</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.lic_type)} | ${escaparHTML(srv.pruebasFijas.lic_name)} (${escaparHTML(srv.pruebasFijas.lic_num)})</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.lic_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.lic_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.lic_obs)} ${renderPdfImg(srv.pruebasFijas.lic_foto)}</td>
+                                </tr>
+                                ${extraLic}
                             </tbody>
                         </table>
                     `;
