@@ -126,7 +126,7 @@
                 <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.4</span>
+            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.5</span>
         </div>
     </header>
 
@@ -196,7 +196,7 @@
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
-                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Identificador del Servidor</label>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Nombre del Servidor</label>
                     <input type="text" id="srv-name" placeholder="Ej: Servidor NVR No. 1" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
@@ -212,7 +212,7 @@
                     <input type="text" id="srv-brand" placeholder="Ej: Dell PowerEdge T350" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Serial Físico / Service Tag</label>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Service Tag</label>
                     <input type="text" id="srv-serial" placeholder="Código único de chasis" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div class="col-span-2 border-t border-slate-600 pt-1"></div>
@@ -262,9 +262,11 @@
                             <button type="button" onclick="agregarPingExtra()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir otro Ping</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes (100 Pings Exactos)</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Ejecute en consola <code class="text-sky-300 font-mono">ping [IP_Servidor] -n 100</code>. Valide que la pérdida de paquetes sea del 0% y la latencia promedio sea inferior a 10 ms en red local.
-                        </p>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Abra la consola de comandos (CMD) y ejecute exactamente 100 pings continuos para medir estabilidad:</p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -n 100</code>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> 0% de pérdida de paquetes y latencia promedio menor a 10 ms en red local.</p>
+                        </div>
                         
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -301,16 +303,18 @@
                         <div id="wrapper-ping" class="space-y-2 mt-2 w-full"></div>
                     </div>
 
-                    <!-- PRUEBA 1.2 -->
+                    <!-- PRUEBA 1.2 (SOCKETS TCP - PUERTO POR PUERTO) -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
                             <button type="button" onclick="crearFilaPuerto()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Puerto</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP GeoVision</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Compruebe la apertura de puertos requeridos por GeoVision (Ej: 80, 4550, 554, 8866) utilizando herramientas como PowerShell (<code class="text-sky-300 font-mono">Test-NetConnection</code>) o Telnet para descartar bloqueos de Firewall.
-                        </p>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP (Puerto por Puerto)</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
+                            <p>💡 <strong>Instrucción y Comando detallado:</strong> Verifique de forma individual cada puerto crítico de GeoVision (ej. 80 para Web, 4550 para Control Center, 554 para RTSP, 8866 para streaming) usando PowerShell:</p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP_Servidor] -Port [Puerto]</code>
+                            <p class="text-[9px] text-slate-400"><strong>Ejemplo práctico (Puerto 4550):</strong> <code class="text-sky-300 font-mono">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code> (Verifique que <code class="text-emerald-400">TcpTestSucceeded : True</code>).</p>
+                        </div>
 
                         <div class="mb-2">
                             <label class="block text-[10px] text-slate-300 mb-0.5">Tipo de Prueba</label>
@@ -341,16 +345,22 @@
                         </div>
                     </div>
 
-                    <!-- PRUEBA 1.3 -->
+                    <!-- PRUEBA 1.3 (ANCHO DE BANDA Y SATURACIÓN - ADMINISTRADOR DE TAREAS) -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
                             <button type="button" onclick="crearFilaInterfaz()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Interfaz</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.3: Inspección de Ancho de Banda y Saturación</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Mida el tráfico real de subida (envío de cámaras al servidor/nube) y bajada (recepción de streams). Verifique que los canales de red no presenten saturación por sobrecarga de video IP.
-                        </p>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.3: Inspección de Ancho de Banda y Saturación de Red</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
+                            <p>💡 <strong>Instrucción detallada (Administrador de Tareas / Monitor de Recursos):</strong></p>
+                            <ul class="list-disc pl-4 space-y-0.5 text-[9px] text-slate-300">
+                                <li>Presione <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> para abrir el <strong>Administrador de tareas</strong>.</li>
+                                <li>Vaya a la pestaña <strong>Rendimiento</strong> y seleccione la interfaz <strong>Ethernet</strong>.</li>
+                                <li>Verifique la velocidad de enlace (Link Speed) y observe el tráfico actual en Mbps (Enviados/Recibidos).</li>
+                                <li>Abra el <strong>Monitor de recursos</strong> (desde Rendimiento o ejecutando <code class="text-sky-300 font-mono">resmon</code>) en la pestaña <strong>Red</strong> para identificar si hay procesos colapsando el ancho de banda o si existe saturación por transmisiones masivas de cámaras IP.</li>
+                            </ul>
+                        </div>
 
                         <div class="space-y-2 mb-2">
                             <div>
@@ -440,9 +450,9 @@
                             <button type="button" onclick="crearFilaDisco()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Disco Extra</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T.)</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Revise los atributos S.M.A.R.T. de cada disco con CrystalDiskInfo. Valide ausencia de sectores reasignados pendientes o errores de lectura/escritura en las unidades de grabación de video.
-                        </p>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute CrystalDiskInfo o revise el estado de salud de cada disco duro en el Administrador de Discos / PowerShell. Verifique que no existan sectores reasignados pendientes o errores de lectura/escritura en unidades de video.</p>
+                        </div>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
 
@@ -453,9 +463,9 @@
                             <button type="button" onclick="agregarGpuExtra()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir GPU Extra</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Monitoree el uso de recursos con el VMS operando en vivo. Asegúrese de que el hardware gráfico (GPU) y el procesador no excedan umbrales de saturación que causen pérdida de frames.
-                        </p>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Con el VMS reproduciendo canales en vivo, abra el **Administrador de tareas** (pestaña Procesos/Rendimiento) para validar que el consumo sostenido de CPU, Memoria RAM y GPU no sature el equipo provocando pérdida de fotogramas.</p>
+                        </div>
 
                         <div class="space-y-3 pt-1">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
@@ -525,9 +535,9 @@
                             <button type="button" onclick="agregarLogCriticoExtra()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Inspeccione el Visor de Eventos de Windows (Sistema y Aplicación) para identificar errores críticos de Kernel-Power, fallas de controlador de video o alertas de almacenamiento.
-                        </p>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Abra el **Visor de eventos** (<code class="text-sky-300 font-mono">eventvwr.msc</code>) > Registros de Windows > **Sistema** y **Aplicación**. Busque errores críticos de Kernel-Power (ID 41), fallas de controladores gráficos o errores de disco.</p>
+                        </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -573,9 +583,9 @@
                     </div>
 
                     <h4 class="text-xs font-bold text-slate-200 font-oswald pt-1">3.1 Configuración Cámaras IP</h4>
-                    <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                        💡 <strong>Instrucción:</strong> Configure canales, resoluciones y perfiles de Stream Principal/Secundario en el VMS. Valide que el rendimiento de decodificación sea óptimo por cada cámara.
-                    </p>
+                    <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                        <p>💡 <strong>Instrucción detallada:</strong> Valide perfiles de video principales y secundarios (Stream Principal y Sub-stream H.264/H.265), asegurando que la decodificación en el VMS sea fluida y sin artefactos visuales.</p>
+                    </div>
 
                     <div id="wrapper-camaras" class="space-y-4"></div>
 
@@ -585,9 +595,9 @@
                             <button type="button" onclick="agregarLogEventoExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log Evento</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 3.2: Log Eventos Aplicativo GeoVision</h4>
-                        <p class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                            💡 <strong>Instrucción:</strong> Revise los registros de eventos internos del VMS (GV-System / Control Center) para descartar desconexiones recurrentes de cámaras o errores de base de datos.
-                        </p>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Revise los logs internos del software GeoVision (GV-VMS / Control Center) para descartar alertas de desconexión de canales, errores de base de datos o fallas de grabación programada.</p>
+                        </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -796,7 +806,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.4</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.5</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
