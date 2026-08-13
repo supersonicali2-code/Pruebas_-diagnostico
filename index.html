@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía de Diagnóstico e Inventario para servidores Geovision</title>
+    <title>Diagnóstico e Inventario para servidores Geovision</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -123,10 +123,10 @@
     <header class="bg-[#2B4763] border-b border-slate-700 p-4 sticky top-0 z-50 shadow-lg">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Guía de Diagnóstico e Inventario para servidores Geovision</h1>
+                <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v8.31</span>
+            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.1</span>
         </div>
     </header>
 
@@ -244,7 +244,7 @@
 
                 <div class="space-y-4 pt-0">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-sky-300 font-oswald">🌐 CAPA DE RED Y COMUNICACIONES</span>
+                        <span class="text-xs font-bold text-sky-300 font-oswald">🌐 1. CAPA DE RED Y COMUNICACIONES</span>
                     </div>
 
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
@@ -271,7 +271,7 @@
                         <input type="text" id="obs_ping_cc" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                             <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_ping_cc" class="foto-base64-custom">
                         </div>
@@ -299,7 +299,7 @@
                         <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                             <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_ports" class="foto-base64-custom">
                         </div>
@@ -371,7 +371,7 @@
                         <input type="text" id="obs_ping_cam" placeholder="Anotaciones de red..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                             <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_net" class="foto-base64-custom">
                         </div>
@@ -380,7 +380,7 @@
 
                 <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-amber-300 font-oswald">🖥️ CAPA DE HARDWARE FÍSICO</span>
+                        <span class="text-xs font-bold text-amber-300 font-oswald">🖥️ 2. CAPA DE HARDWARE FÍSICO</span>
                     </div>
 
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
@@ -444,7 +444,7 @@
                         <input type="text" id="obs_hardware_stress" placeholder="Notas sobre el comportamiento..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                             <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_hw_stress" class="foto-base64-custom">
                         </div>
@@ -473,7 +473,7 @@
                         <input type="text" id="obs_event_logs" placeholder="Observaciones generales..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                             <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_event_logs" class="foto-base64-custom">
                         </div>
@@ -484,7 +484,7 @@
 
                 <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-purple-300 font-oswald">3.1 CAPA DE SOFTWARE Y CÁMARAS IP</span>
+                        <span class="text-xs font-bold text-purple-300 font-oswald">🔧 3. CAPA DE SOFTWARE Y CÁMARAS IP</span>
                         <button type="button" onclick="crearFilaCamara()" class="bg-[#E52724] hover:bg-red-600 text-white font-bold text-[10px] px-2.5 py-1.5 rounded transition shadow">
                             ➕ Añadir otra Cámara IP
                         </button>
@@ -515,7 +515,7 @@
                         <input type="text" id="obs_software_core" placeholder="Observaciones detalladas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
                         <div class="mt-2 flex items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                            <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                             <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                             <input type="hidden" id="b64_sw_core" class="foto-base64-custom">
                         </div>
@@ -542,7 +542,7 @@
                             </div>
                             <input type="text" id="obs_sw_ctrl" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                                 <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                                 <input type="hidden" id="b64_sw_ctrl" class="foto-base64-custom">
                             </div>
@@ -562,7 +562,7 @@
                             </div>
                             <input type="text" id="obs_sw_upd" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                                 <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                                 <input type="hidden" id="b64_sw_upd" class="foto-base64-custom">
                             </div>
@@ -584,7 +584,7 @@
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Modalidad</label>
                                     <select id="val_lic_type" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
-                                        <option value="Físico (Dongle)" selected>Físico (Dongle)</option>
+                                        <option value="Físico (Dongle)" selected>Físico (Dongle USB)</option>
                                         <option value="Virtual">Virtual</option>
                                     </select>
                                 </div>
@@ -599,7 +599,7 @@
                             </div>
                             <input type="text" id="obs_lic" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             <div class="flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                                <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                                 <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                                 <input type="hidden" id="b64_lic" class="foto-base64-custom">
                             </div>
@@ -613,7 +613,7 @@
         </section>
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
-            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">4. Evidencia Fotográfica General (Rack/Site)</h2>
+            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">📸 4. Evidencia Fotográfica General (Rack/Site)</h2>
             <div class="pt-1">
                 <input type="file" id="foto-input" accept="image/*" multiple 
                        class="block w-full text-xs text-slate-300 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#E52724] file:text-white hover:file:bg-red-700 bg-slate-950 rounded-lg border border-slate-700 p-1.5 cursor-pointer">
@@ -623,13 +623,13 @@
 
         <div>
             <button type="button" onclick="almacenarServidorEnMemoria()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg flex justify-center items-center text-base transition font-oswald">
-                <span>📥 Guardar e Indexar Servidor</span>
+                <span>📥 Guardar e Indexar Pruebas e Inventario</span>
             </button>
         </div>
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-white uppercase tracking-wider flex justify-between font-oswald">
-                <span>Servidores Guardados en esta Sesión</span>
+                <span>Pruebas e Inventario Guardados en esta Sesión</span>
                 <span id="badge-count" class="bg-slate-700 text-sky-300 px-2.5 py-0.5 rounded-full text-xs font-bold">0</span>
             </h2>
             <div id="lista-servidores" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs text-slate-300">
@@ -639,7 +639,7 @@
 
         <div class="pt-2">
             <button type="button" onclick="compilarInformeFinalA4PDF()" class="w-full bg-[#E52724] hover:bg-red-700 active:bg-red-800 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald">
-                <span>📄 Generar Informe Técnico PDF</span>
+                <span>📄 Generar Informe Técnico (PDF)</span>
             </button>
         </div>
 
@@ -651,16 +651,16 @@
             <div class="border-b-2 border-[#2B4763] pb-3 flex justify-between items-end">
                 <div>
                     <h1 class="text-lg font-bold text-[#2B4763] tracking-tight font-oswald">GEOVISION DE COLOMBIA S.A.S.</h1>
-                    <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Guía de Diagnóstico e Inventario para servidores Geovision</p>
+                    <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v8.31</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.1</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
 
             <div class="bg-slate-100 p-3 rounded border border-slate-200 grid grid-cols-2 gap-y-1.5 gap-x-4 text-[10px]">
-                <div><strong>Ingeniero Revisor:</strong> <span id="pdf-tech-name"></span></div>
+                <div><strong>Ingeniero / Técnico Revisor:</strong> <span id="pdf-tech-name"></span></div>
                 <div><strong>Dirección Física Evaluada:</strong> <span id="pdf-address"></span></div>
                 <div><strong>Cliente / Integrador Comercial:</strong> <span id="pdf-client"></span></div>
                 <div><strong>Cliente Final / Sede Operativa:</strong> <span id="pdf-end-client"></span></div>
@@ -807,7 +807,7 @@
                 </div>
                 <input type="text" placeholder="Observaciones..." class="ping-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                     <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                     <input type="hidden" class="foto-base64-custom">
                 </div>
@@ -889,7 +889,7 @@
                 </div>
                 <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 <div class="mt-2 flex items-center bg-slate-900 p-1.5 rounded border border-slate-800">
-                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Evidencia:</span>
+                    <span class="text-[9px] text-slate-400 mr-2 whitespace-nowrap">📸 Imágenes de Evidencia:</span>
                     <input type="file" accept="image/*" onchange="procesarFotoEnContenedor(this)" class="w-full text-[9px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[9px] file:font-bold file:bg-slate-800 file:text-slate-300 cursor-pointer">
                     <input type="hidden" class="foto-base64-custom">
                 </div>
