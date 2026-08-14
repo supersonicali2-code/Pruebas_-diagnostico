@@ -126,13 +126,12 @@
                 <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.6</span>
+            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.7</span>
         </div>
     </header>
 
     <main class="max-w-md mx-auto p-4 space-y-6">
 
-        <!-- INSTRUCCIÓN GENERAL INICIAL -->
         <div class="bg-sky-950/60 border border-sky-500/30 p-3 rounded-xl text-xs text-sky-200 space-y-1">
             <p class="font-bold font-oswald text-sky-300">ℹ️ Instrucciones Generales de Uso:</p>
             <p class="text-[11px] text-slate-300">Complete los datos de ubicación, configure la ficha técnica del servidor y ejecute cada prueba siguiendo los parámetros de descarte de fallas de GeoVision de Colombia.</p>
@@ -174,7 +173,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN DE SELECCIÓN DE MODO DE REPORTE -->
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">Modo de Operación del Registro</h2>
             <p class="text-[10px] text-slate-300">Seleccione si requiere un informe exhaustivo de descarte de fallas o únicamente el levantamiento físico de inventario.</p>
@@ -244,7 +242,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN DE DIAGNÓSTICO (CONTROLADA POR EL MODO) -->
         <section id="seccion-diagnostico" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-6">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">3. Protocolo Exhaustivo de Diagnóstico Integrado</h2>
             
@@ -303,7 +300,7 @@
                         <div id="wrapper-ping" class="space-y-2 mt-2 w-full"></div>
                     </div>
 
-                    <!-- PRUEBA 1.2 (SOCKETS TCP - PUERTO POR PUERTO) -->
+                    <!-- PRUEBA 1.2 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
@@ -311,9 +308,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP (Puerto por Puerto)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
-                            <p>💡 <strong>Instrucción y Comando detallado:</strong> Verifique de forma individual cada puerto crítico de GeoVision (ej. 80 para Web, 4550 para Control Center, 554 para RTSP, 8866 para streaming) usando PowerShell:</p>
+                            <p>💡 <strong>Instrucción y Comando detallado:</strong> Verifique de forma individual cada puerto crítico de GeoVision usando PowerShell:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP_Servidor] -Port [Puerto]</code>
-                            <p class="text-[9px] text-slate-400"><strong>Ejemplo práctico (Puerto 4550):</strong> <code class="text-sky-300 font-mono">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code> (Verifique que <code class="text-emerald-400">TcpTestSucceeded : True</code>).</p>
                         </div>
 
                         <div class="mb-2">
@@ -325,7 +321,6 @@
                         </div>
 
                         <div id="wrapper-ports" class="space-y-2 w-full"></div>
-
                         <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
@@ -345,7 +340,7 @@
                         </div>
                     </div>
 
-                    <!-- PRUEBA 1.3 (ANCHO DE BANDA Y SATURACIÓN - ADMINISTRADOR DE TAREAS) -->
+                    <!-- PRUEBA 1.3 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
@@ -353,13 +348,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.3: Inspección de Ancho de Banda y Saturación de Red</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
-                            <p>💡 <strong>Instrucción detallada (Administrador de Tareas / Monitor de Recursos):</strong></p>
-                            <ul class="list-disc pl-4 space-y-0.5 text-[9px] text-slate-300">
-                                <li>Presione <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> para abrir el <strong>Administrador de tareas</strong>.</li>
-                                <li>Vaya a la pestaña <strong>Rendimiento</strong> y seleccione la interfaz <strong>Ethernet</strong>.</li>
-                                <li>Verifique la velocidad de enlace (Link Speed) y observe el tráfico actual en Mbps (Enviados/Recibidos).</li>
-                                <li>Abra el <strong>Monitor de recursos</strong> (desde Rendimiento o ejecutando <code class="text-sky-300 font-mono">resmon</code>) en la pestaña <strong>Red</strong> para identificar si hay procesos colapsando el ancho de banda o si existe saturación por transmisiones masivas de cámaras IP.</li>
-                            </ul>
+                            <p>💡 <strong>Instrucción detallada:</strong> Abra el <strong>Administrador de tareas</strong> (Rendimiento > Ethernet) y el <strong>Monitor de recursos</strong> (<code class="text-sky-300 font-mono">resmon</code>) para validar el tráfico de red.</p>
                         </div>
 
                         <div class="space-y-2 mb-2">
@@ -436,6 +425,49 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- NUEVA PRUEBA 1.4: VERIFICACIÓN DE MTU -->
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Para verificar si hay pérdida de paquetes por tamaño de paquete (MTU) sin fragmentación, ejecute en CMD:</p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -f -l 1472</code>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Si responde con éxito, el MTU de 1500 es óptimo. Si indica que el paquete necesita fragmentarse, ajuste el valor del MTU en la red.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <div>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
+                                <input type="text" id="val_mtu" placeholder="Ej: 1500 (Sin fragmentación)" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
+                                <div class="grid grid-cols-2 gap-1">
+                                    <label class="status-btn"><input type="radio" name="chk_mtu_status" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_mtu_status" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">AJUSTAR</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" id="obs_mtu" placeholder="Observaciones de MTU..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
+                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
+                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                    📷 Cámara
+                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                </label>
+                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                    📁 Galería
+                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                </label>
+                                <input type="hidden" id="b64_mtu" class="foto-base64-custom">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="space-y-4 pt-4 border-t border-slate-600">
@@ -451,7 +483,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T.)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute CrystalDiskInfo o revise el estado de salud de cada disco duro en el Administrador de Discos / PowerShell. Verifique que no existan sectores reasignados pendientes o errores de lectura/escritura en unidades de video.</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute CrystalDiskInfo o revise el estado de salud de cada disco duro en el Administrador de Discos.</p>
                         </div>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
@@ -464,7 +496,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Con el VMS reproduciendo canales en vivo, abra el <strong>Administrador de tareas</strong> (pestaña Procesos/Rendimiento) para validar que el consumo sostenido de CPU, Memoria RAM y GPU no sature el equipo provocando pérdida de fotogramas.</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Con el VMS reproduciendo canales en vivo, abra el <strong>Administrador de tareas</strong> para validar consumo.</p>
                         </div>
 
                         <div class="space-y-3 pt-1">
@@ -536,7 +568,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Abra el <strong>Visor de eventos</strong> (<code class="text-sky-300 font-mono">eventvwr.msc</code>) > Registros de Windows > <strong>Sistema</strong> y <strong>Aplicación</strong>. Busque errores críticos de Kernel-Power (ID 41), fallas de controladores gráficos o errores de disco.</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Abra el <strong>Visor de eventos</strong> (<code class="text-sky-300 font-mono">eventvwr.msc</code>) > Registros de Windows > <strong>Sistema</strong>.</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -572,6 +604,48 @@
 
                         <div id="wrapper-hw-logs" class="space-y-2 mt-2 w-full"></div>
                     </div>
+
+                    <!-- NUEVA PRUEBA 2.4: MONITOREO DE TEMPERATURA -->
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HARDWARE</span>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.4: Monitoreo de Temperatura de Hardware</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción y Aplicativo sugerido:</strong> Utilice herramientas como <strong>Open Hardware Monitor</strong> o <strong>HWMonitor</strong> para verificar las temperaturas operativas del procesador (CPU), tarjeta gráfica (GPU) y discos duros bajo carga.</p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> CPU/GPU &lt; 75°C y Discos &lt; 50°C en operación continua de videovigilancia.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <div>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Temperaturas (CPU / GPU / Discos)</label>
+                                <input type="text" id="val_temp" placeholder="Ej: CPU 55°C / GPU 60°C / HDD 38°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Térmico</label>
+                                <div class="grid grid-cols-2 gap-1">
+                                    <label class="status-btn"><input type="radio" name="chk_temp_status" value="NORMAL" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">NORMAL</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_temp_status" value="SOBRECALENTAMIENTO" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ALERTA</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" id="obs_temp" placeholder="Observaciones térmicas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
+                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
+                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                    📷 Cámara
+                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                </label>
+                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                    📁 Galería
+                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                </label>
+                                <input type="hidden" id="b64_temp" class="foto-base64-custom">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="space-y-4 pt-4 border-t border-slate-600">
@@ -584,7 +658,7 @@
 
                     <h4 class="text-xs font-bold text-slate-200 font-oswald pt-1">3.1 Configuración Cámaras IP</h4>
                     <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                        <p>💡 <strong>Instrucción detallada:</strong> Configure de forma independiente el Codec, Resolución, FPS y GOP (I-Key) para el Stream Principal y el Stream Secundario de cada canal.</p>
+                        <p>💡 <strong>Instrucción detallada:</strong> Seleccione el protocolo de conexión (IP, RTSP u ONVIF) y configure de forma independiente el Codec, Resolución, FPS y GOP (I-Key).</p>
                     </div>
 
                     <div id="wrapper-camaras" class="space-y-4"></div>
@@ -596,7 +670,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 3.2: Log Eventos Aplicativo GeoVision</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Revise los logs internos del software GeoVision (GV-VMS / Control Center) para descartar alertas de desconexión de canales, errores de base de datos o fallas de grabación programada.</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Revise los logs internos del software GeoVision.</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -789,10 +863,20 @@
             </div>
         </section>
 
-        <div class="pt-2">
+        <div class="space-y-2 pt-2">
             <button type="button" onclick="compilarInformeFinalA4PDF()" class="w-full bg-[#E52724] hover:bg-red-700 active:bg-red-800 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald">
                 <span>📄 Generar Informe Técnico (PDF)</span>
             </button>
+
+            <div class="grid grid-cols-2 gap-2 pt-1">
+                <button type="button" onclick="exportarSesionJSON()" class="w-full bg-sky-700 hover:bg-sky-600 text-white font-bold py-2.5 px-3 rounded-xl shadow text-xs transition font-oswald">
+                    📤 Exportar Sesión (JSON)
+                </button>
+                <label class="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-2.5 px-3 rounded-xl shadow text-xs transition font-oswald text-center cursor-pointer flex items-center justify-center">
+                    📥 Importar Sesión (JSON)
+                    <input type="file" accept=".json" onchange="importarSesionJSON(this)" class="sr-only">
+                </label>
+            </div>
         </div>
 
     </main>
@@ -806,7 +890,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.6</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.7</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1386,7 +1470,17 @@
                         <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
 
-                    <!-- STREAM PRINCIPAL (INDEPENDIENTE) -->
+                    <!-- PROTOCOLO DE CONEXIÓN -->
+                    <div class="col-span-2">
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Protocolo / Tipo de Conexión</label>
+                        <select class="cam-protocol w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white text-xs font-bold focus:outline-none">
+                            <option value="IP Directo" selected>IP Directo</option>
+                            <option value="RTSP">RTSP</option>
+                            <option value="ONVIF">ONVIF</option>
+                        </select>
+                    </div>
+
+                    <!-- STREAM PRINCIPAL -->
                     <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
                         <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Principal (Main Stream)</span>
                         <div class="grid grid-cols-4 gap-1.5">
@@ -1413,7 +1507,7 @@
                         </div>
                     </div>
 
-                    <!-- STREAM SECUNDARIO (INDEPENDIENTE) -->
+                    <!-- STREAM SECUNDARIO -->
                     <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
                         <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Secundario (Sub Stream)</span>
                         <div class="grid grid-cols-4 gap-1.5">
@@ -1496,6 +1590,7 @@
                     loc: item.querySelector('.cam-loc').value || 'N/R',
                     brand: item.querySelector('.cam-brand').value || 'GeoVision',
                     ip: item.querySelector('.cam-ip').value || 'N/R',
+                    protocol: item.querySelector('.cam-protocol').value,
                     mainCodec: item.querySelector('.cam-main-codec').value,
                     mainRes: item.querySelector('.cam-main-res').value || 'N/R',
                     mainFps: item.querySelector('.cam-main-fps').value || 'N/R',
@@ -1625,6 +1720,11 @@
                     red_global_obs: document.getElementById('obs_ping_cam').value || '-',
                     red_global_foto: document.getElementById('b64_net') ? document.getElementById('b64_net').value : '',
 
+                    mtu_val: document.getElementById('val_mtu').value || 'N/R',
+                    mtu_status: document.querySelector('input[name="chk_mtu_status"]:checked').value,
+                    mtu_obs: document.getElementById('obs_mtu').value || '-',
+                    mtu_foto: document.getElementById('b64_mtu') ? document.getElementById('b64_mtu').value : '',
+
                     cpu_pct: document.getElementById('val_cpu_pct').value || 'N/R',
                     cpu_status: document.querySelector('input[name="chk_cpu_status"]:checked').value,
                     ram_pct: document.getElementById('val_ram_pct').value || 'N/R',
@@ -1640,6 +1740,11 @@
                     event_logs_obs: document.getElementById('obs_event_logs').value || '-',
                     event_logs_foto: document.getElementById('b64_event_logs') ? document.getElementById('b64_event_logs').value : '',
                     log_critico_extras: extraerLogsCriticosExtra(),
+
+                    temp_val: document.getElementById('val_temp').value || 'N/R',
+                    temp_status: document.querySelector('input[name="chk_temp_status"]:checked').value,
+                    temp_obs: document.getElementById('obs_temp').value || '-',
+                    temp_foto: document.getElementById('b64_temp') ? document.getElementById('b64_temp').value : '',
 
                     sw_gv_events_status: document.querySelector('input[name="chk_sw_gv_events"]:checked').value,
                     sw_gv_events_val: document.getElementById('val_event_gv').value || 'N/R',
@@ -1698,6 +1803,42 @@
         function removerServidorLista(idx) {
             backendColaServidores.splice(idx, 1);
             sincronizarHistorialPantalla();
+        }
+
+        function exportarSesionJSON() {
+            if (backendColaServidores.length === 0) {
+                alert("No hay servidores indexados en la sesión para exportar.");
+                return;
+            }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backendColaServidores, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `inventario_geovision_sesion_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importarSesionJSON(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        backendColaServidores = imported;
+                        sincronizarHistorialPantalla();
+                        alert("Sesión importada exitosamente.");
+                    } else {
+                        alert("Formato de archivo JSON inválido.");
+                    }
+                } catch (err) {
+                    alert("Error al parsear el archivo JSON.");
+                }
+            };
+            reader.readAsText(file);
+            input.value = '';
         }
 
         const renderPdfImg = (b64) => b64 ? `<div style="margin-top: 4px; padding-top: 4px; border-top: 1px dashed #cbd5e1; text-align: center;"><img src="${b64}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px; display: inline-block;"></div>` : '';
@@ -1780,6 +1921,7 @@
                             <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce;"><strong>[CÁMARA #${escaparHTML(c.channel)}]</strong><br>${escaparHTML(c.name)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px;">
                                 Ubicación: ${escaparHTML(c.loc)} | IP: ${escaparHTML(c.ip)}<br>
+                                <strong>Protocolo:</strong> ${escaparHTML(c.protocol)}<br>
                                 <strong>Main:</strong> ${escaparHTML(c.mainCodec)} / ${escaparHTML(c.mainRes)} / ${escaparHTML(c.mainFps)}fps / GOP: ${escaparHTML(c.mainGop)}<br>
                                 <strong>Sub:</strong> ${escaparHTML(c.subCodec)} / ${escaparHTML(c.subRes)} / ${escaparHTML(c.subFps)}fps / GOP: ${escaparHTML(c.subGop)}
                             </td>
@@ -1881,6 +2023,12 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.red_global_obs)} ${renderPdfImg(srv.pruebasFijas.red_global_foto)}</td>
                                 </tr>
                                 ${extraInterfacesHtml}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.4 Verificación MTU</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">MTU: ${escaparHTML(srv.pruebasFijas.mtu_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.mtu_status === 'ÓPTIMO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.mtu_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.mtu_obs)} ${renderPdfImg(srv.pruebasFijas.mtu_foto)}</td>
+                                </tr>
 
                                 <!-- 2. CAPA DE HARDWARE FÍSICO -->
                                 ${discosHtml}
@@ -1897,6 +2045,12 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.event_logs_obs)} ${renderPdfImg(srv.pruebasFijas.event_logs_foto)}</td>
                                 </tr>
                                 ${extraLogsCriticos}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.4 Temp. Hardware</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.temp_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.temp_status === 'NORMAL' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.temp_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.temp_obs)} ${renderPdfImg(srv.pruebasFijas.temp_foto)}</td>
+                                </tr>
 
                                 <!-- 3. CAPA DE SOFTWARE Y CÁMARAS IP -->
                                 <tr>
