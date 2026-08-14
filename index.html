@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.3</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.3</span>
             </div>
         </div>
     </header>
@@ -143,7 +143,7 @@
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
         <section id="health-dashboard" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-2">
             <div class="flex justify-between items-center">
-                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor </h2>
+                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor (En Vivo)</h2>
                 <span id="health-score-badge" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold">100% Sano</span>
             </div>
             <div id="health-alerts-summary" class="text-[11px] text-slate-300">
@@ -402,7 +402,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes (100 Pings Exactos)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute en CMD:</p>
+                            <p>💡 <strong>Instrucción detallada (Ej: <code class="text-sky-300 font-mono">ping 192.168.10.100 -n 100</code>):</strong> Ejecute en CMD:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -n 100</code>
                         </div>
                         
@@ -453,7 +453,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP (Puerto por Puerto)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
-                            <p>💡 <strong>Comando PowerShell:</strong></p>
+                            <p>💡 <strong>Comando PowerShell (Ej: <code class="text-sky-300 font-mono">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code>):</strong></p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP] -Port [Puerto]</code>
                         </div>
 
@@ -571,6 +571,10 @@
                     <!-- PRUEBA 1.4 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada (Ej: <code class="text-sky-300 font-mono">ping 192.168.10.100 -f -l 1472</code>):</strong> Ejecute en CMD para verificar fragmentación de paquetes:</p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -f -l 1472</code>
+                        </div>
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
