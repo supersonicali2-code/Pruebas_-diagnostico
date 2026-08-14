@@ -12,7 +12,7 @@
             background-color: #122f4a;
             color: #F0F2F5;
         }
-        h1, h2, h3, h4, .font-oswald {
+        h1, h2, h3, h4, h5, .font-oswald {
             font-family: 'Oswald', sans-serif;
             letter-spacing: 0.5px;
         }
@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.1</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.2</span>
             </div>
         </div>
     </header>
@@ -137,13 +137,13 @@
 
         <div class="bg-sky-950/60 border border-sky-500/30 p-3 rounded-xl text-xs text-sky-200 space-y-1">
             <p class="font-bold font-oswald text-sky-300">ℹ️ Instrucciones Generales de Uso:</p>
-            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo mientras escribe. Complete los datos y ejecute las pruebas de descarte.</p>
+            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario, las pruebas eléctricas, de red y de software.</p>
         </div>
 
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
         <section id="health-dashboard" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-2">
             <div class="flex justify-between items-center">
-                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor (En Vivo)</h2>
+                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor </h2>
                 <span id="health-score-badge" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold">100% Sano</span>
             </div>
             <div id="health-alerts-summary" class="text-[11px] text-slate-300">
@@ -204,7 +204,7 @@
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">2. Ficha de Inventario Técnico del Servidor</h2>
-            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria y sistema operativo instalados en el servidor.</p>
+            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria, almacenamiento y sistema de respaldo eléctrico (UPS).</p>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
@@ -250,6 +250,14 @@
                     <input type="text" id="srv-disk-cap" placeholder="Ej: 32 TB (4x8TB)" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div class="col-span-2">
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Sistema de Respaldo Eléctrico (UPS)</label>
+                    <select id="srv-ups" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white font-bold focus:outline-none">
+                        <option value="UPS Individual Monitoreable" selected>UPS Individual Monitoreable</option>
+                        <option value="UPS Central / Sin Monitoreo Directo">UPS Central / Sin Monitoreo Directo</option>
+                        <option value="Sin UPS">Sin UPS</option>
+                    </select>
+                </div>
+                <div class="col-span-2">
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Software / Rol del Sistema Instalado</label>
                     <input type="text" id="srv-software" placeholder="Ej: GV-VMS V18.3.1 / Control Center" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
@@ -261,9 +269,84 @@
             
             <div class="space-y-6 divide-y divide-slate-600">
 
+                <!-- 1. CAPA ELÉCTRICA Y CALIDAD DE ENERGÍA (NUEVA SECCIÓN) -->
                 <div class="space-y-4 pt-0">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-sky-300 font-oswald">🌐 1. CAPA DE RED Y COMUNICACIONES</span>
+                        <span class="text-xs font-bold text-yellow-400 font-oswald">⚡ 1. CAPA ELÉCTRICA Y CALIDAD DE ENERGÍA</span>
+                    </div>
+
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-3">
+                        <h4 class="text-xs font-bold text-slate-200 font-oswald">Prueba 1.0: Mediciones de Voltaje con Multímetro en Tomacorriente</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Mida con un multímetro digital los voltajes en la toma eléctrica del servidor para descartar problemas de neutro flotante o desbalance de fases.</p>
+                            <p class="text-[9px] text-slate-400"><strong>Referencia:</strong> Fase-Neutro (Voltaje nominal esperado), Fase-Tierra (Similar a F-N), Neutro-Tierra (&lt; 2V ideal).</p>
+                        </div>
+
+                        <!-- Medida 1: Fase - Neutro -->
+                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
+                            <span class="text-[10px] font-bold text-sky-300 block">A. Voltaje Fase - Neutro</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[9px] text-slate-300 mb-0.5">Valor Medido (V)</label>
+                                    <input type="text" id="val_volt_fn" placeholder="Ej: 120.5 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
+                                    <div class="grid grid-cols-2 gap-1">
+                                        <label class="status-btn"><input type="radio" name="chk_volt_fn" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_volt_fn" value="ANOMALO" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ANÓMALO</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" id="obs_volt_fn" placeholder="Observaciones Fase-Neutro..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            ${htmlSlotEvidencia()}
+                        </div>
+
+                        <!-- Medida 2: Fase - Tierra -->
+                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
+                            <span class="text-[10px] font-bold text-sky-300 block">B. Voltaje Fase - Tierra</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[9px] text-slate-300 mb-0.5">Valor Medido (V)</label>
+                                    <input type="text" id="val_volt_ft" placeholder="Ej: 120.0 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
+                                    <div class="grid grid-cols-2 gap-1">
+                                        <label class="status-btn"><input type="radio" name="chk_volt_ft" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_volt_ft" value="ANOMALO" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ANÓMALO</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" id="obs_volt_ft" placeholder="Observaciones Fase-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            ${htmlSlotEvidencia()}
+                        </div>
+
+                        <!-- Medida 3: Neutro - Fase / Tierra -->
+                        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
+                            <span class="text-[10px] font-bold text-sky-300 block">C. Voltaje Neutro - Fase (o Neutro - Tierra)</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[9px] text-slate-300 mb-0.5">Valor Medido (V)</label>
+                                    <input type="text" id="val_volt_nf" placeholder="Ej: 0.8 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
+                                    <div class="grid grid-cols-2 gap-1">
+                                        <label class="status-btn"><input type="radio" name="chk_volt_nf" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_volt_nf" value="ANOMALO" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ANÓMALO</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" id="obs_volt_nf" placeholder="Observaciones Neutro-Fase/Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            ${htmlSlotEvidencia()}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-slate-600">
+                    <div class="flex justify-between items-center pb-2">
+                        <span class="text-xs font-bold text-sky-300 font-oswald">🌐 2. CAPA DE RED Y COMUNICACIONES</span>
                     </div>
 
                     <!-- PRUEBA 1.1 -->
@@ -478,16 +561,16 @@
 
                 <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-amber-300 font-oswald">🖥️ 2. CAPA DE HARDWARE FÍSICO</span>
+                        <span class="text-xs font-bold text-amber-300 font-oswald">🖥️ 3. CAPA DE HARDWARE FÍSICO</span>
                     </div>
 
-                    <!-- PRUEBA 2.1 -->
+                    <!-- PRUEBA 2.1 (CON RENDIMIENTO DE ESCRITURA INCLUIDO) -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HARDWARE</span>
                             <button type="button" onclick="crearFilaDisco()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Disco Extra</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T.)</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T. y Rendimiento de Escritura I/O)</h4>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
 
@@ -659,13 +742,13 @@
 
                 <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
-                        <span class="text-xs font-bold text-purple-300 font-oswald">🔧 3. CAPA DE SOFTWARE Y CÁMARAS IP</span>
+                        <span class="text-xs font-bold text-purple-300 font-oswald">🔧 4. CAPA DE SOFTWARE Y CÁMARAS IP</span>
                         <button type="button" onclick="crearFilaCamara()" class="bg-[#E52724] hover:bg-red-600 text-white font-bold text-[10px] px-2.5 py-1.5 rounded transition shadow">
                             ➕ Añadir otra Cámara IP
                         </button>
                     </div>
 
-                    <h4 class="text-xs font-bold text-slate-200 font-oswald pt-1">3.1 Configuración Cámaras IP</h4>
+                    <h4 class="text-xs font-bold text-slate-200 font-oswald pt-1">4.1 Configuración Cámaras IP</h4>
                     <div id="wrapper-camaras" class="space-y-4"></div>
 
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2 mt-4">
@@ -673,7 +756,7 @@
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">SOFTWARE</span>
                             <button type="button" onclick="agregarLogEventoExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log Evento</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 3.2: Log Eventos Aplicativo GeoVision</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 4.2: Log Eventos Aplicativo GeoVision</h4>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -709,11 +792,54 @@
                         <div id="wrapper-sw-db" class="space-y-2 mt-2 w-full"></div>
                     </div>
 
+                    <!-- NUEVA PRUEBA 4.3: EXCLUSIONES DE ANTIVIRUS -->
+                    <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2 mt-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">SOFTWARE</span>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 4.3: Exclusiones de Antivirus / Windows Defender</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Instrucción detallada:</strong> Verifique que las rutas de grabación de GeoVision y sus servicios ejecutables estén excluidos del análisis en tiempo real del antivirus para evitar bloqueos de bases de datos y pérdida de fotogramas (*frame drops*).</p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Rutas de VMS y carpetas de video excluidas correctamente.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <div>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Estatus de Exclusión</label>
+                                <div class="grid grid-cols-2 gap-1">
+                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="CONFIGURADO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="PENDIENTE" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">PENDIENTE</span></label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Antivirus Detectado</label>
+                                <input type="text" id="val_av_name" placeholder="Ej: Windows Defender" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            </div>
+                        </div>
+                        <input type="text" id="obs_av" placeholder="Observaciones de exclusiones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
+                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
+                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                    📷 Cámara
+                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                </label>
+                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                    📁 Galería
+                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                </label>
+                                <input type="hidden" id="b64_av" class="foto-base64-custom">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-3 mt-3">
                         <div>
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">SOFTWARE</span>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald border-b border-slate-700 pb-2">Configuración 3.3: Controladores y Licenciamiento</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald border-b border-slate-700 pb-2">Configuración 4.4: Controladores y Licenciamiento</h4>
 
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
                             <div class="flex items-center justify-between">
@@ -784,7 +910,7 @@
         </section>
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
-            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">📸 4. Evidencia Fotográfica General (Rack/Site)</h2>
+            <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">📸 5. Evidencia Fotográfica General (Rack/Site)</h2>
             <div class="grid grid-cols-2 gap-2 pt-1">
                 <label class="bg-sky-600 hover:bg-sky-500 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.5">
                     <span>📷 Tomar con Cámara</span>
@@ -841,7 +967,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.1</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.2</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1020,19 +1146,26 @@
             let totalChecks = 0;
             let alertasDetectadas = [];
 
-            // Revisar pings principales
+            // Voltajes eléctricos
+            totalChecks += 3;
+            ['fn', 'ft', 'nf'].forEach(v => {
+                const voltSt = document.querySelector(`input[name="chk_volt_${v}"]:checked`);
+                if (voltSt && voltSt.value !== 'ESTABLE') alertasDetectadas.push(`Voltaje ${v.toUpperCase()} anómalo`);
+            });
+
+            // Pings principales
             totalChecks++;
             const pingVal = document.querySelector('input[name="chk_ping_cc"]:checked');
             if (pingVal && pingVal.value !== 'PASA') alertasDetectadas.push("Ping 100 paquetes (Fallo de latencia/pérdida)");
 
-            // Revisar subida / bajada red
+            // Red subida / bajada
             totalChecks += 2;
             const upNet = document.querySelector('input[name="chk_upload_net_status"]:checked');
             if (upNet && upNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Subida Saturado");
             const downNet = document.querySelector('input[name="chk_download_net_status"]:checked');
             if (downNet && downNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Descarga Saturado");
 
-            // Revisar MTU
+            // MTU
             totalChecks++;
             const mtu = document.querySelector('input[name="chk_mtu_status"]:checked');
             if (mtu && mtu.value !== 'ÓPTIMO') alertasDetectadas.push("MTU requiere ajuste");
@@ -1053,14 +1186,14 @@
             const gpuSt = document.querySelector('input[name="chk_gpu_status"]:checked');
             if (gpuSt && gpuSt.value === 'SATURADO') alertasDetectadas.push("GPU / Codec Saturado");
 
-            // Logs críticos / Temperatura / Software
-            totalChecks += 5;
+            // Logs / Temperatura / Exclusión Antivirus
+            totalChecks += 4;
             const logSt = document.querySelector('input[name="chk_event_logs"]:checked');
-            if (logSt && logSt.value !== 'LIMPIO') alertasDetectadas.push("Errores detectados en Visor de Eventos");
+            if (logSt && logSt.value !== 'LIMPIO') alertasDetectadas.push("Errores en Visor de Eventos");
             const tempSt = document.querySelector('input[name="chk_temp_status"]:checked');
             if (tempSt && tempSt.value !== 'NORMAL') alertasDetectadas.push("Alerta de Sobrecalentamiento Térmico");
-            const gvEvSt = document.querySelector('input[name="chk_sw_gv_events"]:checked');
-            if (gvEvSt && gvEvSt.value !== 'CORRECTO') alertasDetectadas.push("Errores en aplicativo GeoVision");
+            const avSt = document.querySelector('input[name="chk_av_status"]:checked');
+            if (avSt && avSt.value !== 'CONFIGURADO') alertasDetectadas.push("Exclusiones de Antivirus pendientes");
             const licSt = document.querySelector('input[name="chk_lic_status"]:checked');
             if (licSt && licSt.value !== 'CORRECTO') alertasDetectadas.push("Incidencia en Licenciamiento");
 
@@ -1071,7 +1204,7 @@
             if (alertasDetectadas.length === 0) {
                 badge.className = "bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold";
                 badge.innerText = `${score}% Sano`;
-                summary.innerHTML = "<span class='text-emerald-400 font-semibold'>✔ Sin alertas críticas. Todos los parámetros evaluados operan dentro de los rangos óptimos.</span>";
+                summary.innerHTML = "<span class='text-emerald-400 font-semibold'>✔ Sin alertas críticas. Todos los parámetros eléctricos, de red y hardware operan correctamente.</span>";
             } else if (score >= 70) {
                 badge.className = "bg-amber-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold";
                 badge.innerText = `${score}% Precaución`;
@@ -1102,15 +1235,16 @@
                 srvGpu: document.getElementById('srv-gpu').value,
                 srvDiskQty: document.getElementById('srv-disk-qty').value,
                 srvDiskCap: document.getElementById('srv-disk-cap').value,
+                srvUps: document.getElementById('srv-ups').value,
                 srvSoftware: document.getElementById('srv-software').value,
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v3', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v3_2', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v3');
+            const saved = localStorage.getItem('geovision_diag_autosave_v3_2');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1129,6 +1263,7 @@
                 if (data.srvGpu) document.getElementById('srv-gpu').value = data.srvGpu;
                 if (data.srvDiskQty) document.getElementById('srv-disk-qty').value = data.srvDiskQty;
                 if (data.srvDiskCap) document.getElementById('srv-disk-cap').value = data.srvDiskCap;
+                if (data.srvUps) document.getElementById('srv-ups').value = data.srvUps;
                 if (data.srvSoftware) document.getElementById('srv-software').value = data.srvSoftware;
                 if (Array.isArray(data.colaServidores)) {
                     backendColaServidores = data.colaServidores;
@@ -1146,7 +1281,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
-                localStorage.removeItem('geovision_diag_autosave_v3');
+                localStorage.removeItem('geovision_diag_autosave_v3_2');
                 location.reload();
             }
         }
@@ -1760,6 +1895,7 @@
             return resultado;
         }
 
+        // PLANTILLA DE DISCO CON RENDIMIENTO DE ESCRITURA I/O AÑADIDO
         function getDiskTemplate(id, isRemovable) {
             let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('disk_item_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
             return `
@@ -1768,9 +1904,9 @@
                     <span class="text-[10px] font-bold text-amber-300 disk-title">Disco Físico #${id}</span>
                     ${btnRemover}
                 </div>
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="text-[9px] text-slate-300 block mb-0.5">Ref</label>
+                        <label class="text-[9px] text-slate-300 block mb-0.5">Ref / Marca</label>
                         <input type="text" class="disk-ref w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="WD Purple">
                     </div>
                     <div>
@@ -1780,6 +1916,10 @@
                     <div>
                         <label class="text-[9px] text-slate-300 block mb-0.5">Serial</label>
                         <input type="text" class="disk-serial w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="S/N...">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-slate-300 block mb-0.5">Escritura I/O (MB/s)</label>
+                        <input type="text" class="disk-write-speed w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 150 MB/s">
                     </div>
                 </div>
                 <div class="flex items-center justify-between pt-1">
@@ -1810,6 +1950,7 @@
                     ref: item.querySelector('.disk-ref').value || 'N/R',
                     cap: item.querySelector('.disk-cap').value || 'N/R',
                     serial: item.querySelector('.disk-serial').value || 'N/R',
+                    writeSpeed: item.querySelector('.disk-write-speed').value || 'N/R',
                     status: item.querySelector('input[type="radio"]:checked').value,
                     obs: item.querySelector('.disk-obs').value || '-',
                     foto: item.querySelector('.foto-base64-custom') ? item.querySelector('.foto-base64-custom').value : ''
@@ -1825,7 +1966,6 @@
             document.getElementById('wrapper-discos').innerHTML = getDiskTemplate(contadorDiscos, false);
             crearFilaPuerto();
             
-            // Cargar datos autoguardados si existen
             cargarProgresoLocal();
         });
 
@@ -1849,11 +1989,27 @@
                 gpu: document.getElementById('srv-gpu').value || 'No Especifica',
                 disk_qty: document.getElementById('srv-disk-qty').value || '0',
                 disk_cap: document.getElementById('srv-disk-cap').value || 'No Especifica',
+                ups: document.getElementById('srv-ups').value || 'No Especifica',
                 software: document.getElementById('srv-software').value || 'No Especifica',
                 timestamp: new Date().toLocaleString('es-CO'),
                 modoReporte: modoActual,
 
                 pruebasFijas: {
+                    volt_fn_val: document.getElementById('val_volt_fn').value || 'N/R',
+                    volt_fn_status: document.querySelector('input[name="chk_volt_fn"]:checked').value,
+                    volt_fn_obs: document.getElementById('obs_volt_fn').value || '-',
+                    volt_fn_foto: document.querySelector('#obs_volt_fn').closest('.bg-\\[\\#122f4a\\]').querySelector('.foto-base64-custom') ? document.querySelector('#obs_volt_fn').closest('.bg-\\[\\#122f4a\\]').querySelector('.foto-base64-custom').value : '',
+
+                    volt_ft_val: document.getElementById('val_volt_ft').value || 'N/R',
+                    volt_ft_status: document.querySelector('input[name="chk_volt_ft"]:checked').value,
+                    volt_ft_obs: document.getElementById('obs_volt_ft').value || '-',
+                    volt_ft_foto: document.querySelector('#obs_volt_ft').closest('.bg-\\[\\#122f4a\\]').querySelector('.foto-base64-custom') ? document.querySelector('#obs_volt_ft').closest('.bg-\\[\\#122f4a\\]').querySelector('.foto-base64-custom').value : '',
+
+                    volt_nf_val: document.getElementById('val_volt_nf').value || 'N/R',
+                    volt_nf_status: document.querySelector('input[name="chk_volt_nf"]:checked').value,
+                    volt_nf_obs: document.getElementById('obs_volt_nf').value || '-',
+                    volt_nf_foto: document.querySelector('#obs_volt_nf').closest('.bg-\\[\\#122f4a\\]').querySelector('.foto-base64-custom') ? document.querySelector('#obs_volt_nf').closest('.bg-\\[\\#122f4a\\]').querySelector('.foto-base64-custom').value : '',
+
                     ping_cc_status: document.querySelector('input[name="chk_ping_cc"]:checked').value,
                     ping_lat: document.getElementById('val_ping_lat').value || 'N/R',
                     ping_loss: document.getElementById('val_ping_loss').value || 'N/R',
@@ -1911,6 +2067,11 @@
                     sw_core_obs: document.getElementById('obs_software_core').value || '-',
                     sw_core_foto: document.getElementById('b64_sw_core') ? document.getElementById('b64_sw_core').value : '',
                     sw_gv_extras: extraerLogEventosExtra(),
+
+                    av_status: document.querySelector('input[name="chk_av_status"]:checked').value,
+                    av_name: document.getElementById('val_av_name').value || 'N/R',
+                    av_obs: document.getElementById('obs_av').value || '-',
+                    av_foto: document.getElementById('b64_av') ? document.getElementById('b64_av').value : '',
 
                     sw_ctrl_status: document.querySelector('input[name="chk_sw_ctrl"]:checked').value,
                     sw_ctrl_obs: document.getElementById('obs_sw_ctrl').value || '-',
@@ -2050,7 +2211,7 @@
                     if (srv.pruebasFijas.ping_extras && srv.pruebasFijas.ping_extras.length > 0) {
                         srv.pruebasFijas.ping_extras.forEach(pe => {
                             extraPingsHtml += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1.1 Ping Adicional</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ping Adicional</strong></td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(pe.lat)} | Pérdida: ${escaparHTML(pe.loss)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${pe.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(pe.status)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(pe.obs)} ${renderPdfImg(pe.foto)}</td>
@@ -2062,7 +2223,7 @@
                     if (srv.pruebasFijas.extraInterfaces && srv.pruebasFijas.extraInterfaces.length > 0) {
                         srv.pruebasFijas.extraInterfaces.forEach(ei => {
                             extraInterfacesHtml += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.3 Interfaz Red Extra</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Interfaz Red Extra</strong></td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(ei.name)} (${escaparHTML(ei.type)}) - ${escaparHTML(ei.speed)}<br>Subida: ${escaparHTML(ei.upload)} | Bajada: ${escaparHTML(ei.download)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; background-color: #f8fafc;">RED</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">Interfaz adicional registrada</td>
@@ -2072,8 +2233,8 @@
 
                     let discosHtml = srv.discosFisicos.map((d, i) => `
                         <tr>
-                            <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.1 Disco Físico #${i+1}</strong></td>
-                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)} | SN: ${escaparHTML(d.serial)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Disco Físico #${i+1}</strong></td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}<br>SN: ${escaparHTML(d.serial)} | Escritura: ${escaparHTML(d.writeSpeed)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${escaparHTML(d.status)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(d.obs)} ${renderPdfImg(d.foto)}</td>
                         </tr>
@@ -2093,73 +2254,6 @@
                         </tr>
                     `).join('');
 
-                    let extraLogsCriticos = '';
-                    if (srv.pruebasFijas.log_critico_extras && srv.pruebasFijas.log_critico_extras.length > 0) {
-                        srv.pruebasFijas.log_critico_extras.forEach(lce => {
-                            extraLogsCriticos += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.3 Log Crítico Adicional</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Filtro: ${escaparHTML(lce.val)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${lce.status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(lce.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(lce.obs)} ${renderPdfImg(lce.foto)}</td>
-                            </tr>`;
-                        });
-                    }
-
-                    let extraTempsHtml = '';
-                    if (srv.pruebasFijas.temp_extras && srv.pruebasFijas.temp_extras.length > 0) {
-                        srv.pruebasFijas.temp_extras.forEach(te => {
-                            extraTempsHtml += `<br>${escaparHTML(te.label)}: ${escaparHTML(te.val)}`;
-                        });
-                    }
-
-                    let extraSwLogs = '';
-                    if (srv.pruebasFijas.sw_gv_extras && srv.pruebasFijas.sw_gv_extras.length > 0) {
-                        srv.pruebasFijas.sw_gv_extras.forEach(sve => {
-                            extraSwLogs += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.2 Log Evento Adicional</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(sve.val)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sve.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sve.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sve.obs)} ${renderPdfImg(sve.foto)}</td>
-                            </tr>`;
-                        });
-                    }
-
-                    let extraCtrl = '';
-                    if (srv.pruebasFijas.sw_ctrl_extras && srv.pruebasFijas.sw_ctrl_extras.length > 0) {
-                        srv.pruebasFijas.sw_ctrl_extras.forEach(sce => {
-                            extraCtrl += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Controlador Extra</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Verificación adicional</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sce.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sce.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sce.obs)} ${renderPdfImg(sce.foto)}</td>
-                            </tr>`;
-                        });
-                    }
-
-                    let extraUpd = '';
-                    if (srv.pruebasFijas.sw_upd_extras && srv.pruebasFijas.sw_upd_extras.length > 0) {
-                        srv.pruebasFijas.sw_upd_extras.forEach(sue => {
-                            extraUpd += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Actualización Extra</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Drivers / Software</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sue.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sue.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sue.obs)} ${renderPdfImg(sue.foto)}</td>
-                            </tr>`;
-                        });
-                    }
-
-                    let extraLic = '';
-                    if (srv.pruebasFijas.lic_extras && srv.pruebasFijas.lic_extras.length > 0) {
-                        srv.pruebasFijas.lic_extras.forEach(sle => {
-                            extraLic += `<tr>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Licenciamiento Extra</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Modo: ${escaparHTML(sle.type)} | ${escaparHTML(sle.name)} (${escaparHTML(sle.num)})</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sle.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sle.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sle.obs)} ${renderPdfImg(sle.foto)}</td>
-                            </tr>`;
-                        });
-                    }
-
                     seccionMatrizFallasHtml = `
                         <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-top: 10px; margin-bottom: 4px; border-left: 3px solid #E52724; padding-left: 5px;">II. MATRIZ DE DESCARTE DE FALLAS Y PRUEBAS</div>
                         <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
@@ -2172,86 +2266,98 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Capa Eléctrica -->
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1 Ping (100 Pings)</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Fase - Neutro</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.volt_fn_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.volt_fn_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.volt_fn_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_fn_obs)} ${renderPdfImg(srv.pruebasFijas.volt_fn_foto)}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Fase - Tierra</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.volt_ft_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.volt_ft_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.volt_ft_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_ft_obs)} ${renderPdfImg(srv.pruebasFijas.volt_ft_foto)}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Neutro - Fase/Tierra</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.volt_nf_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.volt_nf_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.volt_nf_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_nf_obs)} ${renderPdfImg(srv.pruebasFijas.volt_nf_foto)}</td>
+                                </tr>
+
+                                <!-- Red -->
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ping (100 Pings)</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(srv.pruebasFijas.ping_lat)}<br>Pérdida: ${escaparHTML(srv.pruebasFijas.ping_loss)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.ping_cc_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ping_cc_obs)} ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}</td>
                                 </tr>
                                 ${extraPingsHtml}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.2 Sockets TCP</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Sockets TCP</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${extraPortsHtml}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold;">SOCKETS</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ports_obs)} ${renderPdfImg(srv.pruebasFijas.ports_foto)}</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.3 Ancho de Banda</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ancho de Banda</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.netName)} (${escaparHTML(srv.pruebasFijas.netType)}) - ${escaparHTML(srv.pruebasFijas.netSpeed)}<br>Subida: ${escaparHTML(srv.pruebasFijas.net_upload_val)} | Bajada: ${escaparHTML(srv.pruebasFijas.net_download_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; background-color: #f8fafc;">RED OK</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.red_global_obs)} ${renderPdfImg(srv.pruebasFijas.red_global_foto)}</td>
                                 </tr>
                                 ${extraInterfacesHtml}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.4 Verificación MTU</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Verificación MTU</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">MTU: ${escaparHTML(srv.pruebasFijas.mtu_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.mtu_status === 'ÓPTIMO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.mtu_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.mtu_obs)} ${renderPdfImg(srv.pruebasFijas.mtu_foto)}</td>
                                 </tr>
 
+                                <!-- Hardware -->
                                 ${discosHtml}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.2 Stress Hardware</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Stress Hardware</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.cpu_pct)} | RAM: ${escaparHTML(srv.pruebasFijas.ram_pct)} | GPU: ${escaparHTML(srv.pruebasFijas.gpu_pct)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.cpu_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.cpu_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.hw_stress_obs)} ${renderPdfImg(srv.pruebasFijas.hw_stress_foto)}</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.3 Logs Críticos</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Logs Críticos</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Base: ${escaparHTML(srv.pruebasFijas.event_logs_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.event_logs_status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.event_logs_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.event_logs_obs)} ${renderPdfImg(srv.pruebasFijas.event_logs_foto)}</td>
                                 </tr>
-                                ${extraLogsCriticos}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.4 Temp. Hardware</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.temp_cpu)}<br>GPU: ${escaparHTML(srv.pruebasFijas.temp_gpu)}<br>HDD: ${escaparHTML(srv.pruebasFijas.temp_hdd)}${extraTempsHtml}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Temp. Hardware</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.temp_cpu)} | GPU: ${escaparHTML(srv.pruebasFijas.temp_gpu)} | HDD: ${escaparHTML(srv.pruebasFijas.temp_hdd)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.temp_status === 'NORMAL' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.temp_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.temp_obs)} ${renderPdfImg(srv.pruebasFijas.temp_foto)}</td>
                                 </tr>
 
+                                <!-- Software -->
                                 <tr>
-                                    <td colspan="4" style="background-color: #f3e8ff; color: #7e22ce; font-weight: bold; padding: 5px; border: 1px solid #cbd5e1; font-size: 9px;">3.1 Configuración Cámaras IP</td>
+                                    <td colspan="4" style="background-color: #f3e8ff; color: #7e22ce; font-weight: bold; padding: 5px; border: 1px solid #cbd5e1; font-size: 9px;">Configuración Cámaras IP</td>
                                 </tr>
                                 ${camarasHtml}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.2 Log Eventos GeoVision</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Log Eventos GeoVision</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.sw_gv_events_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_gv_events_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_gv_events_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_core_obs)} ${renderPdfImg(srv.pruebasFijas.sw_core_foto)}</td>
                                 </tr>
-                                ${extraSwLogs}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Controladores</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Verificación de Controladores</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_ctrl_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_ctrl_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_ctrl_obs)} ${renderPdfImg(srv.pruebasFijas.sw_ctrl_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Exclusiones Antivirus</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Antivirus: ${escaparHTML(srv.pruebasFijas.av_name)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.av_status === 'CONFIGURADO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.av_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.av_obs)} ${renderPdfImg(srv.pruebasFijas.av_foto)}</td>
                                 </tr>
-                                ${extraCtrl}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Actualización</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Actualización de Drivers/Software</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_upd_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_upd_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_upd_obs)} ${renderPdfImg(srv.pruebasFijas.sw_upd_foto)}</td>
-                                </tr>
-                                ${extraUpd}
-                                <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Licenciamiento</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Licenciamiento</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.lic_type)} | ${escaparHTML(srv.pruebasFijas.lic_name)} (${escaparHTML(srv.pruebasFijas.lic_num)})</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.lic_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.lic_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.lic_obs)} ${renderPdfImg(srv.pruebasFijas.lic_foto)}</td>
                                 </tr>
-                                ${extraLic}
                             </tbody>
                         </table>
                     `;
@@ -2280,8 +2386,12 @@
                         <tr>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>CPU / RAM:</strong></td>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.cpu)} / ${escaparHTML(srv.ram)}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Respaldo UPS:</strong></td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.ups)}</td>
+                        </tr>
+                        <tr>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Almacenamiento:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.disk_cap)} (${escaparHTML(srv.disk_qty)} discos)</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;" colspan="3">${escaparHTML(srv.disk_cap)} (${escaparHTML(srv.disk_qty)} discos)</td>
                         </tr>
                     </table>
 
