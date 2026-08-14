@@ -126,7 +126,7 @@
                 <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.5</span>
+            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v2.6</span>
         </div>
     </header>
 
@@ -196,7 +196,7 @@
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
-                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Nombre del Servidor</label>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Identificador del Servidor</label>
                     <input type="text" id="srv-name" placeholder="Ej: Servidor NVR No. 1" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
@@ -212,7 +212,7 @@
                     <input type="text" id="srv-brand" placeholder="Ej: Dell PowerEdge T350" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Service Tag</label>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Serial Físico / Service Tag</label>
                     <input type="text" id="srv-serial" placeholder="Código único de chasis" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
                 <div class="col-span-2 border-t border-slate-600 pt-1"></div>
@@ -464,7 +464,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Con el VMS reproduciendo canales en vivo, abra el **Administrador de tareas** (pestaña Procesos/Rendimiento) para validar que el consumo sostenido de CPU, Memoria RAM y GPU no sature el equipo provocando pérdida de fotogramas.</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Con el VMS reproduciendo canales en vivo, abra el <strong>Administrador de tareas</strong> (pestaña Procesos/Rendimiento) para validar que el consumo sostenido de CPU, Memoria RAM y GPU no sature el equipo provocando pérdida de fotogramas.</p>
                         </div>
 
                         <div class="space-y-3 pt-1">
@@ -536,7 +536,7 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Abra el **Visor de eventos** (<code class="text-sky-300 font-mono">eventvwr.msc</code>) > Registros de Windows > **Sistema** y **Aplicación**. Busque errores críticos de Kernel-Power (ID 41), fallas de controladores gráficos o errores de disco.</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Abra el <strong>Visor de eventos</strong> (<code class="text-sky-300 font-mono">eventvwr.msc</code>) > Registros de Windows > <strong>Sistema</strong> y <strong>Aplicación</strong>. Busque errores críticos de Kernel-Power (ID 41), fallas de controladores gráficos o errores de disco.</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -584,7 +584,7 @@
 
                     <h4 class="text-xs font-bold text-slate-200 font-oswald pt-1">3.1 Configuración Cámaras IP</h4>
                     <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                        <p>💡 <strong>Instrucción detallada:</strong> Valide perfiles de video principales y secundarios (Stream Principal y Sub-stream H.264/H.265), asegurando que la decodificación en el VMS sea fluida y sin artefactos visuales.</p>
+                        <p>💡 <strong>Instrucción detallada:</strong> Configure de forma independiente el Codec, Resolución, FPS y GOP (I-Key) para el Stream Principal y el Stream Secundario de cada canal.</p>
                     </div>
 
                     <div id="wrapper-camaras" class="space-y-4"></div>
@@ -806,7 +806,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.5</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.6</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1385,15 +1385,62 @@
                         <label class="block text-[9px] text-slate-300 mb-0.5">Dirección IP</label>
                         <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-300 mb-0.5">Stream Principal</label>
-                        <input type="text" placeholder="Ej: H.264 / 1080p / 30fps" class="cam-stream-main w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+
+                    <!-- STREAM PRINCIPAL (INDEPENDIENTE) -->
+                    <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
+                        <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Principal (Main Stream)</span>
+                        <div class="grid grid-cols-4 gap-1.5">
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">Codec</label>
+                                <select class="cam-main-codec w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
+                                    <option value="H.264" selected>H.264</option>
+                                    <option value="H.265">H.265</option>
+                                    <option value="MJPEG">MJPEG</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">Resolución</label>
+                                <input type="text" placeholder="1080p" class="cam-main-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">FPS</label>
+                                <input type="text" placeholder="30" class="cam-main-fps w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">GOP / I-Key</label>
+                                <input type="text" placeholder="30" class="cam-main-gop w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-[9px] text-slate-300 mb-0.5">Stream Secundario (Sub)</label>
-                        <input type="text" placeholder="Ej: H.264 / D1 / 15fps" class="cam-stream-sub w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+
+                    <!-- STREAM SECUNDARIO (INDEPENDIENTE) -->
+                    <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
+                        <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Secundario (Sub Stream)</span>
+                        <div class="grid grid-cols-4 gap-1.5">
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">Codec</label>
+                                <select class="cam-sub-codec w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
+                                    <option value="H.264" selected>H.264</option>
+                                    <option value="H.265">H.265</option>
+                                    <option value="MJPEG">MJPEG</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">Resolución</label>
+                                <input type="text" placeholder="D1 / 720p" class="cam-sub-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">FPS</label>
+                                <input type="text" placeholder="15" class="cam-sub-fps w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">GOP / I-Key</label>
+                                <input type="text" placeholder="15" class="cam-sub-gop w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800 text-xs">
                     <span class="text-[9px] font-bold text-sky-300">Estatus Conectividad:</span>
                     <div class="grid grid-cols-2 gap-1 w-[50%]">
@@ -1449,8 +1496,14 @@
                     loc: item.querySelector('.cam-loc').value || 'N/R',
                     brand: item.querySelector('.cam-brand').value || 'GeoVision',
                     ip: item.querySelector('.cam-ip').value || 'N/R',
-                    streamMain: item.querySelector('.cam-stream-main').value || 'N/R',
-                    streamSub: item.querySelector('.cam-stream-sub').value || 'N/R',
+                    mainCodec: item.querySelector('.cam-main-codec').value,
+                    mainRes: item.querySelector('.cam-main-res').value || 'N/R',
+                    mainFps: item.querySelector('.cam-main-fps').value || 'N/R',
+                    mainGop: item.querySelector('.cam-main-gop').value || 'N/R',
+                    subCodec: item.querySelector('.cam-sub-codec').value,
+                    subRes: item.querySelector('.cam-sub-res').value || 'N/R',
+                    subFps: item.querySelector('.cam-sub-fps').value || 'N/R',
+                    subGop: item.querySelector('.cam-sub-gop').value || 'N/R',
                     pingStatus: pingRadio ? pingRadio.value : 'CORRECTO',
                     status: statusRadio ? statusRadio.value : 'PASA',
                     obs: item.querySelector('.cam-obs').value || '-',
@@ -1726,7 +1779,9 @@
                         <tr>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; color: #7e22ce;"><strong>[CÁMARA #${escaparHTML(c.channel)}]</strong><br>${escaparHTML(c.name)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; font-size: 7.5px;">
-                                Ubicación: ${escaparHTML(c.loc)}<br>IP: ${escaparHTML(c.ip)}<br>Main: ${escaparHTML(c.streamMain)}<br>Sub: ${escaparHTML(c.streamSub)}
+                                Ubicación: ${escaparHTML(c.loc)} | IP: ${escaparHTML(c.ip)}<br>
+                                <strong>Main:</strong> ${escaparHTML(c.mainCodec)} / ${escaparHTML(c.mainRes)} / ${escaparHTML(c.mainFps)}fps / GOP: ${escaparHTML(c.mainGop)}<br>
+                                <strong>Sub:</strong> ${escaparHTML(c.subCodec)} / ${escaparHTML(c.subRes)} / ${escaparHTML(c.subFps)}fps / GOP: ${escaparHTML(c.subGop)}
                             </td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(c.status)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(c.obs)} ${renderPdfImg(c.fotoGen)}</td>
