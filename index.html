@@ -118,7 +118,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen pb-24">
+<body class="min-h-screen pb-24" oninput="dispararAutoguardado()" onchange="dispararAutoguardado()">
 
     <header class="bg-[#2B4763] border-b border-slate-700 p-4 sticky top-0 z-50 shadow-lg">
         <div class="max-w-md mx-auto flex justify-between items-center">
@@ -126,7 +126,10 @@
                 <h1 class="text-sm font-bold text-sky-400 leading-snug font-oswald">Diagnóstico e Inventario para servidores Geovision</h1>
                 <p class="text-[11px] text-slate-300">GeoVision de Colombia S.A.S.</p>
             </div>
-            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap ml-2">v3.0</span>
+            <div class="flex items-center space-x-2">
+                <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.1</span>
+            </div>
         </div>
     </header>
 
@@ -134,8 +137,19 @@
 
         <div class="bg-sky-950/60 border border-sky-500/30 p-3 rounded-xl text-xs text-sky-200 space-y-1">
             <p class="font-bold font-oswald text-sky-300">ℹ️ Instrucciones Generales de Uso:</p>
-            <p class="text-[11px] text-slate-300">Complete los datos de ubicación, configure la ficha técnica del servidor y ejecute cada prueba siguiendo los parámetros de descarte de fallas de GeoVision de Colombia.</p>
+            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo mientras escribe. Complete los datos y ejecute las pruebas de descarte.</p>
         </div>
+
+        <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
+        <section id="health-dashboard" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-2">
+            <div class="flex justify-between items-center">
+                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor (En Vivo)</h2>
+                <span id="health-score-badge" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold">100% Sano</span>
+            </div>
+            <div id="health-alerts-summary" class="text-[11px] text-slate-300">
+                Sin alertas críticas detectadas. Complete las pruebas para actualizar el diagnóstico.
+            </div>
+        </section>
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">1. Información de Cuentas y Ubicación</h2>
@@ -252,7 +266,7 @@
                         <span class="text-xs font-bold text-sky-300 font-oswald">🌐 1. CAPA DE RED Y COMUNICACIONES</span>
                     </div>
 
-                    <!-- PRUEBA 1.1: LATENCIA Y PÉRDIDA INDEPENDIENTES -->
+                    <!-- PRUEBA 1.1 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
@@ -260,18 +274,17 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes (100 Pings Exactos)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Abra la consola de comandos (CMD) y ejecute exactamente 100 pings continuos para medir estabilidad:</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute en CMD:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -n 100</code>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> 0% de pérdida de paquetes y latencia promedio menor a 10 ms en red local.</p>
                         </div>
                         
                         <div class="grid grid-cols-3 gap-2 pt-1">
                             <div>
-                                <label class="block text-[10px] text-slate-300 mb-0.5">Velocidad / Latencia</label>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Latencia</label>
                                 <input type="text" id="val_ping_lat" placeholder="Ej: 3 ms" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[10px] text-slate-300 mb-0.5">% Pérdida Paquetes</label>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">% Pérdida</label>
                                 <input type="text" id="val_ping_loss" placeholder="Ej: 0%" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
@@ -312,8 +325,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP (Puerto por Puerto)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
-                            <p>💡 <strong>Instrucción y Comando detallado:</strong> Verifique de forma individual cada puerto crítico de GeoVision usando PowerShell:</p>
-                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP_Servidor] -Port [Puerto]</code>
+                            <p>💡 <strong>Comando PowerShell:</strong></p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP] -Port [Puerto]</code>
                         </div>
 
                         <div class="mb-2">
@@ -351,10 +364,7 @@
                             <button type="button" onclick="crearFilaInterfaz()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Interfaz</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.3: Inspección de Ancho de Banda y Saturación de Red</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
-                            <p>💡 <strong>Instrucción detallada:</strong> Abra el <strong>Administrador de tareas</strong> (Rendimiento > Ethernet) y el <strong>Monitor de recursos</strong> (<code class="text-sky-300 font-mono">resmon</code>) para validar el tráfico de red.</p>
-                        </div>
-
+                        
                         <div class="space-y-2 mb-2">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Nombre de la Interfaz</label>
@@ -383,7 +393,7 @@
                         <div class="space-y-3 pt-1">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-300">Carga / Subida (Envío)</label>
+                                    <label class="block text-[10px] text-slate-300">Carga / Subida</label>
                                     <input type="text" id="val_net_upload" placeholder="Ej: 95 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
@@ -397,7 +407,7 @@
 
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-300">Descarga / Bajada (Recepción)</label>
+                                    <label class="block text-[10px] text-slate-300">Descarga / Bajada</label>
                                     <input type="text" id="val_net_download" placeholder="Ej: 320 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
@@ -430,21 +440,13 @@
                         </div>
                     </div>
 
-                    <!-- PRUEBA 1.4: VERIFICACIÓN DE MTU -->
+                    <!-- PRUEBA 1.4 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
-                        </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Para verificar si hay pérdida de paquetes por tamaño de paquete (MTU) sin fragmentación, ejecute en CMD:</p>
-                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -f -l 1472</code>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Si responde con éxito, el MTU de 1500 es óptimo. Si indica que el paquete necesita fragmentarse, ajuste el valor del MTU en la red.</p>
-                        </div>
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
-                                <input type="text" id="val_mtu" placeholder="Ej: 1500 (Sin fragmentación)" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                <input type="text" id="val_mtu" placeholder="Ej: 1500" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
@@ -486,9 +488,6 @@
                             <button type="button" onclick="crearFilaDisco()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Disco Extra</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T.)</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute CrystalDiskInfo o revise el estado de salud de cada disco duro en el Administrador de Discos.</p>
-                        </div>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
 
@@ -499,14 +498,11 @@
                             <button type="button" onclick="agregarGpuExtra()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir GPU Extra</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Con el VMS reproduciendo canales en vivo, abra el <strong>Administrador de tareas</strong> para validar consumo.</p>
-                        </div>
 
                         <div class="space-y-3 pt-1">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-300">Uso CPU Sostenido (%)</label>
+                                    <label class="block text-[10px] text-slate-300">Uso CPU (%)</label>
                                     <input type="text" id="val_cpu_pct" placeholder="Ej: 45%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
@@ -519,7 +515,7 @@
 
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-300">Uso Memoria RAM (%)</label>
+                                    <label class="block text-[10px] text-slate-300">Uso RAM (%)</label>
                                     <input type="text" id="val_ram_pct" placeholder="Ej: 62%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
@@ -532,7 +528,7 @@
 
                             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
-                                    <label class="block text-[10px] text-slate-300">Uso GPU / Codec (%)</label>
+                                    <label class="block text-[10px] text-slate-300">Uso GPU (%)</label>
                                     <input type="text" id="val_gpu_pct" placeholder="Ej: 80%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
@@ -571,9 +567,6 @@
                             <button type="button" onclick="agregarLogCriticoExtra()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Abra el <strong>Visor de eventos</strong> (<code class="text-sky-300 font-mono">eventvwr.msc</code>) > Registros de Windows > <strong>Sistema</strong>.</p>
-                        </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -609,17 +602,13 @@
                         <div id="wrapper-hw-logs" class="space-y-2 mt-2 w-full"></div>
                     </div>
 
-                    <!-- PRUEBA 2.4: MONITOREO DE TEMPERATURA -->
+                    <!-- PRUEBA 2.4 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HARDWARE</span>
                             <button type="button" onclick="agregarTemperaturaExtra()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Medida Extra</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.4: Monitoreo de Temperatura de Hardware</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción y Aplicativo sugerido:</strong> Utilice herramientas como <strong>Open Hardware Monitor</strong> o <strong>HWMonitor</strong> para registrar la temperatura de cada componente.</p>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> CPU/GPU &lt; 75°C y Discos &lt; 50°C en operación continua.</p>
-                        </div>
                         
                         <div class="space-y-2 pt-1">
                             <div class="grid grid-cols-2 gap-2">
@@ -634,11 +623,11 @@
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block text-[10px] text-slate-300 mb-0.5">Temp. Discos / HDD (°C)</label>
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Temp. Discos (°C)</label>
                                     <input type="text" id="val_temp_hdd" placeholder="Ej: 38°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Térmico Global</label>
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Térmico</label>
                                     <div class="grid grid-cols-2 gap-1 pt-0.5">
                                         <label class="status-btn"><input type="radio" name="chk_temp_status" value="NORMAL" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">NORMAL</span></label>
                                         <label class="status-btn"><input type="radio" name="chk_temp_status" value="SOBRECALENTAMIENTO" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ALERTA</span></label>
@@ -648,8 +637,7 @@
                         </div>
 
                         <div id="wrapper-temp-extra" class="space-y-2 mt-2 w-full"></div>
-
-                        <input type="text" id="obs_temp" placeholder="Observaciones térmicas adicionales..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_temp" placeholder="Observaciones térmicas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
                         <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
@@ -678,10 +666,6 @@
                     </div>
 
                     <h4 class="text-xs font-bold text-slate-200 font-oswald pt-1">3.1 Configuración Cámaras IP</h4>
-                    <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                        <p>💡 <strong>Instrucción detallada:</strong> Seleccione el protocolo de conexión (IP, RTSP u ONVIF) y configure de forma independiente el Codec, Resolución, FPS y GOP (I-Key).</p>
-                    </div>
-
                     <div id="wrapper-camaras" class="space-y-4"></div>
 
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2 mt-4">
@@ -690,13 +674,10 @@
                             <button type="button" onclick="agregarLogEventoExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log Evento</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 3.2: Log Eventos Aplicativo GeoVision</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Revise los logs internos del software GeoVision.</p>
-                        </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
-                                <label class="block text-[10px] text-slate-300 mb-0.5">Eventos de Sistema GeoVision</label>
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Eventos de Sistema</label>
                                 <input type="text" id="val_event_gv" placeholder="Ej: Sin errores" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
@@ -736,7 +717,7 @@
 
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
                             <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-bold text-slate-300">Controladores (Verificación)</span>
+                                <span class="text-[10px] font-bold text-slate-300">Controladores</span>
                                 <div class="flex items-center space-x-2">
                                     <div class="grid grid-cols-2 gap-1 w-[100px]">
                                         <label class="status-btn"><input type="radio" name="chk_sw_ctrl" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
@@ -746,28 +727,12 @@
                                 </div>
                             </div>
                             <input type="text" id="obs_sw_ctrl" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_sw_ctrl" class="foto-base64-custom">
-                                </div>
-                            </div>
                             <div id="wrapper-extra-ctrl" class="space-y-2 mt-2"></div>
                         </div>
 
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
                             <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-bold text-slate-300">Actualización de Controladores</span>
+                                <span class="text-[10px] font-bold text-slate-300">Actualización de Drivers</span>
                                 <div class="flex items-center space-x-2">
                                     <div class="grid grid-cols-2 gap-1 w-[100px]">
                                         <label class="status-btn"><input type="radio" name="chk_sw_upd" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
@@ -777,22 +742,6 @@
                                 </div>
                             </div>
                             <input type="text" id="obs_sw_upd" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_sw_upd" class="foto-base64-custom">
-                                </div>
-                            </div>
                             <div id="wrapper-extra-upd" class="space-y-2 mt-2"></div>
                         </div>
 
@@ -821,26 +770,10 @@
                                 </div>
                                 <div class="col-span-2">
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Número de Licencia / Serial</label>
-                                    <input type="text" id="val_lic_num" placeholder="Ej: SN-99887766" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
+                                    <input type="text" id="val_lic_num" placeholder="SN-..." class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                                 </div>
                             </div>
                             <input type="text" id="obs_lic" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                            
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_lic" class="foto-base64-custom">
-                                </div>
-                            </div>
                             <div id="wrapper-extra-lic" class="space-y-2 mt-2"></div>
                         </div>
 
@@ -852,8 +785,6 @@
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">📸 4. Evidencia Fotográfica General (Rack/Site)</h2>
-            <p class="text-[10px] text-slate-300">Instrucción: Adjunte fotografías generales del montaje físico, cableado del rack o vista del sitio de instalación.</p>
-            
             <div class="grid grid-cols-2 gap-2 pt-1">
                 <label class="bg-sky-600 hover:bg-sky-500 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.5">
                     <span>📷 Tomar con Cámara</span>
@@ -864,7 +795,6 @@
                     <input type="file" accept="image/*" multiple onchange="procesarFotosGenerales(this)" class="sr-only">
                 </label>
             </div>
-            
             <div id="foto-preview-container" class="grid grid-cols-3 gap-2 mt-2"></div>
         </section>
 
@@ -911,7 +841,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.0</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.1</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -951,6 +881,7 @@
             } else {
                 secDiag.style.display = 'block';
             }
+            actualizarSemaforoSalud();
         }
 
         function escaparHTML(valor) {
@@ -1005,6 +936,7 @@
                     statusSpan.innerText = '✔ Cargada';
                     statusSpan.className = 'preview-status text-emerald-400 font-bold truncate max-w-[80px]';
                 }
+                dispararAutoguardado();
             });
             input.value = '';
         }
@@ -1038,6 +970,7 @@
                 (pos) => {
                     coordsInput.value = `${pos.coords.latitude.toFixed(6)}, ${pos.coords.longitude.toFixed(6)}`;
                     status.innerHTML = "<span class='text-emerald-400 font-bold'>✔ GPS OK</span>";
+                    dispararAutoguardado();
                 },
                 (err) => { status.innerHTML = "<span class='text-amber-400 text-[9px]'>Fallo satelital.</span>"; },
                 { enableHighAccuracy: true, timeout: 6000 }
@@ -1052,6 +985,7 @@
                 comprimirImagen(file, function(b64) {
                     fotosActualesBase64.push(b64);
                     renderizarMosaicoFotos();
+                    dispararAutoguardado();
                 });
             }
             input.value = '';
@@ -1070,8 +1004,154 @@
         function eliminarFoto(index) {
             fotosActualesBase64.splice(index, 1);
             renderizarMosaicoFotos();
+            dispararAutoguardado();
         }
 
+        // --- SISTEMA DE SEMÁFORO DE SALUD EN VIVO ---
+        function actualizarSemaforoSalud() {
+            const modo = document.querySelector('input[name="modo-reporte"]:checked').value;
+            if (modo === 'inventario') {
+                document.getElementById('health-score-badge').className = "bg-sky-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold";
+                document.getElementById('health-score-badge').innerText = "MODO INVENTARIO";
+                document.getElementById('health-alerts-summary').innerText = "Levantamiento físico activo. Sin matriz de fallas requerida.";
+                return;
+            }
+
+            let totalChecks = 0;
+            let alertasDetectadas = [];
+
+            // Revisar pings principales
+            totalChecks++;
+            const pingVal = document.querySelector('input[name="chk_ping_cc"]:checked');
+            if (pingVal && pingVal.value !== 'PASA') alertasDetectadas.push("Ping 100 paquetes (Fallo de latencia/pérdida)");
+
+            // Revisar subida / bajada red
+            totalChecks += 2;
+            const upNet = document.querySelector('input[name="chk_upload_net_status"]:checked');
+            if (upNet && upNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Subida Saturado");
+            const downNet = document.querySelector('input[name="chk_download_net_status"]:checked');
+            if (downNet && downNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Descarga Saturado");
+
+            // Revisar MTU
+            totalChecks++;
+            const mtu = document.querySelector('input[name="chk_mtu_status"]:checked');
+            if (mtu && mtu.value !== 'ÓPTIMO') alertasDetectadas.push("MTU requiere ajuste");
+
+            // Discos
+            document.querySelectorAll('.disk-item').forEach((item, idx) => {
+                totalChecks++;
+                const st = item.querySelector('input[type="radio"]:checked');
+                if (st && st.value !== 'SANO') alertasDetectadas.push(`Disco Físico #${idx+1} en estado ${st.value}`);
+            });
+
+            // Stress CPU / RAM / GPU
+            totalChecks += 3;
+            const cpuSt = document.querySelector('input[name="chk_cpu_status"]:checked');
+            if (cpuSt && cpuSt.value === 'SATURADO') alertasDetectadas.push("CPU Saturado");
+            const ramSt = document.querySelector('input[name="chk_ram_status"]:checked');
+            if (ramSt && ramSt.value === 'SATURADO') alertasDetectadas.push("Memoria RAM Saturada");
+            const gpuSt = document.querySelector('input[name="chk_gpu_status"]:checked');
+            if (gpuSt && gpuSt.value === 'SATURADO') alertasDetectadas.push("GPU / Codec Saturado");
+
+            // Logs críticos / Temperatura / Software
+            totalChecks += 5;
+            const logSt = document.querySelector('input[name="chk_event_logs"]:checked');
+            if (logSt && logSt.value !== 'LIMPIO') alertasDetectadas.push("Errores detectados en Visor de Eventos");
+            const tempSt = document.querySelector('input[name="chk_temp_status"]:checked');
+            if (tempSt && tempSt.value !== 'NORMAL') alertasDetectadas.push("Alerta de Sobrecalentamiento Térmico");
+            const gvEvSt = document.querySelector('input[name="chk_sw_gv_events"]:checked');
+            if (gvEvSt && gvEvSt.value !== 'CORRECTO') alertasDetectadas.push("Errores en aplicativo GeoVision");
+            const licSt = document.querySelector('input[name="chk_lic_status"]:checked');
+            if (licSt && licSt.value !== 'CORRECTO') alertasDetectadas.push("Incidencia en Licenciamiento");
+
+            let score = Math.max(0, Math.round(100 - (alertasDetectadas.length / Math.max(1, totalChecks)) * 100));
+            const badge = document.getElementById('health-score-badge');
+            const summary = document.getElementById('health-alerts-summary');
+
+            if (alertasDetectadas.length === 0) {
+                badge.className = "bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold";
+                badge.innerText = `${score}% Sano`;
+                summary.innerHTML = "<span class='text-emerald-400 font-semibold'>✔ Sin alertas críticas. Todos los parámetros evaluados operan dentro de los rangos óptimos.</span>";
+            } else if (score >= 70) {
+                badge.className = "bg-amber-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold";
+                badge.innerText = `${score}% Precaución`;
+                summary.innerHTML = `<span class='text-amber-300 font-semibold'>⚠️ Alertas detectadas (${alertasDetectadas.length}):</span><ul class='list-disc pl-4 mt-1 text-[10px] text-slate-200'>` + alertasDetectadas.map(a => `<li>${a}</li>`).join('') + `</ul>`;
+            } else {
+                badge.className = "bg-rose-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold";
+                badge.innerText = `${score}% Crítico`;
+                summary.innerHTML = `<span class='text-rose-400 font-semibold'>❌ Servidor con fallas críticas (${alertasDetectadas.length}):</span><ul class='list-disc pl-4 mt-1 text-[10px] text-slate-200'>` + alertasDetectadas.map(a => `<li>${a}</li>`).join('') + `</ul>`;
+            }
+        }
+
+        // --- AUTOGUARDADO EN LOCALSTORAGE ---
+        function dispararAutoguardado() {
+            actualizarSemaforoSalud();
+            const formData = {
+                techName: document.getElementById('tech-name').value,
+                clientName: document.getElementById('client-name').value,
+                endClientName: document.getElementById('end-client-name').value,
+                physicalAddress: document.getElementById('physical-address').value,
+                gpsCoords: document.getElementById('gps-coords').value,
+                srvName: document.getElementById('srv-name').value,
+                srvIp: document.getElementById('srv-ip').value,
+                srvOs: document.getElementById('srv-os').value,
+                srvBrand: document.getElementById('srv-brand').value,
+                srvSerial: document.getElementById('srv-serial').value,
+                srvCpu: document.getElementById('srv-cpu').value,
+                srvRam: document.getElementById('srv-ram').value,
+                srvGpu: document.getElementById('srv-gpu').value,
+                srvDiskQty: document.getElementById('srv-disk-qty').value,
+                srvDiskCap: document.getElementById('srv-disk-cap').value,
+                srvSoftware: document.getElementById('srv-software').value,
+                colaServidores: backendColaServidores,
+                fotosGenerales: fotosActualesBase64
+            };
+            localStorage.setItem('geovision_diag_autosave_v3', JSON.stringify(formData));
+        }
+
+        function cargarProgresoLocal() {
+            const saved = localStorage.getItem('geovision_diag_autosave_v3');
+            if (!saved) return;
+            try {
+                const data = JSON.parse(saved);
+                if (data.techName) document.getElementById('tech-name').value = data.techName;
+                if (data.clientName) document.getElementById('client-name').value = data.clientName;
+                if (data.endClientName) document.getElementById('end-client-name').value = data.endClientName;
+                if (data.physicalAddress) document.getElementById('physical-address').value = data.physicalAddress;
+                if (data.gpsCoords) document.getElementById('gps-coords').value = data.gpsCoords;
+                if (data.srvName) document.getElementById('srv-name').value = data.srvName;
+                if (data.srvIp) document.getElementById('srv-ip').value = data.srvIp;
+                if (data.srvOs) document.getElementById('srv-os').value = data.srvOs;
+                if (data.srvBrand) document.getElementById('srv-brand').value = data.srvBrand;
+                if (data.srvSerial) document.getElementById('srv-serial').value = data.srvSerial;
+                if (data.srvCpu) document.getElementById('srv-cpu').value = data.srvCpu;
+                if (data.srvRam) document.getElementById('srv-ram').value = data.srvRam;
+                if (data.srvGpu) document.getElementById('srv-gpu').value = data.srvGpu;
+                if (data.srvDiskQty) document.getElementById('srv-disk-qty').value = data.srvDiskQty;
+                if (data.srvDiskCap) document.getElementById('srv-disk-cap').value = data.srvDiskCap;
+                if (data.srvSoftware) document.getElementById('srv-software').value = data.srvSoftware;
+                if (Array.isArray(data.colaServidores)) {
+                    backendColaServidores = data.colaServidores;
+                    sincronizarHistorialPantalla();
+                }
+                if (Array.isArray(data.fotosGenerales)) {
+                    fotosActualesBase64 = data.fotosGenerales;
+                    renderizarMosaicoFotos();
+                }
+                actualizarSemaforoSalud();
+            } catch(e) {
+                console.error("Error al restaurar borrador local:", e);
+            }
+        }
+
+        function limpiarBorradorLocal() {
+            if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
+                localStorage.removeItem('geovision_diag_autosave_v3');
+                location.reload();
+            }
+        }
+
+        // --- FUNCIONES DINÁMICAS Y DE SOPORTE ---
         function agregarPingExtra() {
             contadorPingExtra++;
             const id = contadorPingExtra;
@@ -1082,7 +1162,7 @@
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
                     <span class="text-[9px] font-bold text-sky-300">Ping Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('ping_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <button type="button" onclick="document.getElementById('ping_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
                 <div class="grid grid-cols-3 gap-2 pt-1">
                     <div>
@@ -1106,6 +1186,7 @@
                 ${htmlSlotEvidencia()}
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerPingsExtra() {
@@ -1131,7 +1212,7 @@
             row.className = 'gpu-extra-row flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2 mt-2';
             row.innerHTML = `
                 <div class="w-full sm:w-1/3">
-                    <label class="block text-[10px] text-slate-300">GPU / Codec Adicional (%)</label>
+                    <label class="block text-[10px] text-slate-300">GPU Adicional (%)</label>
                     <input type="text" placeholder="Ej: 75%" class="gpu-pct-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 </div>
                 <div class="w-full sm:w-2/3 flex items-center justify-between">
@@ -1139,10 +1220,11 @@
                         <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
                         <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                     </div>
-                    <button type="button" onclick="document.getElementById('gpu_extra_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <button type="button" onclick="document.getElementById('gpu_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerGpuExtra() {
@@ -1165,21 +1247,22 @@
             row.className = 'temp-extra-row bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-amber-300">Medida de Temperatura Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('temp_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <span class="text-[9px] font-bold text-amber-300">Temperatura Adicional #${id}</span>
+                    <button type="button" onclick="document.getElementById('temp_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div>
-                        <label class="block text-[10px] text-slate-300 mb-0.5">Componente / Sensor</label>
-                        <input type="text" placeholder="Ej: GPU 2 / Chipset" class="temp-label-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        <label class="block text-[10px] text-slate-300 mb-0.5">Sensor</label>
+                        <input type="text" placeholder="Ej: Chipset" class="temp-label-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-[10px] text-slate-300 mb-0.5">Temperatura (°C)</label>
+                        <label class="block text-[10px] text-slate-300 mb-0.5">Valor (°C)</label>
                         <input type="text" placeholder="Ej: 65°C" class="temp-val-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                 </div>
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerTemperaturasExtra() {
@@ -1203,12 +1286,12 @@
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
                     <span class="text-[9px] font-bold text-amber-400">Log Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('log_critico_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <button type="button" onclick="document.getElementById('log_critico_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Filtro / ID Base</label>
-                        <input type="text" placeholder="Ej: Logs de Sistema" class="log-base-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Aplicación" class="log-base-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
@@ -1222,6 +1305,7 @@
                 ${htmlSlotEvidencia()}
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerLogsCriticosExtra() {
@@ -1246,13 +1330,13 @@
             row.className = 'log-gv-extra-row bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span class="text-[9px] font-bold text-purple-300">Log Evento Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('log_gv_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <span class="text-[9px] font-bold text-purple-300">Log Adicional #${id}</span>
+                    <button type="button" onclick="document.getElementById('log_gv_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Eventos</label>
-                        <input type="text" placeholder="Ej: Evento adicional..." class="log-val-custom w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Detalle..." class="log-val-custom w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Estatus</label>
@@ -1266,6 +1350,7 @@
                 ${htmlSlotEvidencia()}
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerLogEventosExtra() {
@@ -1296,13 +1381,14 @@
                             <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
                             <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
-                        <button type="button" onclick="document.getElementById('ctrl_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                        <button type="button" onclick="document.getElementById('ctrl_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 ${htmlSlotEvidencia()}
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerControladoresExtra() {
@@ -1332,13 +1418,14 @@
                             <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
                             <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
-                        <button type="button" onclick="document.getElementById('upd_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                        <button type="button" onclick="document.getElementById('upd_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 ${htmlSlotEvidencia()}
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerActualizacionesExtra() {
@@ -1362,13 +1449,13 @@
             row.className = 'lic-extra-row bg-[#122f4a] p-2.5 rounded border border-slate-600 space-y-2 mt-2';
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-700 pb-1">
-                    <span class="text-[9px] font-bold text-sky-300">Licenciamiento Adicional #${id}</span>
+                    <span class="text-[9px] font-bold text-sky-300">Licencia Adicional #${id}</span>
                     <div class="flex items-center space-x-2">
                         <div class="grid grid-cols-2 gap-1 w-[100px]">
                             <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
                             <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
-                        <button type="button" onclick="document.getElementById('lic_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                        <button type="button" onclick="document.getElementById('lic_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2 text-xs">
@@ -1392,6 +1479,7 @@
                 ${htmlSlotEvidencia()}
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerLicenciasExtra() {
@@ -1423,10 +1511,11 @@
                 <div class="flex items-center space-x-1">
                     <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="ABIERTO" checked class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-[#122f4a] text-emerald-400">ABIERTO</span></label>
                     <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="CERRADO" class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-[#122f4a] text-rose-400">CERRADO</span></label>
-                    <button type="button" onclick="document.getElementById('port_extra_item_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <button type="button" onclick="document.getElementById('port_extra_item_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerPuertosExtra() {
@@ -1450,7 +1539,7 @@
             row.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-800 pb-1">
                     <span class="text-[9px] font-bold text-sky-300">Interfaz de Red Adicional #${id}</span>
-                    <button type="button" onclick="document.getElementById('net_extra_${id}').remove()" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                    <button type="button" onclick="document.getElementById('net_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
                 <div class="space-y-2">
                     <div>
@@ -1478,16 +1567,17 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Subida (Mbps)</label>
-                            <input type="text" placeholder="Ej: 50 Mbps" class="net-upload-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <input type="text" placeholder="Ej: 50" class="net-upload-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Bajada (Mbps)</label>
-                            <input type="text" placeholder="Ej: 150 Mbps" class="net-download-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <input type="text" placeholder="Ej: 150" class="net-download-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         </div>
                     </div>
                 </div>
             `;
             wrapper.appendChild(row);
+            dispararAutoguardado();
         }
 
         function extraerInterfacesExtra() {
@@ -1505,7 +1595,7 @@
         }
 
         function getCamaraTemplate(id, isRemovable) {
-            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('cam_item_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
+            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('cam_item_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
             return `
             <div class="cam-item bg-[#122f4a] p-3.5 rounded-lg border border-purple-500/40 space-y-3 shadow-inner" id="cam_item_${id}">
                 <div class="flex justify-between items-center border-b border-slate-700 pb-1.5">
@@ -1534,9 +1624,8 @@
                         <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
 
-                    <!-- PROTOCOLO DE CONEXIÓN -->
                     <div class="col-span-2">
-                        <label class="block text-[9px] text-slate-300 mb-0.5">Protocolo / Tipo de Conexión</label>
+                        <label class="block text-[9px] text-slate-300 mb-0.5">Protocolo / Conexión</label>
                         <select class="cam-protocol w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white text-xs font-bold focus:outline-none">
                             <option value="IP Directo" selected>IP Directo</option>
                             <option value="RTSP">RTSP</option>
@@ -1544,7 +1633,6 @@
                         </select>
                     </div>
 
-                    <!-- STREAM PRINCIPAL -->
                     <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
                         <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Principal (Main Stream)</span>
                         <div class="grid grid-cols-4 gap-1.5">
@@ -1565,13 +1653,12 @@
                                 <input type="text" placeholder="30" class="cam-main-fps w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[8px] text-slate-400 mb-0.5">GOP / I-Key</label>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">GOP</label>
                                 <input type="text" placeholder="30" class="cam-main-gop w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
                             </div>
                         </div>
                     </div>
 
-                    <!-- STREAM SECUNDARIO -->
                     <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
                         <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Secundario (Sub Stream)</span>
                         <div class="grid grid-cols-4 gap-1.5">
@@ -1585,14 +1672,14 @@
                             </div>
                             <div>
                                 <label class="block text-[8px] text-slate-400 mb-0.5">Resolución</label>
-                                <input type="text" placeholder="D1 / 720p" class="cam-sub-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
+                                <input type="text" placeholder="720p" class="cam-sub-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[8px] text-slate-400 mb-0.5">FPS</label>
                                 <input type="text" placeholder="15" class="cam-sub-fps w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[8px] text-slate-400 mb-0.5">GOP / I-Key</label>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">GOP</label>
                                 <input type="text" placeholder="15" class="cam-sub-gop w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
                             </div>
                         </div>
@@ -1625,7 +1712,7 @@
 
                 <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-2 pt-2">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="font-bold text-slate-200">Veredicto General de Cámara</span>
+                        <span class="font-bold text-slate-200">Veredicto de Cámara</span>
                         <div class="grid grid-cols-2 gap-1 w-[45%]">
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA (OK)</span></label>
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
@@ -1641,6 +1728,7 @@
             contadorCamaras++;
             const wrapper = document.getElementById('wrapper-camaras');
             wrapper.insertAdjacentHTML('beforeend', getCamaraTemplate(contadorCamaras, true));
+            dispararAutoguardado();
         }
 
         function extraerCamaras() {
@@ -1673,7 +1761,7 @@
         }
 
         function getDiskTemplate(id, isRemovable) {
-            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('disk_item_${id}').remove()" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
+            let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('disk_item_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
             return `
             <div class="disk-item bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2 shadow-inner" id="disk_item_${id}">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1">
@@ -1682,7 +1770,7 @@
                 </div>
                 <div class="grid grid-cols-3 gap-2">
                     <div>
-                        <label class="text-[9px] text-slate-300 block mb-0.5">Ref/Marca</label>
+                        <label class="text-[9px] text-slate-300 block mb-0.5">Ref</label>
                         <input type="text" class="disk-ref w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="WD Purple">
                     </div>
                     <div>
@@ -1695,7 +1783,7 @@
                     </div>
                 </div>
                 <div class="flex items-center justify-between pt-1">
-                    <span class="text-[9px] font-semibold text-slate-300">Estatus S.M.A.R.T</span>
+                    <span class="text-[9px] font-semibold text-slate-300">S.M.A.R.T</span>
                     <div class="grid grid-cols-3 gap-1 w-[55%]">
                         <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="SANO" checked class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-emerald-400">SANO</span></label>
                         <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="ALERTA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-amber-400">ALERT</span></label>
@@ -1712,6 +1800,7 @@
             contadorDiscos++;
             const wrapper = document.getElementById('wrapper-discos');
             wrapper.insertAdjacentHTML('beforeend', getDiskTemplate(contadorDiscos, true));
+            dispararAutoguardado();
         }
 
         function extraerDiscos() {
@@ -1735,6 +1824,9 @@
             contadorDiscos = 1;
             document.getElementById('wrapper-discos').innerHTML = getDiskTemplate(contadorDiscos, false);
             crearFilaPuerto();
+            
+            // Cargar datos autoguardados si existen
+            cargarProgresoLocal();
         });
 
         function almacenarServidorEnMemoria() {
@@ -1845,6 +1937,7 @@
 
             backendColaServidores.push(srvPackage);
             sincronizarHistorialPantalla();
+            dispararAutoguardado();
             alert(`Servidor "${idServidor}" guardado exitosamente en la sesión.`);
         }
 
@@ -1861,7 +1954,7 @@
                 <div class="bg-slate-800/80 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center shadow-md">
                     <div>
                         <p class="font-bold text-slate-100 text-sm">${escaparHTML(s.nombre)} <span class="text-xs text-sky-300 font-normal">[IP: ${escaparHTML(s.ip)}]</span></p>
-                        <p class="text-[10px] text-slate-300">Modo: ${s.modoReporte === 'inventario' ? '📋 Solo Inventario' : '🔧 Diagnóstico'} | Cámaras: ${s.camarasIP.length}</p>
+                        <p class="text-[10px] text-slate-300">Modo: ${s.modoReporte === 'inventario' ? '📋 Inventario' : '🔧 Diagnóstico'} | Cámaras: ${s.camarasIP.length}</p>
                     </div>
                     <button onclick="removerServidorLista(${idx})" class="text-rose-400 bg-rose-500/10 px-2 py-1.5 rounded-lg text-xs font-bold">Eliminar</button>
                 </div>
@@ -1871,6 +1964,7 @@
         function removerServidorLista(idx) {
             backendColaServidores.splice(idx, 1);
             sincronizarHistorialPantalla();
+            dispararAutoguardado();
         }
 
         function exportarSesionJSON() {
@@ -1897,6 +1991,7 @@
                     if (Array.isArray(imported)) {
                         backendColaServidores = imported;
                         sincronizarHistorialPantalla();
+                        dispararAutoguardado();
                         alert("Sesión importada exitosamente.");
                     } else {
                         alert("Formato de archivo JSON inválido.");
@@ -2046,7 +2141,7 @@
                         srv.pruebasFijas.sw_upd_extras.forEach(sue => {
                             extraUpd += `<tr>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>3.3 Actualización Extra</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Actualización de drivers</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Drivers / Software</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${sue.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(sue.status)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(sue.obs)} ${renderPdfImg(sue.foto)}</td>
                             </tr>`;
@@ -2077,7 +2172,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- 1. CAPA DE RED -->
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>1.1 Ping (100 Pings)</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(srv.pruebasFijas.ping_lat)}<br>Pérdida: ${escaparHTML(srv.pruebasFijas.ping_loss)}</td>
@@ -2105,7 +2199,6 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.mtu_obs)} ${renderPdfImg(srv.pruebasFijas.mtu_foto)}</td>
                                 </tr>
 
-                                <!-- 2. CAPA DE HARDWARE FÍSICO -->
                                 ${discosHtml}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>2.2 Stress Hardware</strong></td>
@@ -2127,7 +2220,6 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.temp_obs)} ${renderPdfImg(srv.pruebasFijas.temp_foto)}</td>
                                 </tr>
 
-                                <!-- 3. CAPA DE SOFTWARE Y CÁMARAS IP -->
                                 <tr>
                                     <td colspan="4" style="background-color: #f3e8ff; color: #7e22ce; font-weight: bold; padding: 5px; border: 1px solid #cbd5e1; font-size: 9px;">3.1 Configuración Cámaras IP</td>
                                 </tr>
