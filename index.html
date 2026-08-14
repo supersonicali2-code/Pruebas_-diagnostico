@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.1</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.3</span>
             </div>
         </div>
     </header>
@@ -137,13 +137,13 @@
 
         <div class="bg-sky-950/60 border border-sky-500/30 p-3 rounded-xl text-xs text-sky-200 space-y-1">
             <p class="font-bold font-oswald text-sky-300">ℹ️ Instrucciones Generales de Uso:</p>
-            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario, las pruebas eléctricas, de red y de software.</p>
+            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario, las pruebas eléctricas, de red y de software detalladas a continuación.</p>
         </div>
 
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
         <section id="health-dashboard" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-2">
             <div class="flex justify-between items-center">
-                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor </h2>
+                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor (En Vivo)</h2>
                 <span id="health-score-badge" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold">100% Sano</span>
             </div>
             <div id="health-alerts-summary" class="text-[11px] text-slate-300">
@@ -278,8 +278,14 @@
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-3">
                         <h4 class="text-xs font-bold text-slate-200 font-oswald">Prueba 1.0: Mediciones de Voltaje con Multímetro en Tomacorriente</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Mida con un multímetro digital los voltajes en la toma eléctrica del servidor para descartar problemas de neutro flotante o desbalance de fases.</p>
-                            <p class="text-[9px] text-slate-400"><strong>Referencia:</strong> Fase-Neutro (Voltaje nominal esperado), Fase-Tierra (Similar a F-N), Neutro-Tierra (&lt; 2V ideal).</p>
+                            <p>💡 <strong>Software / Herramienta necesaria:</strong> Multímetro Digital True RMS.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Con el multímetro en modo de voltaje AC, mida directamente en la toma eléctrica del servidor. Verifique:</p>
+                            <ul class="list-disc pl-4 text-[9px] text-slate-300 space-y-0.5">
+                                <li><strong>Fase a Neutro (F-N):</strong> Debe coincidir con el voltaje nominal de la red (ej. 120V o 220V).</li>
+                                <li><strong>Fase a Tierra (F-T):</strong> El valor debe ser muy cercano al voltaje Fase-Neutro.</li>
+                                <li><strong>Neutro a Tierra (N-T):</strong> Debe ser inferior a 2V idealmente para evitar voltajes parásitos y daños en los componentes lógicos.</li>
+                            </ul>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Voltajes estables dentro del rango operativo del fabricante de la fuente del servidor.</p>
                         </div>
 
                         <!-- Medida 1: Fase - Neutro -->
@@ -402,8 +408,10 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes (100 Pings Exactos)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada (Ej: <code class="text-sky-300 font-mono">ping 192.168.10.100 -n 100</code>):</strong> Ejecute en CMD:</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Símbolo del Sistema (CMD) de Windows.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Abra CMD y ejecute exactamente 100 pings continuos para evaluar la estabilidad de la red:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -n 100</code>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> 0% de pérdida de paquetes y latencia estable (&lt; 10ms en red local).</p>
                         </div>
                         
                         <div class="grid grid-cols-3 gap-2 pt-1">
@@ -453,8 +461,10 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP (Puerto por Puerto)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
-                            <p>💡 <strong>Comando PowerShell (Ej: <code class="text-sky-300 font-mono">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code>):</strong></p>
-                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP] -Port [Puerto]</code>
+                            <p>💡 <strong>Software / Herramienta:</strong> PowerShell de Windows.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Verifique la apertura de puertos clave de GeoVision y servicios de red ejecutando:</p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName [IP_Servidor] -Port [Puerto]</code>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> <code class="text-emerald-400 font-mono">TcpTestSucceeded : True</code> en cada puerto evaluado.</p>
                         </div>
 
                         <div class="mb-2">
@@ -492,6 +502,10 @@
                             <button type="button" onclick="crearFilaInterfaz()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Interfaz</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.3: Inspección de Ancho de Banda y Saturación de Red</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Software / Herramienta:</strong> Administrador de Tareas (Pestaña Rendimiento > Ethernet) o herramientas de test de velocidad.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Monitorear el tráfico en tiempo real y realizar pruebas de transferencia para asegurar que la red soporta el flujo masivo de cámaras IP sin saturación en la interfaz física.</p>
+                        </div>
                         
                         <div class="space-y-2 mb-2">
                             <div>
@@ -572,9 +586,10 @@
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute en CMD para verificar fragmentación de paquetes:</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Consola CMD de Windows.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Ejecute el comando de ping forzando el tamaño de paquete sin fragmentación para comprobar el MTU óptimo de la red:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -f -l 1472</code>
-                            <p class="text-[9px] text-slate-400 mt-1"><strong>Ejemplo:</strong> <code class="text-sky-300 font-mono">ping 192.168.10.100 -f -l 1472</code></p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Respuesta sin requerir fragmentación del paquete en el router.</p>
                         </div>
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -622,8 +637,9 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T. y Rendimiento de Escritura I/O)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Verifique el estado S.M.A.R.T. de cada unidad y ejecute pruebas de velocidad de escritura para asegurar la integridad de las grabaciones de video y evitar pérdida de frames.</p>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Discos en estado Sano sin sectores defectuosos y velocidad de escritura acorde al tipo de disco (HDD de vigilancia o SSD).</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> CrystalDiskInfo (para salud S.M.A.R.T.) y CrystalDiskMark (para pruebas de velocidad de escritura I/O).</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Abra CrystalDiskInfo para revisar el estado de salud general, sectores reasignados y temperatura de cada disco. Posteriormente, ejecute CrystalDiskMark para medir la tasa de escritura secuencial y aleatoria.</p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Unidades en estado "Bueno" (S.M.A.R.T. sin alertas) y velocidades de escritura acordes para almacenamiento de video continuo.</p>
                         </div>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
@@ -636,8 +652,9 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Monitoree el consumo de recursos bajo carga operativa para asegurar que el servidor no presente cuellos de botella durante la decodificación multicanal.</p>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Uso de CPU, RAM y GPU dentro de márgenes estables sin saturación crítica.</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Administrador de Tareas de Windows (Pestaña Rendimiento) / HWMonitor / AIDA64.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Ejecute el software de monitoreo bajo operación simultánea de cámaras en el VMS para verificar el porcentaje de uso y carga en los componentes principales.</p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Consumo de CPU, RAM y GPU estable sin picos de saturación al 100% que generen congelamientos.</p>
                         </div>
 
                         <div class="space-y-3 pt-1">
@@ -709,8 +726,9 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Revise los registros de Windows (Sistema, Aplicación y Hardware) para identificar errores críticos de controladores, bloqueos o fallas intermitentes.</p>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Ausencia de errores recurrentes (Event ID críticos) que afecten la estabilidad del NVR.</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Visor de Eventos de Windows (`eventvwr.msc`).</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Ingrese a Registros de Windows > Sistema y Aplicación. Inspeccione errores críticos (Event ID de Kernel-Power, errores de disco o fallas de controladores).</p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Ausencia de registros críticos recurrentes que comprometan la estabilidad del servidor NVR.</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -755,8 +773,9 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.4: Monitoreo de Temperatura de Hardware</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Compruebe que las temperaturas del procesador, tarjeta gráfica y discos duros se mantengan dentro de los rangos operativos seguros especificados por el fabricante.</p>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Valores térmicos normales sin riesgo de sobrecalentamiento o *thermal throttling*.</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> HWMonitor / Core Temp / Open Hardware Monitor.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Compruebe las temperaturas de los núcleos del procesador, la tarjeta gráfica y los discos de almacenamiento durante la operación normal del servidor.</p>
+                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Valores térmicos dentro de rangos seguros (CPU &lt; 75°C, Discos &lt; 50°C) sin riesgo de sobrecalentamiento.</p>
                         </div>
                         
                         <div class="space-y-2 pt-1">
@@ -823,6 +842,10 @@
                             <button type="button" onclick="agregarLogEventoExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Log Evento</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 4.2: Log Eventos Aplicativo GeoVision</h4>
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
+                            <p>💡 <strong>Software / Herramienta:</strong> GeoVision GV-VMS / Control Center / System Log Viewer.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Revise la bitácora interna del software VMS para verificar que no existan errores de conexión, desbordamiento de búfer o fallas de autenticación con las cámaras.</p>
+                        </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -865,8 +888,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 4.3: Exclusiones de Antivirus / Windows Defender</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada:</strong> Verifique que las rutas de grabación de GeoVision y sus servicios ejecutables estén excluidos del análisis en tiempo real del antivirus para evitar bloqueos de bases de datos y pérdida de fotogramas (*frame drops*).</p>
-                            <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> Rutas de VMS y carpetas de video excluidas correctamente.</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Windows Defender / Antivirus de terceros instalado en el sistema.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Verifique que las rutas de grabación de GeoVision y sus servicios ejecutables estén excluidos del análisis en tiempo real para evitar bloqueos de bases de datos y pérdida de fotogramas (*frame drops*).</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
