@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.3</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.4</span>
             </div>
         </div>
     </header>
@@ -137,7 +137,7 @@
 
         <div class="bg-sky-950/60 border border-sky-500/30 p-3 rounded-xl text-xs text-sky-200 space-y-1">
             <p class="font-bold font-oswald text-sky-300">ℹ️ Instrucciones Generales de Uso:</p>
-            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario, las pruebas eléctricas, de red y de software.</p>
+            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario y todas las pruebas eléctricas, de red y de software.</p>
         </div>
 
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
@@ -174,7 +174,7 @@
                 
                 <div class="border-t border-slate-600 pt-2 flex space-x-2">
                     <div class="flex-1">
-                        <label class="block text-[11px] text-slate-300 font-medium mb-1">Coordenadas GPS de Control (Opcional)</label>
+                        <label class="block text-[11px] text-slate-300 font-medium mb-1">Coordenadas GPS </label>
                         <input type="text" id="gps-coords" placeholder="Latitud, Longitud" class="w-full bg-slate-950 border border-slate-700 text-slate-300 rounded-lg p-2 text-xs focus:outline-none">
                     </div>
                     <div class="flex items-end">
@@ -204,7 +204,7 @@
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">2. Ficha de Inventario Técnico del Servidor</h2>
-            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria, almacenamiento y sistema de respaldo eléctrico (UPS).</p>
+            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware: procesador, GPU, memoria, almacenamiento y sistema de respaldo eléctrico (UPS).</p>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
@@ -352,7 +352,7 @@
                             </div>
                         </div>
 
-                        <!-- Medida 3: Neutro - Tierra (Modificado) -->
+                        <!-- Medida 3: Neutro - Tierra -->
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
                             <span class="text-[10px] font-bold text-sky-300 block">C. Voltaje Neutro - Tierra</span>
                             <div class="grid grid-cols-2 gap-2">
@@ -572,8 +572,9 @@
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Instrucción detallada (Ej: <code class="text-sky-300 font-mono">ping 192.168.10.100 -f -l 1472</code>):</strong> Ejecute en CMD para verificar fragmentación de paquetes:</p>
+                            <p>💡 <strong>Instrucción detallada:</strong> Ejecute en CMD para verificar fragmentación de paquetes:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping [IP_Servidor] -f -l 1472</code>
+                            <p class="text-[9px] text-slate-400 mt-1"><strong>Ejemplo:</strong> <code class="text-sky-300 font-mono">ping 192.168.10.100 -f -l 1472</code></p>
                         </div>
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -1933,14 +1934,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800 text-xs">
-                    <span class="text-[9px] font-bold text-sky-300">Estatus Conectividad:</span>
-                    <div class="grid grid-cols-2 gap-1 w-[50%]">
-                        <label class="status-btn"><input type="radio" name="chk_cam_ping_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_cam_ping_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[8px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
-                    </div>
-                </div>
                 
                 <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px]">
                     <span class="text-purple-300 font-bold whitespace-nowrap mr-1">📸 Evidencia Cam:</span>
@@ -1960,7 +1953,7 @@
 
                 <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-2 pt-2">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="font-bold text-slate-200">Veredicto de Cámara</span>
+                        <span class="font-bold text-slate-200">Diagnóstico Cámara</span>
                         <div class="grid grid-cols-2 gap-1 w-[45%]">
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA (OK)</span></label>
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
@@ -1983,7 +1976,6 @@
             let resultado = [];
             document.querySelectorAll('.cam-item').forEach(item => {
                 const statusRadio = item.querySelector('input[name*="chk_cam_status_"]:checked');
-                const pingRadio = item.querySelector('input[name*="chk_cam_ping_"]:checked');
                 resultado.push({
                     channel: item.querySelector('.cam-channel').value || '1',
                     name: item.querySelector('.cam-name').value || 'CAM-01',
@@ -1999,7 +1991,6 @@
                     subRes: item.querySelector('.cam-sub-res').value || 'N/R',
                     subFps: item.querySelector('.cam-sub-fps').value || 'N/R',
                     subGop: item.querySelector('.cam-sub-gop').value || 'N/R',
-                    pingStatus: pingRadio ? pingRadio.value : 'CORRECTO',
                     status: statusRadio ? statusRadio.value : 'PASA',
                     obs: item.querySelector('.cam-obs').value || '-',
                     fotoGen: item.querySelector('.cam-foto-general') ? item.querySelector('.cam-foto-general').value : ''
