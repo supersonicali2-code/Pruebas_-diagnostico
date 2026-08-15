@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.0</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.5</span>
             </div>
         </div>
     </header>
@@ -143,7 +143,7 @@
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
         <section id="health-dashboard" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-2">
             <div class="flex justify-between items-center">
-                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor </h2>
+                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor (En Vivo)</h2>
                 <span id="health-score-badge" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold">100% Sano</span>
             </div>
             <div id="health-alerts-summary" class="text-[11px] text-slate-300">
@@ -204,7 +204,7 @@
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">2. Ficha de Inventario Técnico del Servidor</h2>
-            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria, almacenamiento y sistema de respaldo eléctrico (UPS).</p>
+            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria, almacenamiento, sistema de respaldo eléctrico (UPS), cantidad de cámaras y pantallas.</p>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
@@ -249,6 +249,14 @@
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Almacenamiento Total</label>
                     <input type="text" id="srv-disk-cap" placeholder="Ej: 32 TB (4x8TB)" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
+                <div>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Cantidad de Cámaras</label>
+                    <input type="number" id="srv-cam-qty" placeholder="Ej: 32" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Cantidad de Pantallas</label>
+                    <input type="number" id="srv-screen-qty" placeholder="Ej: 2" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
+                </div>
                 <div class="col-span-2">
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Sistema de Respaldo Eléctrico (UPS)</label>
                     <select id="srv-ups" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white font-bold focus:outline-none">
@@ -283,7 +291,7 @@
                             <ul class="list-disc pl-4 text-[9px] text-slate-300 space-y-0.5">
                                 <li><strong>Fase a Neutro (F-N):</strong> Verificar que el voltaje sea el nominal de red (ej. 120V o 220V AC).</li>
                                 <li><strong>Fase a Tierra (F-T):</strong> El valor debe ser equivalente al voltaje de Fase a Neutro.</li>
-                                <li><strong>Neutro a Tierra (N-T):</strong> Medir diferencial. Debe ser menor a 1V AC para evitar corrientes parásitas en la fuente de poder y componentes del servidor.</li>
+                                <li><strong>Neutro a Tierra (N-T):</strong> Medir diferencial. Debe ser menor a 2V AC para evitar ruidos parásitos en la fuente y lógica del servidor.</li>
                             </ul>
                         </div>
 
@@ -585,45 +593,57 @@
 
                     <!-- PRUEBA 1.4 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
+                            <button type="button" onclick="agregarMtuExtra()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Ruta MTU</button>
+                        </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación (Path MTU)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Símbolo del Sistema (CMD).</p>
-                            <p>🌐 <strong>Metodología de Campo:</strong> Esta prueba debe realizarse de forma bidireccional: <strong>1) Desde un PC de la estación de monitoreo hacia el servidor</strong>, y <strong>2) Desde el servidor hacia las cámaras IP clave o el Gateway</strong> para comprobar la integridad de la ruta y descartar problemas de fragmentación en los flujos de video.</p>
+                            <p>🌐 <strong>Metodología de Campo:</strong> Esta prueba se realiza de forma bidireccional (ej. Estación de Monitoreo ➔ Servidor, o Servidor ➔ Cámara 1).</p>
                             <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">ping [IP_Destino] -f -l [Bytes_Buffer]</code></p>
                             <p>⚙️ <strong>Ejemplo práctico:</strong></p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -f -l 1472</code>
-                            <p class="text-[9px] text-slate-400"><em>(1472 bytes de datos + 28 bytes de cabecera = 1500 bytes estándar Ethernet).</em></p>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 pt-1">
+
+                        <div class="space-y-2 pt-1">
                             <div>
-                                <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
-                                <input type="text" id="val_mtu" placeholder="Ej: 1500" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                <label class="block text-[10px] text-slate-300 mb-0.5">Ruta de la Prueba (Origen ➔ Destino)</label>
+                                <input type="text" id="val_mtu_route" placeholder="Ej: PC Monitoreo ➔ Servidor NVR" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
-                            <div>
-                                <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
-                                <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_mtu_status" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_mtu_status" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">AJUSTAR</span></label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
+                                    <input type="text" id="val_mtu" placeholder="Ej: 1500" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
+                                    <div class="grid grid-cols-2 gap-1">
+                                        <label class="status-btn"><input type="radio" name="chk_mtu_status" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_mtu_status" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">AJUSTAR</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" id="obs_mtu" placeholder="Observaciones de MTU..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_mtu" class="foto-base64-custom">
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_mtu" placeholder="Observaciones de MTU..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                        
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_mtu" class="foto-base64-custom">
-                            </div>
-                        </div>
+
+                        <div id="wrapper-mtu-extra" class="space-y-2 mt-2 w-full"></div>
                     </div>
                 </div>
 
@@ -1059,7 +1079,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.4</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.5</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1083,6 +1103,7 @@
         let contadorInterfacesRed = 0;
         let contadorCamaras = 0;
         let contadorPingExtra = 0;
+        let contadorMtuExtra = 0;
         let contadorLogGvExtra = 0;
         let contadorGpuExtra = 0;
         let contadorTempExtra = 0;
@@ -1237,7 +1258,7 @@
             const downNet = document.querySelector('input[name="chk_download_net_status"]:checked');
             if (downNet && downNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Descarga Saturado");
 
-            // MTU
+            // MTU principal
             totalChecks++;
             const mtu = document.querySelector('input[name="chk_mtu_status"]:checked');
             if (mtu && mtu.value !== 'ÓPTIMO') alertasDetectadas.push("MTU requiere ajuste");
@@ -1307,16 +1328,18 @@
                 srvGpu: document.getElementById('srv-gpu').value,
                 srvDiskQty: document.getElementById('srv-disk-qty').value,
                 srvDiskCap: document.getElementById('srv-disk-cap').value,
+                srvCamQty: document.getElementById('srv-cam-qty').value,
+                srvScreenQty: document.getElementById('srv-screen-qty').value,
                 srvUps: document.getElementById('srv-ups').value,
                 srvSoftware: document.getElementById('srv-software').value,
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v3_4', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v3_5', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v3_4');
+            const saved = localStorage.getItem('geovision_diag_autosave_v3_5');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1335,6 +1358,8 @@
                 if (data.srvGpu) document.getElementById('srv-gpu').value = data.srvGpu;
                 if (data.srvDiskQty) document.getElementById('srv-disk-qty').value = data.srvDiskQty;
                 if (data.srvDiskCap) document.getElementById('srv-disk-cap').value = data.srvDiskCap;
+                if (data.srvCamQty) document.getElementById('srv-cam-qty').value = data.srvCamQty;
+                if (data.srvScreenQty) document.getElementById('srv-screen-qty').value = data.srvScreenQty;
                 if (data.srvUps) document.getElementById('srv-ups').value = data.srvUps;
                 if (data.srvSoftware) document.getElementById('srv-software').value = data.srvSoftware;
                 if (Array.isArray(data.colaServidores)) {
@@ -1353,7 +1378,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
-                localStorage.removeItem('geovision_diag_autosave_v3_4');
+                localStorage.removeItem('geovision_diag_autosave_v3_5');
                 location.reload();
             }
         }
@@ -1418,6 +1443,72 @@
                     loss: row.querySelector('.ping-loss-custom').value.trim() || 'N/R',
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.ping-obs-custom').value.trim() || '-',
+                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                });
+            });
+            return res;
+        }
+
+        function agregarMtuExtra() {
+            contadorMtuExtra++;
+            const id = contadorMtuExtra;
+            const wrapper = document.getElementById('wrapper-mtu-extra');
+            const row = document.createElement('div');
+            row.id = `mtu_extra_${id}`;
+            row.className = 'mtu-extra-row bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2 mt-2';
+            row.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                    <span class="text-[9px] font-bold text-sky-300">Ruta MTU Adicional #${id}</span>
+                    <button type="button" onclick="document.getElementById('mtu_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
+                </div>
+                <div class="space-y-2 pt-1">
+                    <div>
+                        <label class="block text-[10px] text-slate-300 mb-0.5">Ruta de la Prueba (Origen ➔ Destino)</label>
+                        <input type="text" placeholder="Ej: Servidor ➔ Cámara 1 (192.168.10.51)" class="mtu-route-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
+                            <input type="text" placeholder="Ej: 1500" class="mtu-val-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
+                            <div class="grid grid-cols-2 gap-1">
+                                <label class="status-btn"><input type="radio" name="chk_mtu_extra_${id}" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
+                                <label class="status-btn"><input type="radio" name="chk_mtu_extra_${id}" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">AJUSTAR</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Observaciones..." class="mtu-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                </div>
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
+                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
+                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                            📷 Cámara
+                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                        </label>
+                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                            📁 Galería
+                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
+                        </label>
+                        <input type="hidden" class="foto-base64-custom">
+                    </div>
+                </div>
+            `;
+            wrapper.appendChild(row);
+            dispararAutoguardado();
+        }
+
+        function extraerMtusExtra() {
+            let res = [];
+            document.querySelectorAll('.mtu-extra-row').forEach(row => {
+                res.push({
+                    route: row.querySelector('.mtu-route-custom').value.trim() || 'Ruta no especificada',
+                    val: row.querySelector('.mtu-val-custom').value.trim() || 'N/R',
+                    status: row.querySelector('input[type="radio"]:checked').value,
+                    obs: row.querySelector('.mtu-obs-custom').value.trim() || '-',
                     foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
                 });
             });
@@ -2148,6 +2239,8 @@
                 gpu: document.getElementById('srv-gpu').value || 'No Especifica',
                 disk_qty: document.getElementById('srv-disk-qty').value || '0',
                 disk_cap: document.getElementById('srv-disk-cap').value || 'No Especifica',
+                camQty: document.getElementById('srv-cam-qty').value || '0',
+                screenQty: document.getElementById('srv-screen-qty').value || '1',
                 ups: document.getElementById('srv-ups').value || 'No Especifica',
                 software: document.getElementById('srv-software').value || 'No Especifica',
                 timestamp: new Date().toLocaleString('es-CO'),
@@ -2192,10 +2285,12 @@
                     red_global_obs: document.getElementById('obs_ping_cam').value || '-',
                     red_global_foto: document.getElementById('b64_net') ? document.getElementById('b64_net').value : '',
 
+                    mtu_route: document.getElementById('val_mtu_route').value || 'Principal',
                     mtu_val: document.getElementById('val_mtu').value || 'N/R',
                     mtu_status: document.querySelector('input[name="chk_mtu_status"]:checked').value,
                     mtu_obs: document.getElementById('obs_mtu').value || '-',
                     mtu_foto: document.getElementById('b64_mtu') ? document.getElementById('b64_mtu').value : '',
+                    mtu_extras: extraerMtusExtra(),
 
                     cpu_pct: document.getElementById('val_cpu_pct').value || 'N/R',
                     cpu_status: document.querySelector('input[name="chk_cpu_status"]:checked').value,
@@ -2378,6 +2473,18 @@
                         });
                     }
 
+                    let extraMtusHtml = '';
+                    if (srv.pruebasFijas.mtu_extras && srv.pruebasFijas.mtu_extras.length > 0) {
+                        srv.pruebasFijas.mtu_extras.forEach(me => {
+                            extraMtusHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>MTU (${escaparHTML(me.route)})</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(me.val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${me.status === 'ÓPTIMO' ? '#16a34a' : '#E52724'};">${escaparHTML(me.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(me.obs)} ${renderPdfImg(me.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
                     let extraInterfacesHtml = '';
                     if (srv.pruebasFijas.extraInterfaces && srv.pruebasFijas.extraInterfaces.length > 0) {
                         srv.pruebasFijas.extraInterfaces.forEach(ei => {
@@ -2467,11 +2574,12 @@
                                 </tr>
                                 ${extraInterfacesHtml}
                                 <tr>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Verificación MTU</strong></td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">MTU: ${escaparHTML(srv.pruebasFijas.mtu_val)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Verificación MTU</strong><br>(${escaparHTML(srv.pruebasFijas.mtu_route)})</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.mtu_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.mtu_status === 'ÓPTIMO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.mtu_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.mtu_obs)} ${renderPdfImg(srv.pruebasFijas.mtu_foto)}</td>
                                 </tr>
+                                ${extraMtusHtml}
 
                                 <!-- Hardware -->
                                 ${discosHtml}
@@ -2550,7 +2658,9 @@
                         </tr>
                         <tr>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Almacenamiento:</strong></td>
-                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;" colspan="3">${escaparHTML(srv.disk_cap)} (${escaparHTML(srv.disk_qty)} discos)</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.disk_cap)} (${escaparHTML(srv.disk_qty)} discos)</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Cámaras / Pantallas:</strong></td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.camQty)} Cámaras / ${escaparHTML(srv.screenQty)} Pantallas</td>
                         </tr>
                     </table>
 
