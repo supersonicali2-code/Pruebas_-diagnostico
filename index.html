@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.1</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.5</span>
             </div>
         </div>
     </header>
@@ -143,7 +143,7 @@
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
         <section id="health-dashboard" class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-2">
             <div class="flex justify-between items-center">
-                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor </h2>
+                <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">⚡ Estado General del Servidor (En Vivo)</h2>
                 <span id="health-score-badge" class="bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold">100% Sano</span>
             </div>
             <div id="health-alerts-summary" class="text-[11px] text-slate-300">
@@ -291,7 +291,7 @@
                             <ul class="list-disc pl-4 text-[9px] text-slate-300 space-y-0.5">
                                 <li><strong>Fase a Neutro (F-N):</strong> Verificar que el voltaje sea el nominal de red (ej. 120V o 220V AC).</li>
                                 <li><strong>Fase a Tierra (F-T):</strong> El valor debe ser equivalente al voltaje de Fase a Neutro.</li>
-                                <li><strong>Neutro a Tierra (N-T):</strong> Medir diferencial. Debe ser menor a 1V AC para evitar corrientes parásitas en la fuente de poder y en componetes del servidor.</li>
+                                <li><strong>Neutro a Tierra (N-T):</strong> Medir diferencial. Debe ser menor a 2V AC para evitar ruidos parásitos en la fuente y lógica del servidor.</li>
                             </ul>
                         </div>
 
@@ -2421,6 +2421,84 @@
 
         const renderPdfImg = (b64) => b64 ? `<div style="margin-top: 4px; padding-top: 4px; border-top: 1px dashed #cbd5e1; text-align: center;"><img src="${b64}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px; display: inline-block;"></div>` : '';
 
+        function calcularSaludServidorPDF(srv) {
+            if (srv.modoReporte === 'inventario') {
+                return {
+                    badgeStyle: "background-color: #0284c7; color: white;",
+                    badgeText: "MODO INVENTARIO",
+                    alertas: ["Levantamiento físico activo. Sin matriz de fallas requerida."]
+                };
+            }
+            let totalChecks = 0;
+            let alertasDetectadas = [];
+
+            totalChecks += 3;
+            ['volt_fn_status', 'volt_ft_status', 'volt_nt_status'].forEach(k => {
+                if (srv.pruebasFijas[k] && srv.pruebasFijas[k] !== 'ESTABLE') {
+                    alertasDetectadas.push(`Voltaje ${k.replace('volt_', '').replace('_status', '').toUpperCase()} anómalo`);
+                }
+            });
+
+            totalChecks++;
+            if (srv.pruebasFijas.ping_cc_status && srv.pruebasFijas.ping_cc_status !== 'PASA') {
+                alertasDetectadas.push("Ping 100 paquetes (Fallo de latencia/pérdida)");
+            }
+            if (srv.pruebasFijas.ping_extras) {
+                srv.pruebasFijas.ping_extras.forEach((pe, idx) => {
+                    totalChecks++;
+                    if (pe.status !== 'PASA') alertasDetectadas.push(`Ping Adicional #${idx+1} (${pe.status})`);
+                });
+            }
+
+            totalChecks += 2;
+            if (srv.pruebasFijas.net_upload_status === 'SATURADO') alertasDetectadas.push("Ancho de banda de Subida Saturado");
+            if (srv.pruebasFijas.net_download_status === 'SATURADO') alertasDetectadas.push("Ancho de banda de Descarga Saturado");
+
+            totalChecks++;
+            if (srv.pruebasFijas.mtu_status && srv.pruebasFijas.mtu_status !== 'ÓPTIMO') alertasDetectadas.push("MTU requiere ajuste");
+            if (srv.pruebasFijas.mtu_extras) {
+                srv.pruebasFijas.mtu_extras.forEach((me, idx) => {
+                    totalChecks++;
+                    if (me.status !== 'ÓPTIMO') alertasDetectadas.push(`Ruta MTU Adicional #${idx+1} (${me.status})`);
+                });
+            }
+
+            if (srv.discosFisicos) {
+                srv.discosFisicos.forEach((d, idx) => {
+                    totalChecks++;
+                    if (d.status !== 'SANO') alertasDetectadas.push(`Disco Físico #${idx+1} en estado ${d.status}`);
+                });
+            }
+
+            totalChecks += 3;
+            if (srv.pruebasFijas.cpu_status === 'SATURADO') alertasDetectadas.push("CPU Saturado");
+            if (srv.pruebasFijas.ram_status === 'SATURADO') alertasDetectadas.push("Memoria RAM Saturada");
+            if (srv.pruebasFijas.gpu_status === 'SATURADO') alertasDetectadas.push("GPU / Codec Saturado");
+
+            totalChecks += 4;
+            if (srv.pruebasFijas.event_logs_status && srv.pruebasFijas.event_logs_status !== 'LIMPIO') alertasDetectadas.push("Errores en Visor de Eventos");
+            if (srv.pruebasFijas.temp_status && srv.pruebasFijas.temp_status !== 'NORMAL') alertasDetectadas.push("Alerta de Sobrecalentamiento Térmico");
+            if (srv.pruebasFijas.av_status && srv.pruebasFijas.av_status !== 'CONFIGURADO') alertasDetectadas.push("Exclusiones de Antivirus pendientes");
+            if (srv.pruebasFijas.lic_status && srv.pruebasFijas.lic_status !== 'CORRECTO') alertasDetectadas.push("Incidencia en Licenciamiento");
+
+            let score = Math.max(0, Math.round(100 - (alertasDetectadas.length / Math.max(1, totalChecks)) * 100));
+            
+            let badgeStyle = "background-color: #16a34a; color: white;";
+            let badgeText = `${score}% Sano`;
+            if (score < 70 && score >= 40) {
+                badgeStyle = "background-color: #d97706; color: white;";
+                badgeText = `${score}% Precaución`;
+            } else if (score < 40) {
+                badgeStyle = "background-color: #e11d48; color: white;";
+                badgeText = `${score}% Crítico`;
+            }
+            if (alertasDetectadas.length === 0) {
+                badgeStyle = "background-color: #16a34a; color: white;";
+                badgeText = "100% Sano";
+            }
+            return { badgeStyle, badgeText, alertas: alertasDetectadas };
+        }
+
         function compilarInformeFinalA4PDF() {
             if (backendColaServidores.length === 0) {
                 alert("⚠️ Debe hacer clic en 'Guardar e Indexar Servidor' antes de generar el reporte.");
@@ -2437,6 +2515,18 @@
             const templateMaestroPDF = document.getElementById('pdf-servers-container');
 
             templateMaestroPDF.innerHTML = backendColaServidores.map((srv, index) => {
+                const saludInfo = calcularSaludServidorPDF(srv);
+                let alertasHtml = '';
+                if (srv.modoReporte === 'completo') {
+                    if (saludInfo.alertas.length === 0) {
+                        alertasHtml = `<span style="color: #16a34a; font-weight: bold;">✔ Sin alertas críticas. Todos los parámetros eléctricos, de red y hardware operan correctamente.</span>`;
+                    } else {
+                        alertasHtml = `<span style="color: #b45309; font-weight: bold;">⚠️ Alertas detectadas (${saludInfo.alertas.length}):</span><ul style="margin: 2px 0 0 15px; padding: 0; font-size: 8px;">` + saludInfo.alertas.map(a => `<li>${a}</li>`).join('') + `</ul>`;
+                    }
+                } else {
+                    alertasHtml = `<span style="color: #0284c7; font-weight: bold;">Levantamiento físico activo. Sin matriz de fallas requerida.</span>`;
+                }
+
                 let bloqueFotosHtml = '';
                 if (srv.fotosEvidencia && srv.fotosEvidencia.length > 0) {
                     bloqueFotosHtml = `
@@ -2634,6 +2724,17 @@
                 <div class="pdf-server-card border border-[#2B4763] rounded-md p-3.5 bg-white font-sans text-slate-900">
                     <div style="background-color: #2B4763; color: white; padding: 6px 12px; font-weight: bold; font-size: 11px; border-radius: 4px; margin-bottom: 8px;">
                         EQUIPO EVALUADO #${index + 1}: ${escaparHTML(srv.nombre).toUpperCase()} [Modo: ${srv.modoReporte === 'inventario' ? 'Inventario Técnico' : 'Diagnóstico Completo'}] (Indexación: ${escaparHTML(srv.timestamp)})
+                    </div>
+
+                    <!-- Resumen del Semáforo de Salud en PDF -->
+                    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 6px; border-radius: 4px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: bold; font-size: 9.5px; color: #122f4a; margin-bottom: 2px;">⚡ ESTADO GENERAL DEL SERVIDOR</div>
+                            <div style="font-size: 8.5px; color: #475569;">${alertasHtml}</div>
+                        </div>
+                        <div style="text-align: right; min-width: 90px;">
+                            <span style="padding: 3px 8px; border-radius: 9999px; font-size: 9px; font-weight: bold; ${saludInfo.badgeStyle}; display: inline-block;">${saludInfo.badgeText}</span>
+                        </div>
                     </div>
                     
                     <div style="font-weight: bold; color: #122f4a; font-size: 9.5px; margin-bottom: 4px; border-left: 3px solid #2B4763; padding-left: 5px;">I. INVENTARIO Y ARQUITECTURA TÉCNICA</div>
