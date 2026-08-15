@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.3</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.0</span>
             </div>
         </div>
     </header>
@@ -278,12 +278,12 @@
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-3">
                         <h4 class="text-xs font-bold text-slate-200 font-oswald">Prueba 1.0: Mediciones de Voltaje con Multímetro en Tomacorriente</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Software / Herramienta necesaria:</strong> Multímetro Digital True RMS.</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comandos/uso:</strong> Con el multímetro configurado en Voltios AC ($\text{V}\sim$), mida directamente en el tomacorriente que alimenta el servidor:</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Multímetro Digital True RMS.</p>
+                            <p>⚙️ <strong>Procedimiento detallado:</strong> Con el multímetro configurado en Voltios AC (V~), mida directamente en el tomacorriente que alimenta el servidor:</p>
                             <ul class="list-disc pl-4 text-[9px] text-slate-300 space-y-0.5">
                                 <li><strong>Fase a Neutro (F-N):</strong> Verificar que el voltaje sea el nominal de red (ej. 120V o 220V AC).</li>
                                 <li><strong>Fase a Tierra (F-T):</strong> El valor debe ser equivalente al voltaje de Fase a Neutro.</li>
-                                <li><strong>Neutro a Tierra (N-T):</strong> Medir diferencial. <strong>Ejemplo de comando/referencia física ideal:</strong> Debe ser menor a 2V AC para evitar ruidos parásitos en la fuente y lógica del servidor.</li>
+                                <li><strong>Neutro a Tierra (N-T):</strong> Medir diferencial. Debe ser menor a 1V AC para evitar corrientes parásitas en la fuente de poder y componentes del servidor.</li>
                             </ul>
                         </div>
 
@@ -405,10 +405,11 @@
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800">RED</span>
                             <button type="button" onclick="agregarPingExtra()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir otro Ping</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes (100 Pings Exactos)</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.1: Latencia y Pérdida de Paquetes</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Símbolo del Sistema (CMD) de Windows.</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comando exacto:</strong> Abrir CMD (`cmd.exe`) y ejecutar la siguiente sintaxis para evaluar 100 paquetes continuos:</p>
+                            <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">ping [IP_o_Host_Destino] -n [Cantidad_Paquetes]</code></p>
+                            <p>⚙️ <strong>Ejemplo práctico:</strong> Abrir CMD y ejecutar el siguiente comando para evaluar 100 paquetes continuos:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -n 100</code>
                             <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> 0% de paquetes perdidos y latencia estable (&lt; 5ms en red local).</p>
                         </div>
@@ -461,7 +462,8 @@
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.2: Conexión de Sockets TCP (Puerto por Puerto)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
                             <p>💡 <strong>Software / Herramienta:</strong> PowerShell de Windows.</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comando exacto:</strong> Abrir PowerShell y ejecutar el cmdlet para probar la apertura de sockets TCP en puertos específicos de GeoVision (ej. 4550):</p>
+                            <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">Test-NetConnection -ComputerName [IP_o_Host] -Port [Puerto]</code></p>
+                            <p>⚙️ <strong>Ejemplo práctico:</strong> Abrir PowerShell y ejecutar el cmdlet para probar sockets TCP en puertos específicos de GeoVision (ej. 4550):</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code>
                         </div>
 
@@ -502,7 +504,7 @@
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.3: Inspección de Ancho de Banda y Saturación de Red</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Monitor de Recursos de Windows (`resmon`) o Administrador de Tareas.</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comando/atajo:</strong> Presionar <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> > Pestaña Rendimiento > Ethernet, o ejecutar en Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>):</p>
+                            <p>⚙️ <strong>Sintaxis general / Comando:</strong> Presionar <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> > Pestaña Rendimiento > Ethernet, o abrir Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>) y digitar:</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">resmon</code>
                         </div>
                         
@@ -583,11 +585,14 @@
 
                     <!-- PRUEBA 1.4 -->
                     <div class="bg-[#122f4a] p-3 rounded-lg border border-slate-600 space-y-2">
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Verificación de MTU y Fragmentación (Path MTU)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Símbolo del Sistema (CMD).</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comando exacto:</strong> Ejecutar ping con bandera de no fragmentación (<code class="text-sky-300 font-mono">-f</code>) y tamaño de buffer de 1472 bytes (<code class="text-sky-300 font-mono">-l 1472</code>):</p>
+                            <p>🌐 <strong>Metodología de Campo:</strong> Esta prueba debe realizarse de forma bidireccional: <strong>1) Desde un PC de la estación de monitoreo hacia el servidor</strong>, y <strong>2) Desde el servidor hacia las cámaras IP clave o el Gateway</strong> para comprobar la integridad de la ruta y descartar problemas de fragmentación en los flujos de video.</p>
+                            <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">ping [IP_Destino] -f -l [Bytes_Buffer]</code></p>
+                            <p>⚙️ <strong>Ejemplo práctico:</strong></p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -f -l 1472</code>
+                            <p class="text-[9px] text-slate-400"><em>(1472 bytes de datos + 28 bytes de cabecera = 1500 bytes estándar Ethernet).</em></p>
                         </div>
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
@@ -633,10 +638,10 @@
                             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HARDWARE</span>
                             <button type="button" onclick="crearFilaDisco()" class="text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Disco Extra</button>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T. y Rendimiento de Escritura I/O)</h4>
+                        <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T. y Rendimiento I/O)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> CrystalDiskInfo (para S.M.A.R.T.) y CrystalDiskMark (para velocidad I/O).</p>
-                            <p>⚙️ <strong>Procedimiento detallado y uso:</strong> Abrir CrystalDiskInfo para verificar el estado de salud general de cada unidad física. Luego, abrir CrystalDiskMark y seleccionar la unidad de almacenamiento para realizar pruebas de escritura secuencial (SeqQ32T1) con bloques de 1GiB.</p>
+                            <p>⚙️ <strong>Uso y aplicación:</strong> Abrir CrystalDiskInfo para verificar el estado de salud general de cada unidad física. Luego, abrir CrystalDiskMark y seleccionar la unidad para realizar pruebas de escritura secuencial (SeqQ32T1) con bloques de 1GiB.</p>
                         </div>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
@@ -649,8 +654,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.2: Stress de CPU / RAM / GPU</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Software / Herramienta:</strong> Administrador de Tareas (`taskmgr`) / HWMonitor.</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comando/atajo:</strong> Presionar <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> para abrir el Administrador de Tareas > Pestaña Rendimiento, o ejecutar comando en Ejecutar:</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Administrador de Tareas (`taskmgr`).</p>
+                            <p>⚙️ <strong>Sintaxis / Acceso directo:</strong> Presionar <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> para abrir el Administrador de Tareas > Pestaña Rendimiento, o ejecutar en Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>):</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">taskmgr</code>
                         </div>
 
@@ -723,8 +728,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.3: Visor de Eventos / Logs Críticos</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Software / Herramienta:</strong> Visor de Eventos de Windows (`eventvwr.msc`).</p>
-                            <p>⚙️ <strong>Procedimiento detallado y comando/atajo:</strong> Ejecutar en la ventana Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>):</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Visor de Eventos de Windows.</p>
+                            <p>⚙️ <strong>Sintaxis / Comando:</strong> Ejecutar en la ventana Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>):</p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">eventvwr.msc</code>
                         </div>
 
@@ -771,7 +776,7 @@
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.4: Monitoreo de Temperatura de Hardware</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> HWMonitor / Open Hardware Monitor.</p>
-                            <p>⚙️ <strong>Procedimiento detallado:</strong> Abrir la aplicación para registrar lecturas de temperatura en los sensores térmicos de CPU, GPU y discos duros.</p>
+                            <p>⚙️ <strong>Procedimiento:</strong> Abrir la aplicación para registrar lecturas térmicas en los sensores de CPU, GPU y discos duros.</p>
                         </div>
                         
                         <div class="space-y-2 pt-1">
@@ -839,8 +844,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 4.2: Log Eventos Aplicativo GeoVision</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Software / Herramienta:</strong> GeoVision GV-VMS / Control Center (Visor de logs del sistema).</p>
-                            <p>⚙️ <strong>Procedimiento detallado:</strong> Abrir GV-VMS > Herramientas > System Log para revisar eventos de conexión y errores de base de datos.</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> GeoVision GV-VMS / Control Center.</p>
+                            <p>⚙️ <strong>Procedimiento:</strong> Abrir GV-VMS > Herramientas > System Log para revisar eventos de conexión y errores de base de datos.</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -884,8 +889,10 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Configuración 4.3: Exclusiones de Antivirus / Windows Defender</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Software / Herramienta:</strong> Windows Security / PowerShell (cmdlet <code class="text-sky-300 font-mono">Add-MpPreference -ExclusionPath</code>).</p>
-                            <p>⚙️ <strong>Procedimiento detallado y ruta de exclusión recomendada:</strong> Excluir la carpeta de instalación <code class="text-sky-300 font-mono">C:\GV</code> y las rutas de almacenamiento de video para evitar bloqueos en tiempo real.</p>
+                            <p>💡 <strong>Software / Herramienta:</strong> Windows Security / PowerShell.</p>
+                            <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">Add-MpPreference -ExclusionPath "[Ruta_Carpeta]"</code></p>
+                            <p>⚙️ <strong>Ejemplo práctico:</strong> Excluir la carpeta raíz de instalación y rutas de video:</p>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Add-MpPreference -ExclusionPath "C:\GV"</code>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
@@ -1052,7 +1059,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.3</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.4</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1305,11 +1312,11 @@
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v3_3', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v3_4', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v3_3');
+            const saved = localStorage.getItem('geovision_diag_autosave_v3_4');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1346,7 +1353,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
-                localStorage.removeItem('geovision_diag_autosave_v3_3');
+                localStorage.removeItem('geovision_diag_autosave_v3_4');
                 location.reload();
             }
         }
