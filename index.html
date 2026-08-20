@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.5</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.5</span>
             </div>
         </div>
     </header>
@@ -2157,6 +2157,10 @@
                         <label class="text-[9px] text-slate-300 block mb-0.5">Escritura I/O (MB/s)</label>
                         <input type="text" class="disk-write-speed w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 150 MB/s">
                     </div>
+                    <div class="col-span-2">
+                        <label class="text-[9px] text-slate-300 block mb-0.5">Horas de Uso</label>
+                        <input type="text" class="disk-horas-uso w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 25400 hrs">
+                    </div>
                 </div>
                 <div class="flex items-center justify-between pt-1">
                     <span class="text-[9px] font-semibold text-slate-300">S.M.A.R.T</span>
@@ -2201,6 +2205,7 @@
                     cap: item.querySelector('.disk-cap').value || 'N/R',
                     serial: item.querySelector('.disk-serial').value || 'N/R',
                     writeSpeed: item.querySelector('.disk-write-speed').value || 'N/R',
+                    horasUso: item.querySelector('.disk-horas-uso').value || 'N/R',
                     status: item.querySelector('input[type="radio"]:checked').value,
                     obs: item.querySelector('.disk-obs').value || '-',
                     foto: item.querySelector('.foto-base64-custom') ? item.querySelector('.foto-base64-custom').value : ''
@@ -2590,7 +2595,7 @@
                     let discosHtml = srv.discosFisicos.map((d, i) => `
                         <tr>
                             <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Disco Físico #${i+1}</strong></td>
-                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}<br>SN: ${escaparHTML(d.serial)} | Escritura: ${escaparHTML(d.writeSpeed)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}<br>SN: ${escaparHTML(d.serial)} | Escritura: ${escaparHTML(d.writeSpeed)}<br>Horas de Uso: ${escaparHTML(d.horasUso)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${escaparHTML(d.status)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(d.obs)} ${renderPdfImg(d.foto)}</td>
                         </tr>
