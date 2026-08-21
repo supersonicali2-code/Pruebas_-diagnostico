@@ -144,6 +144,15 @@
             #pdf-wrapper {
                 display: none;
             }
+            body.geovision-generando-pdf > header,
+            body.geovision-generando-pdf > main,
+            body.geovision-generando-pdf > .web-legal-footer {
+                display: none !important;
+            }
+            body.geovision-generando-pdf {
+                background: #ffffff !important;
+                min-height: 100vh !important;
+            }
         }
     </style>
 </head>
@@ -3412,7 +3421,27 @@
 
             const pdfWrapper = document.getElementById('pdf-wrapper');
             const pdfTemplate = document.getElementById('pdf-template');
-            pdfWrapper.style.display = 'block';
+
+            // IMPORTANTE: html2canvas no captura de forma fiable un elemento que estuvo
+            // dentro de un contenedor con display:none, aunque después se cambie a block.
+            // Lo hacemos visible en una capa temporal fuera de la interfaz y ocultamos
+            // únicamente la aplicación mientras se toma la captura. Esto evita el PDF en blanco.
+            const claseGenerandoPDF = 'geovision-generando-pdf';
+            document.body.classList.add(claseGenerandoPDF);
+            pdfWrapper.style.cssText = [
+                'display:block',
+                'position:absolute',
+                'left:0',
+                'top:0',
+                'width:794px',
+                'min-height:1123px',
+                'z-index:99999',
+                'background:#ffffff',
+                'visibility:visible',
+                'opacity:1'
+            ].join(';');
+            pdfTemplate.style.width = '794px';
+            pdfTemplate.style.background = '#ffffff';
 
             // Generación directa del PDF: evita los encabezados/pies automáticos del navegador
             // (incluida la URL de la página) y permite colocar el aviso legal en cada hoja.
@@ -3457,10 +3486,12 @@
                 })
                 .save()
                 .then(() => {
-                    pdfWrapper.style.display = 'none';
+                    document.body.classList.remove(claseGenerandoPDF);
+                    pdfWrapper.style.cssText = 'display:none;';
                 })
                 .catch((err) => {
-                    pdfWrapper.style.display = 'none';
+                    document.body.classList.remove(claseGenerandoPDF);
+                    pdfWrapper.style.cssText = 'display:none;';
                     console.error('Error al generar el PDF:', err);
                     alert('No fue posible generar el PDF. Verifique la conexión a Internet y vuelva a intentarlo.');
                 });
