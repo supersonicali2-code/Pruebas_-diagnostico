@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.6</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.7</span>
             </div>
         </div>
     </header>
@@ -204,7 +204,7 @@
 
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">2. Ficha de Inventario Técnico del Servidor</h2>
-            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria, almacenamiento, sistema de respaldo eléctrico (UPS), cantidad de cámaras y pantallas.</p>
+            <p class="text-[10px] text-slate-300">Ingrese los datos exactos del hardware base, procesador, memoria, almacenamiento, fecha de compra, sistema de respaldo eléctrico (UPS), cantidad de cámaras y pantallas.</p>
             
             <div class="grid grid-cols-2 gap-3">
                 <div class="col-span-2">
@@ -257,8 +257,12 @@
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Cantidad de Pantallas</label>
                     <input type="number" id="srv-screen-qty" placeholder="Ej: 2" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
-                <div class="col-span-2">
-                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Sistema de Respaldo Eléctrico (UPS)</label>
+                <div>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Fecha de Compra</label>
+                    <input type="date" id="srv-purchase-date" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Sistema de Respaldo (UPS)</label>
                     <select id="srv-ups" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white font-bold focus:outline-none">
                         <option value="UPS Individual Monitoreable" selected>UPS Individual </option>
                         <option value="UPS Central / Sin Monitoreo Directo">UPS Central </option>
@@ -1103,7 +1107,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.6</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.7</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1386,16 +1390,17 @@
                 srvDiskCap: document.getElementById('srv-disk-cap').value,
                 srvCamQty: document.getElementById('srv-cam-qty').value,
                 srvScreenQty: document.getElementById('srv-screen-qty').value,
+                srvPurchaseDate: document.getElementById('srv-purchase-date').value,
                 srvUps: document.getElementById('srv-ups').value,
                 srvSoftware: document.getElementById('srv-software').value,
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v3_6', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v3_7', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v3_6');
+            const saved = localStorage.getItem('geovision_diag_autosave_v3_7');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1416,6 +1421,7 @@
                 if (data.srvDiskCap) document.getElementById('srv-disk-cap').value = data.srvDiskCap;
                 if (data.srvCamQty) document.getElementById('srv-cam-qty').value = data.srvCamQty;
                 if (data.srvScreenQty) document.getElementById('srv-screen-qty').value = data.srvScreenQty;
+                if (data.srvPurchaseDate) document.getElementById('srv-purchase-date').value = data.srvPurchaseDate;
                 if (data.srvUps) document.getElementById('srv-ups').value = data.srvUps;
                 if (data.srvSoftware) document.getElementById('srv-software').value = data.srvSoftware;
                 if (Array.isArray(data.colaServidores)) {
@@ -1434,7 +1440,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
-                localStorage.removeItem('geovision_diag_autosave_v3_6');
+                localStorage.removeItem('geovision_diag_autosave_v3_7');
                 location.reload();
             }
         }
@@ -2320,6 +2326,7 @@
                 disk_cap: document.getElementById('srv-disk-cap').value || 'No Especifica',
                 camQty: document.getElementById('srv-cam-qty').value || '0',
                 screenQty: document.getElementById('srv-screen-qty').value || '1',
+                purchaseDate: document.getElementById('srv-purchase-date').value || 'No Especifica',
                 ups: document.getElementById('srv-ups').value || 'No Especifica',
                 software: document.getElementById('srv-software').value || 'No Especifica',
                 timestamp: new Date().toLocaleString('es-CO'),
@@ -2849,6 +2856,12 @@
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.disk_cap)} (${escaparHTML(srv.disk_qty)} discos)</td>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Cámaras / Pantallas:</strong></td>
                             <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.camQty)} Cámaras / ${escaparHTML(srv.screenQty)} Pantallas</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Fecha de Compra:</strong></td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.purchaseDate)}</td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1; background-color: #f8fafc;"><strong>Software / Rol:</strong></td>
+                            <td style="padding: 4px 6px; border: 1px solid #cbd5e1;">${escaparHTML(srv.software)}</td>
                         </tr>
                     </table>
 
