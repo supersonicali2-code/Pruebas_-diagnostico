@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.5</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.6</span>
             </div>
         </div>
     </header>
@@ -313,20 +313,22 @@
                             </div>
                             <input type="text" id="obs_volt_fn" placeholder="Observaciones Fase-Neutro..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_volt_fn" class="foto-base64-custom">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📷 Cámara
+                                            <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📁 Galería
+                                            <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <input type="hidden" id="b64_volt_fn" class="foto-base64-custom-json" value="[]">
+                                    </div>
                                 </div>
+                                <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                             </div>
                         </div>
 
@@ -348,20 +350,22 @@
                             </div>
                             <input type="text" id="obs_volt_ft" placeholder="Observaciones Fase-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_volt_ft" class="foto-base64-custom">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📷 Cámara
+                                            <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📁 Galería
+                                            <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <input type="hidden" id="b64_volt_ft" class="foto-base64-custom-json" value="[]">
+                                    </div>
                                 </div>
+                                <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                             </div>
                         </div>
 
@@ -383,20 +387,22 @@
                             </div>
                             <input type="text" id="obs_volt_nt" placeholder="Observaciones Neutro-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_volt_nt" class="foto-base64-custom">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📷 Cámara
+                                            <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📁 Galería
+                                            <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <input type="hidden" id="b64_volt_nt" class="foto-base64-custom-json" value="[]">
+                                    </div>
                                 </div>
+                                <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                             </div>
                         </div>
                     </div>
@@ -442,20 +448,22 @@
                         </div>
                         <input type="text" id="obs_ping_cc" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_ping_cc" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_ping_cc" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
 
                         <div id="wrapper-ping" class="space-y-2 mt-2 w-full"></div>
@@ -486,20 +494,22 @@
                         <div id="wrapper-ports" class="space-y-2 w-full"></div>
                         <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_ports" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_ports" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
                     </div>
 
@@ -574,20 +584,22 @@
                         <div id="wrapper-net" class="space-y-2 mt-2 w-full"></div>
                         <input type="text" id="obs_ping_cam" placeholder="Anotaciones de red..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_net" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_net" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
                     </div>
 
@@ -626,20 +638,22 @@
                             </div>
                             <input type="text" id="obs_mtu" placeholder="Observaciones de MTU..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📷 Cámara
-                                        <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                        📁 Galería
-                                        <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                    </label>
-                                    <input type="hidden" id="b64_mtu" class="foto-base64-custom">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📷 Cámara
+                                            <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                            📁 Galería
+                                            <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                        </label>
+                                        <input type="hidden" id="b64_mtu" class="foto-base64-custom-json" value="[]">
+                                    </div>
                                 </div>
+                                <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                             </div>
                         </div>
 
@@ -723,20 +737,22 @@
                         <div id="wrapper-gpu-extra" class="space-y-2 mt-2 w-full"></div>
                         <input type="text" id="obs_hardware_stress" placeholder="Notas sobre el comportamiento..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_hw_stress" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_hw_stress" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
                     </div>
 
@@ -768,20 +784,22 @@
                         </div>
                         <input type="text" id="obs_event_logs" placeholder="Observaciones generales..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_event_logs" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_event_logs" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
 
                         <div id="wrapper-hw-logs" class="space-y-2 mt-2 w-full"></div>
@@ -828,20 +846,22 @@
                         <div id="wrapper-temp-extra" class="space-y-2 mt-2 w-full"></div>
                         <input type="text" id="obs_temp" placeholder="Observaciones térmicas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_temp" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_temp" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
                     </div>
                 </div>
@@ -883,20 +903,22 @@
                         </div>
                         <input type="text" id="obs_software_core" placeholder="Observaciones detalladas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_sw_core" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_sw_core" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
 
                         <div id="wrapper-sw-db" class="space-y-2 mt-2 w-full"></div>
@@ -930,20 +952,22 @@
                         </div>
                         <input type="text" id="obs_av" placeholder="Observaciones de exclusiones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                            <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                                <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                                <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📷 Cámara
-                                    <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                                    📁 Galería
-                                    <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                                </label>
-                                <input type="hidden" id="b64_av" class="foto-base64-custom">
+                        <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_av" class="foto-base64-custom-json" value="[]">
+                                </div>
                             </div>
+                            <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                         </div>
                     </div>
 
@@ -1026,7 +1050,7 @@
             <div class="grid grid-cols-2 gap-2 pt-1">
                 <label class="bg-sky-600 hover:bg-sky-500 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.5">
                     <span>📷 Tomar con Cámara</span>
-                    <input type="file" accept="image/*" capture="environment" onchange="procesarFotosGenerales(this)" class="sr-only">
+                    <input type="file" accept="image/*" capture="environment" multiple onchange="procesarFotosGenerales(this)" class="sr-only">
                 </label>
                 <label class="bg-[#E52724] hover:bg-red-700 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.5">
                     <span>📁 Abrir Galería</span>
@@ -1079,7 +1103,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.5</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.6</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1157,27 +1181,66 @@
             reader.readAsDataURL(file);
         }
 
+        // --- SISTEMA DE EVIDENCIA MÚLTIPLE ---
         function procesarFotoEvidencia(input) {
-            const file = input.files[0];
+            const files = input.files;
+            if (!files || files.length === 0) return;
+
             const container = input.closest('.evidence-slot');
-            const hidden = container.querySelector('.foto-base64-custom');
-            const statusSpan = container.querySelector('.preview-status');
+            const hiddenJson = container.querySelector('.foto-base64-custom-json');
             
-            if (!file) {
-                if (hidden) hidden.value = '';
-                if (statusSpan) statusSpan.innerText = 'Sin foto';
+            let fotosArr = [];
+            try {
+                fotosArr = JSON.parse(hiddenJson.value || '[]');
+            } catch(e) {
+                fotosArr = [];
+            }
+
+            for (let i = 0; i < files.length; i++) {
+                if (!files[i].type.startsWith('image/')) continue;
+                
+                comprimirImagen(files[i], function(b64) {
+                    fotosArr.push(b64);
+                    hiddenJson.value = JSON.stringify(fotosArr);
+                    renderizarMiniaturasEvidencia(container, fotosArr);
+                    dispararAutoguardado();
+                });
+            }
+            input.value = '';
+        }
+
+        function renderizarMiniaturasEvidencia(container, fotosArr) {
+            const thumbContainer = container.querySelector('.evidence-thumbnails');
+            if (!thumbContainer) return;
+
+            if (fotosArr.length === 0) {
+                thumbContainer.innerHTML = '';
                 return;
             }
+
+            thumbContainer.innerHTML = fotosArr.map((b64, index) => `
+                <div class="relative group bg-slate-950 p-1 rounded border border-slate-700">
+                    <img src="${b64}" class="w-full h-12 object-cover rounded">
+                    <button type="button" onclick="eliminarFotoEvidencia(this, ${index})" class="absolute -top-1 -right-1 bg-rose-600 text-white rounded-full w-4 h-4 flex items-center justify-center text-[8px] font-bold shadow">×</button>
+                </div>
+            `).join('');
+        }
+
+        function eliminarFotoEvidencia(btn, index) {
+            const container = btn.closest('.evidence-slot');
+            const hiddenJson = container.querySelector('.foto-base64-custom-json');
             
-            comprimirImagen(file, function(b64) {
-                if (hidden) hidden.value = b64;
-                if (statusSpan) {
-                    statusSpan.innerText = '✔ Cargada';
-                    statusSpan.className = 'preview-status text-emerald-400 font-bold truncate max-w-[80px]';
-                }
-                dispararAutoguardado();
-            });
-            input.value = '';
+            let fotosArr = [];
+            try {
+                fotosArr = JSON.parse(hiddenJson.value || '[]');
+            } catch(e) {
+                fotosArr = [];
+            }
+
+            fotosArr.splice(index, 1);
+            hiddenJson.value = JSON.stringify(fotosArr);
+            renderizarMiniaturasEvidencia(container, fotosArr);
+            dispararAutoguardado();
         }
 
         function obtenerUbicacionGPS() {
@@ -1213,7 +1276,7 @@
         function renderizarMosaicoFotos() {
             const container = document.getElementById('foto-preview-container');
             container.innerHTML = fotosActualesBase64.map((src, index) => `
-                <div class="relative group bg-slate-950 p-1 rounded-lg border border-slate-700">
+                <div class="relative group bg-slate-950 p-1 rounded border border-slate-700">
                     <img src="${src}" class="w-full h-20 object-cover rounded">
                     <button type="button" onclick="eliminarFoto(${index})" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow-lg">X</button>
                 </div>
@@ -1239,38 +1302,32 @@
             let totalChecks = 0;
             let alertasDetectadas = [];
 
-            // Voltajes eléctricos
             totalChecks += 3;
             ['fn', 'ft', 'nt'].forEach(v => {
                 const voltSt = document.querySelector(`input[name="chk_volt_${v}"]:checked`);
                 if (voltSt && voltSt.value !== 'ESTABLE') alertasDetectadas.push(`Voltaje ${v === 'nt' ? 'Neutro-Tierra' : v.toUpperCase()} anómalo`);
             });
 
-            // Pings principales
             totalChecks++;
             const pingVal = document.querySelector('input[name="chk_ping_cc"]:checked');
             if (pingVal && pingVal.value !== 'PASA') alertasDetectadas.push("Ping 100 paquetes (Fallo de latencia/pérdida)");
 
-            // Red subida / bajada
             totalChecks += 2;
             const upNet = document.querySelector('input[name="chk_upload_net_status"]:checked');
             if (upNet && upNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Subida Saturado");
             const downNet = document.querySelector('input[name="chk_download_net_status"]:checked');
             if (downNet && downNet.value === 'SATURADO') alertasDetectadas.push("Ancho de banda de Descarga Saturado");
 
-            // MTU principal
             totalChecks++;
             const mtu = document.querySelector('input[name="chk_mtu_status"]:checked');
             if (mtu && mtu.value !== 'ÓPTIMO') alertasDetectadas.push("MTU requiere ajuste");
 
-            // Discos
             document.querySelectorAll('.disk-item').forEach((item, idx) => {
                 totalChecks++;
                 const st = item.querySelector('input[type="radio"]:checked');
                 if (st && st.value !== 'SANO') alertasDetectadas.push(`Disco Físico #${idx+1} en estado ${st.value}`);
             });
 
-            // Stress CPU / RAM / GPU
             totalChecks += 3;
             const cpuSt = document.querySelector('input[name="chk_cpu_status"]:checked');
             if (cpuSt && cpuSt.value === 'SATURADO') alertasDetectadas.push("CPU Saturado");
@@ -1279,7 +1336,6 @@
             const gpuSt = document.querySelector('input[name="chk_gpu_status"]:checked');
             if (gpuSt && gpuSt.value === 'SATURADO') alertasDetectadas.push("GPU / Codec Saturado");
 
-            // Logs / Temperatura / Exclusión Antivirus
             totalChecks += 4;
             const logSt = document.querySelector('input[name="chk_event_logs"]:checked');
             if (logSt && logSt.value !== 'LIMPIO') alertasDetectadas.push("Errores en Visor de Eventos");
@@ -1335,11 +1391,11 @@
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v3_5', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v3_6', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v3_5');
+            const saved = localStorage.getItem('geovision_diag_autosave_v3_6');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1378,7 +1434,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
-                localStorage.removeItem('geovision_diag_autosave_v3_5');
+                localStorage.removeItem('geovision_diag_autosave_v3_6');
                 location.reload();
             }
         }
@@ -1415,20 +1471,22 @@
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="ping-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1443,7 +1501,7 @@
                     loss: row.querySelector('.ping-loss-custom').value.trim() || 'N/R',
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.ping-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -1481,20 +1539,22 @@
                     </div>
                     <input type="text" placeholder="Observaciones..." class="mtu-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 </div>
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1509,7 +1569,7 @@
                     val: row.querySelector('.mtu-val-custom').value.trim() || 'N/R',
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.mtu-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -1614,20 +1674,22 @@
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1641,7 +1703,7 @@
                     val: row.querySelector('.log-base-custom').value.trim() || 'N/R',
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.log-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -1673,20 +1735,22 @@
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1700,7 +1764,7 @@
                     val: row.querySelector('.log-val-custom').value.trim() || 'N/R',
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.log-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -1725,20 +1789,22 @@
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1751,7 +1817,7 @@
                 res.push({
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.ctrl-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -1776,20 +1842,22 @@
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1802,7 +1870,7 @@
                 res.push({
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.upd-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -1844,20 +1912,22 @@
                     </div>
                 </div>
                 <input type="text" placeholder="Observaciones..." class="lic-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             `;
             wrapper.appendChild(row);
@@ -1873,7 +1943,7 @@
                     num: row.querySelector('.lic-num-custom').value.trim() || 'N/R',
                     status: row.querySelector('input[type="radio"]:checked').value,
                     obs: row.querySelector('.lic-obs-custom').value.trim() || '-',
-                    foto: row.querySelector('.foto-base64-custom') ? row.querySelector('.foto-base64-custom').value : ''
+                    foto: row.querySelector('.foto-base64-custom-json') ? row.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return res;
@@ -2068,20 +2138,22 @@
                     </div>
                 </div>
                 
-                <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px]">
-                    <span class="text-purple-300 font-bold whitespace-nowrap mr-1">📸 Evidencia Cam:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="cam-foto-general foto-base64-custom">
+                <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 text-[9px] space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-300 font-bold whitespace-nowrap mr-1">📸 Evidencias Cam:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="cam-foto-general foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
 
                 <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-2 pt-2">
@@ -2126,7 +2198,7 @@
                     subGop: item.querySelector('.cam-sub-gop').value || 'N/R',
                     status: statusRadio ? statusRadio.value : 'PASA',
                     obs: item.querySelector('.cam-obs').value || '-',
-                    fotoGen: item.querySelector('.cam-foto-general') ? item.querySelector('.cam-foto-general').value : ''
+                    fotoGen: item.querySelector('.cam-foto-general') ? item.querySelector('.cam-foto-general').value : '[]'
                 });
             });
             return resultado;
@@ -2158,8 +2230,8 @@
                         <input type="text" class="disk-write-speed w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 150 MB/s">
                     </div>
                     <div class="col-span-2">
-                        <label class="text-[9px] text-slate-300 block mb-0.5">Horas de Uso</label>
-                        <input type="text" class="disk-horas-uso w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 25400 hrs">
+                        <label class="text-[9px] text-slate-300 block mb-0.5">Horas de Uso (S.M.A.R.T Power-On Hours)</label>
+                        <input type="text" class="disk-hours w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 18500 hrs">
                     </div>
                 </div>
                 <div class="flex items-center justify-between pt-1">
@@ -2171,20 +2243,22 @@
                     </div>
                 </div>
                 <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Observaciones...">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
-                    <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
-                        <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span>
-                        <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📷 Cámara
-                            <input type="file" accept="image/*" capture="environment" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
-                            📁 Galería
-                            <input type="file" accept="image/*" class="sr-only" onchange="procesarFotoEvidencia(this)">
-                        </label>
-                        <input type="hidden" class="foto-base64-custom">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 text-[9px] mt-1.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencias:</span>
+                        <div class="flex items-center space-x-1.5 flex-1 justify-end">
+                            <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📷 Cámara
+                                <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                📁 Galería
+                                <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                            </label>
+                            <input type="hidden" class="foto-base64-custom-json" value="[]">
+                        </div>
                     </div>
+                    <div class="evidence-thumbnails grid grid-cols-4 gap-1.5"></div>
                 </div>
             </div>
             `;
@@ -2205,10 +2279,10 @@
                     cap: item.querySelector('.disk-cap').value || 'N/R',
                     serial: item.querySelector('.disk-serial').value || 'N/R',
                     writeSpeed: item.querySelector('.disk-write-speed').value || 'N/R',
-                    horasUso: item.querySelector('.disk-horas-uso').value || 'N/R',
+                    hours: item.querySelector('.disk-hours').value || 'N/R',
                     status: item.querySelector('input[type="radio"]:checked').value,
                     obs: item.querySelector('.disk-obs').value || '-',
-                    foto: item.querySelector('.foto-base64-custom') ? item.querySelector('.foto-base64-custom').value : ''
+                    foto: item.querySelector('.foto-base64-custom-json') ? item.querySelector('.foto-base64-custom-json').value : '[]'
                 });
             });
             return resultado;
@@ -2255,29 +2329,29 @@
                     volt_fn_val: document.getElementById('val_volt_fn').value || 'N/R',
                     volt_fn_status: document.querySelector('input[name="chk_volt_fn"]:checked').value,
                     volt_fn_obs: document.getElementById('obs_volt_fn').value || '-',
-                    volt_fn_foto: document.getElementById('b64_volt_fn') ? document.getElementById('b64_volt_fn').value : '',
+                    volt_fn_foto: document.getElementById('b64_volt_fn') ? document.getElementById('b64_volt_fn').value : '[]',
 
                     volt_ft_val: document.getElementById('val_volt_ft').value || 'N/R',
                     volt_ft_status: document.querySelector('input[name="chk_volt_ft"]:checked').value,
                     volt_ft_obs: document.getElementById('obs_volt_ft').value || '-',
-                    volt_ft_foto: document.getElementById('b64_volt_ft') ? document.getElementById('b64_volt_ft').value : '',
+                    volt_ft_foto: document.getElementById('b64_volt_ft') ? document.getElementById('b64_volt_ft').value : '[]',
 
                     volt_nt_val: document.getElementById('val_volt_nt').value || 'N/R',
                     volt_nt_status: document.querySelector('input[name="chk_volt_nt"]:checked').value,
                     volt_nt_obs: document.getElementById('obs_volt_nt').value || '-',
-                    volt_nt_foto: document.getElementById('b64_volt_nt') ? document.getElementById('b64_volt_nt').value : '',
+                    volt_nt_foto: document.getElementById('b64_volt_nt') ? document.getElementById('b64_volt_nt').value : '[]',
 
                     ping_cc_status: document.querySelector('input[name="chk_ping_cc"]:checked').value,
                     ping_lat: document.getElementById('val_ping_lat').value || 'N/R',
                     ping_loss: document.getElementById('val_ping_loss').value || 'N/R',
                     ping_cc_obs: document.getElementById('obs_ping_cc').value || '-',
-                    ping_cc_foto: document.getElementById('b64_ping_cc') ? document.getElementById('b64_ping_cc').value : '',
+                    ping_cc_foto: document.getElementById('b64_ping_cc') ? document.getElementById('b64_ping_cc').value : '[]',
                     ping_extras: extraerPingsExtra(),
                     
                     portTestType: document.getElementById('val_port_test_type').value,
                     extraPorts: extraerPuertosExtra(),
                     ports_obs: document.getElementById('obs_ports').value || '-',
-                    ports_foto: document.getElementById('b64_ports') ? document.getElementById('b64_ports').value : '',
+                    ports_foto: document.getElementById('b64_ports') ? document.getElementById('b64_ports').value : '[]',
 
                     netName: document.getElementById('val_net_name').value || 'Ethernet',
                     netType: document.getElementById('val_net_type').value || 'Ethernet',
@@ -2288,13 +2362,13 @@
                     net_download_status: document.querySelector('input[name="chk_download_net_status"]:checked').value,
                     extraInterfaces: extraerInterfacesExtra(),
                     red_global_obs: document.getElementById('obs_ping_cam').value || '-',
-                    red_global_foto: document.getElementById('b64_net') ? document.getElementById('b64_net').value : '',
+                    red_global_foto: document.getElementById('b64_net') ? document.getElementById('b64_net').value : '[]',
 
                     mtu_route: document.getElementById('val_mtu_route').value || 'Principal',
                     mtu_val: document.getElementById('val_mtu').value || 'N/R',
                     mtu_status: document.querySelector('input[name="chk_mtu_status"]:checked').value,
                     mtu_obs: document.getElementById('obs_mtu').value || '-',
-                    mtu_foto: document.getElementById('b64_mtu') ? document.getElementById('b64_mtu').value : '',
+                    mtu_foto: document.getElementById('b64_mtu') ? document.getElementById('b64_mtu').value : '[]',
                     mtu_extras: extraerMtusExtra(),
 
                     cpu_pct: document.getElementById('val_cpu_pct').value || 'N/R',
@@ -2305,12 +2379,12 @@
                     gpu_status: document.querySelector('input[name="chk_gpu_status"]:checked').value,
                     gpu_extras: extraerGpuExtra(),
                     hw_stress_obs: document.getElementById('obs_hardware_stress').value || '-',
-                    hw_stress_foto: document.getElementById('b64_hw_stress') ? document.getElementById('b64_hw_stress').value : '',
+                    hw_stress_foto: document.getElementById('b64_hw_stress') ? document.getElementById('b64_hw_stress').value : '[]',
 
                     event_logs_status: document.querySelector('input[name="chk_event_logs"]:checked').value,
                     event_logs_val: document.getElementById('val_event_base').value || 'N/R',
                     event_logs_obs: document.getElementById('obs_event_logs').value || '-',
-                    event_logs_foto: document.getElementById('b64_event_logs') ? document.getElementById('b64_event_logs').value : '',
+                    event_logs_foto: document.getElementById('b64_event_logs') ? document.getElementById('b64_event_logs').value : '[]',
                     log_critico_extras: extraerLogsCriticosExtra(),
 
                     temp_cpu: document.getElementById('val_temp_cpu').value || 'N/R',
@@ -2319,27 +2393,27 @@
                     temp_extras: extraerTemperaturasExtra(),
                     temp_status: document.querySelector('input[name="chk_temp_status"]:checked').value,
                     temp_obs: document.getElementById('obs_temp').value || '-',
-                    temp_foto: document.getElementById('b64_temp') ? document.getElementById('b64_temp').value : '',
+                    temp_foto: document.getElementById('b64_temp') ? document.getElementById('b64_temp').value : '[]',
 
                     sw_gv_events_status: document.querySelector('input[name="chk_sw_gv_events"]:checked').value,
                     sw_gv_events_val: document.getElementById('val_event_gv').value || 'N/R',
                     sw_core_obs: document.getElementById('obs_software_core').value || '-',
-                    sw_core_foto: document.getElementById('b64_sw_core') ? document.getElementById('b64_sw_core').value : '',
+                    sw_core_foto: document.getElementById('b64_sw_core') ? document.getElementById('b64_sw_core').value : '[]',
                     sw_gv_extras: extraerLogEventosExtra(),
 
                     av_status: document.querySelector('input[name="chk_av_status"]:checked').value,
                     av_name: document.getElementById('val_av_name').value || 'N/R',
                     av_obs: document.getElementById('obs_av').value || '-',
-                    av_foto: document.getElementById('b64_av') ? document.getElementById('b64_av').value : '',
+                    av_foto: document.getElementById('b64_av') ? document.getElementById('b64_av').value : '[]',
 
                     sw_ctrl_status: document.querySelector('input[name="chk_sw_ctrl"]:checked').value,
                     sw_ctrl_obs: document.getElementById('obs_sw_ctrl').value || '-',
-                    sw_ctrl_foto: document.getElementById('b64_sw_ctrl') ? document.getElementById('b64_sw_ctrl').value : '',
+                    sw_ctrl_foto: document.getElementById('b64_sw_ctrl') ? document.getElementById('b64_sw_ctrl').value : '[]',
                     sw_ctrl_extras: extraerControladoresExtra(),
 
                     sw_upd_status: document.querySelector('input[name="chk_sw_upd"]:checked').value,
                     sw_upd_obs: document.getElementById('obs_sw_upd').value || '-',
-                    sw_upd_foto: document.getElementById('b64_sw_upd') ? document.getElementById('b64_sw_upd').value : '',
+                    sw_upd_foto: document.getElementById('b64_sw_upd') ? document.getElementById('b64_sw_upd').value : '[]',
                     sw_upd_extras: extraerActualizacionesExtra(),
 
                     lic_type: document.getElementById('val_lic_type').value,
@@ -2347,7 +2421,7 @@
                     lic_num: document.getElementById('val_lic_num').value || 'N/R',
                     lic_status: document.querySelector('input[name="chk_lic_status"]:checked').value,
                     lic_obs: document.getElementById('obs_lic').value || '-',
-                    lic_foto: document.getElementById('b64_lic') ? document.getElementById('b64_lic').value : '',
+                    lic_foto: document.getElementById('b64_lic') ? document.getElementById('b64_lic').value : '[]',
                     lic_extras: extraerLicenciasExtra()
                 },
                 camarasIP: extraerCamaras(),
@@ -2424,7 +2498,15 @@
             input.value = '';
         }
 
-        const renderPdfImg = (b64) => b64 ? `<div style="margin-top: 4px; padding-top: 4px; border-top: 1px dashed #cbd5e1; text-align: center;"><img src="${b64}" style="max-width: 100%; max-height: 140px; object-fit: contain; border-radius: 4px; display: inline-block;"></div>` : '';
+        const renderPdfMultiImgs = (fotosJson) => {
+            let arr = [];
+            try { arr = JSON.parse(fotosJson || '[]'); } catch(e) { arr = []; }
+            if (arr.length === 0) return '';
+            
+            return `<div style="margin-top: 4px; padding-top: 4px; border-top: 1px dashed #cbd5e1; text-align: center;">` + 
+                arr.map(img => `<img src="${img}" style="max-width: 48%; max-height: 120px; object-fit: contain; border-radius: 3px; display: inline-block; margin: 2px;">`).join('') + 
+                `</div>`;
+        };
 
         function calcularSaludServidorPDF(srv) {
             if (srv.modoReporte === 'inventario') {
@@ -2558,12 +2640,12 @@
 
                     let extraPingsHtml = '';
                     if (srv.pruebasFijas.ping_extras && srv.pruebasFijas.ping_extras.length > 0) {
-                        srv.pruebasFijas.ping_extras.forEach(pe => {
+                        srv.pruebasFijas.ping_extras.forEach((pe, idx) => {
                             extraPingsHtml += `<tr>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ping Adicional</strong></td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(pe.lat)} | Pérdida: ${escaparHTML(pe.loss)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${pe.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(pe.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(pe.obs)} ${renderPdfImg(pe.foto)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(pe.obs)} ${renderPdfMultiImgs(pe.foto)}</td>
                             </tr>`;
                         });
                     }
@@ -2575,7 +2657,7 @@
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>MTU (${escaparHTML(me.route)})</strong></td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(me.val)}</td>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${me.status === 'ÓPTIMO' ? '#16a34a' : '#E52724'};">${escaparHTML(me.status)}</td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(me.obs)} ${renderPdfImg(me.foto)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(me.obs)} ${renderPdfMultiImgs(me.foto)}</td>
                             </tr>`;
                         });
                     }
@@ -2595,9 +2677,9 @@
                     let discosHtml = srv.discosFisicos.map((d, i) => `
                         <tr>
                             <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Disco Físico #${i+1}</strong></td>
-                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}<br>SN: ${escaparHTML(d.serial)} | Escritura: ${escaparHTML(d.writeSpeed)}<br>Horas de Uso: ${escaparHTML(d.horasUso)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1;">Ref: ${escaparHTML(d.ref)} | Cap: ${escaparHTML(d.cap)}<br>SN: ${escaparHTML(d.serial)} | Escritura: ${escaparHTML(d.writeSpeed)}<br>Horas de Uso: ${escaparHTML(d.hours)}</td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${d.status === 'SANO' ? '#16a34a' : '#E52724'};">${escaparHTML(d.status)}</td>
-                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(d.obs)} ${renderPdfImg(d.foto)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(d.obs)} ${renderPdfMultiImgs(d.foto)}</td>
                         </tr>
                     `).join('');
 
@@ -2611,7 +2693,7 @@
                                 <strong>Sub:</strong> ${escaparHTML(c.subCodec)} / ${escaparHTML(c.subRes)} / ${escaparHTML(c.subFps)}fps / GOP: ${escaparHTML(c.subGop)}
                             </td>
                             <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${c.status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(c.status)}</td>
-                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(c.obs)} ${renderPdfImg(c.fotoGen)}</td>
+                            <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(c.obs)} ${renderPdfMultiImgs(c.fotoGen)}</td>
                         </tr>
                     `).join('');
 
@@ -2623,7 +2705,7 @@
                                     <th style="padding: 5px; border: 1px solid #cbd5e1; width: 20%;">Prueba Ejecutada</th>
                                     <th style="padding: 5px; border: 1px solid #cbd5e1; width: 25%;">Métrica / Parámetro</th>
                                     <th style="padding: 5px; border: 1px solid #cbd5e1; width: 15%; text-align: center;">Estatus</th>
-                                    <th style="padding: 5px; border: 1px solid #cbd5e1; width: 40%;">Anotaciones y Evidencia</th>
+                                    <th style="padding: 5px; border: 1px solid #cbd5e1; width: 40%;">Anotaciones y Evidencias</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -2632,19 +2714,19 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Fase - Neutro</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.volt_fn_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.volt_fn_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.volt_fn_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_fn_obs)} ${renderPdfImg(srv.pruebasFijas.volt_fn_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_fn_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.volt_fn_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Fase - Tierra</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.volt_ft_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.volt_ft_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.volt_ft_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_ft_obs)} ${renderPdfImg(srv.pruebasFijas.volt_ft_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_ft_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.volt_ft_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Neutro - Tierra</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.volt_nt_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.volt_nt_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.volt_nt_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_nt_obs)} ${renderPdfImg(srv.pruebasFijas.volt_nt_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_nt_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.volt_nt_foto)}</td>
                                 </tr>
 
                                 <!-- Red -->
@@ -2652,27 +2734,27 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ping (100 Pings)</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(srv.pruebasFijas.ping_lat)}<br>Pérdida: ${escaparHTML(srv.pruebasFijas.ping_loss)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.ping_cc_status === 'PASA' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.ping_cc_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ping_cc_obs)} ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ping_cc_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.ping_cc_foto)}</td>
                                 </tr>
                                 ${extraPingsHtml}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Sockets TCP</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${extraPortsHtml}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold;">SOCKETS</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ports_obs)} ${renderPdfImg(srv.pruebasFijas.ports_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ports_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.ports_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ancho de Banda</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.netName)} (${escaparHTML(srv.pruebasFijas.netType)}) - ${escaparHTML(srv.pruebasFijas.netSpeed)}<br>Subida: ${escaparHTML(srv.pruebasFijas.net_upload_val)} | Bajada: ${escaparHTML(srv.pruebasFijas.net_download_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; background-color: #f8fafc;">RED OK</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.red_global_obs)} ${renderPdfImg(srv.pruebasFijas.red_global_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.red_global_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.red_global_foto)}</td>
                                 </tr>
                                 ${extraInterfacesHtml}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Verificación MTU</strong><br>(${escaparHTML(srv.pruebasFijas.mtu_route)})</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.mtu_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.mtu_status === 'ÓPTIMO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.mtu_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.mtu_obs)} ${renderPdfImg(srv.pruebasFijas.mtu_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.mtu_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.mtu_foto)}</td>
                                 </tr>
                                 ${extraMtusHtml}
 
@@ -2682,19 +2764,19 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Stress Hardware</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.cpu_pct)} | RAM: ${escaparHTML(srv.pruebasFijas.ram_pct)} | GPU: ${escaparHTML(srv.pruebasFijas.gpu_pct)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.cpu_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.cpu_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.hw_stress_obs)} ${renderPdfImg(srv.pruebasFijas.hw_stress_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.hw_stress_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.hw_stress_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Logs Críticos</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Base: ${escaparHTML(srv.pruebasFijas.event_logs_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.event_logs_status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.event_logs_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.event_logs_obs)} ${renderPdfImg(srv.pruebasFijas.event_logs_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.event_logs_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.event_logs_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Temp. Hardware</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.temp_cpu)} | GPU: ${escaparHTML(srv.pruebasFijas.temp_gpu)} | HDD: ${escaparHTML(srv.pruebasFijas.temp_hdd)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.temp_status === 'NORMAL' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.temp_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.temp_obs)} ${renderPdfImg(srv.pruebasFijas.temp_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.temp_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.temp_foto)}</td>
                                 </tr>
 
                                 <!-- Software -->
@@ -2706,19 +2788,19 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Log Eventos GeoVision</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.sw_gv_events_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_gv_events_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_gv_events_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_core_obs)} ${renderPdfImg(srv.pruebasFijas.sw_core_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_core_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.sw_core_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Exclusiones Antivirus</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Antivirus: ${escaparHTML(srv.pruebasFijas.av_name)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.av_status === 'CONFIGURADO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.av_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.av_obs)} ${renderPdfImg(srv.pruebasFijas.av_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.av_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.av_foto)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Licenciamiento</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.lic_type)} | ${escaparHTML(srv.pruebasFijas.lic_name)} (${escaparHTML(srv.pruebasFijas.lic_num)})</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.lic_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.lic_status)}</td>
-                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.lic_obs)} ${renderPdfImg(srv.pruebasFijas.lic_foto)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.lic_obs)} ${renderPdfMultiImgs(srv.pruebasFijas.lic_foto)}</td>
                                 </tr>
                             </tbody>
                         </table>
