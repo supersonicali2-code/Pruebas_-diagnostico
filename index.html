@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.6</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.7</span>
             </div>
         </div>
     </header>
@@ -137,7 +137,7 @@
 
         <div class="bg-sky-950/60 border border-sky-500/30 p-3 rounded-xl text-xs text-sky-200 space-y-1">
             <p class="font-bold font-oswald text-sky-300">ℹ️ Instrucciones Generales de Uso:</p>
-            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario, los grupos de almacenamiento, las pruebas y cámaras con sus respectivas configuraciones.</p>
+            <p class="text-[11px] text-slate-300">Los datos se guardan automáticamente en su dispositivo. Complete el inventario, los grupos de almacenamiento, las pruebas y cámaras.</p>
         </div>
 
         <!-- SEMÁFORO DE SALUD GENERAL EN TIEMPO REAL -->
@@ -275,12 +275,12 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN NUEVA: GRUPOS DE ALMACENAMIENTO -->
+            <!-- SECCIÓN: GRUPOS DE ALMACENAMIENTO (SELECTOR DE DISCO Y RUTA) -->
             <div class="border-t border-slate-600 pt-3 mt-3 space-y-2">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h3 class="text-xs font-bold text-sky-300 uppercase font-oswald">Grupos de Almacenamiento (Rutas)</h3>
-                        <p class="text-[10px] text-slate-300">Asigne las rutas de almacenamiento (Letra de disco y Carpeta).</p>
+                        <h3 class="text-xs font-bold text-sky-300 uppercase font-oswald">Grupos de Almacenamiento (Disco y Ruta)</h3>
+                        <p class="text-[10px] text-slate-300">Seleccione la letra del disco y escriba la ruta (ej: Record).</p>
                     </div>
                     <button type="button" onclick="agregarGrupoAlmacenamiento()" class="bg-sky-600 hover:bg-sky-500 text-white font-bold text-[10px] px-2.5 py-1.5 rounded transition">➕ Añadir Grupo</button>
                 </div>
@@ -688,7 +688,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.6</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.7</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -867,14 +867,18 @@
             dispararAutoguardado();
         }
 
-        // --- GRUPOS DE ALMANECAMIENTO ---
-        function agregarGrupoAlmacenamiento(nombre="", letra="", carpeta="") {
+        // --- GRUPOS DE ALMACENAMIENTO (LETRA DE DISCO Y RUTA) ---
+        function agregarGrupoAlmacenamiento(letra = "D:", ruta = "Record") {
             contadorGruposAlmacenamiento++;
             const id = contadorGruposAlmacenamiento;
             const wrapper = document.getElementById('wrapper-storage-groups');
             const row = document.createElement('div');
             row.id = `storage_group_${id}`;
             row.className = 'storage-group-item bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2';
+            
+            const letrasDisponibles = ['C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:'];
+            const opcionesLetras = letrasDisponibles.map(l => `<option value="${l}" ${letra === l ? 'selected' : ''}>${l}</option>`).join('');
+
             row.innerHTML = `
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1">
                     <span class="text-[9px] font-bold text-sky-300">Grupo de Almacenamiento #${id}</span>
@@ -882,16 +886,14 @@
                 </div>
                 <div class="grid grid-cols-3 gap-2">
                     <div>
-                        <label class="block text-[8px] text-slate-300 mb-0.5">Nombre del Grupo</label>
-                        <input type="text" value="${escaparHTML(nombre)}" placeholder="Ej: Grupo 1" class="sg-name w-full bg-[#122f4a] border border-slate-600 text-[10px] p-1.5 rounded text-white focus:outline-none" oninput="actualizarSelectsGruposAlmacenamiento()">
-                    </div>
-                    <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Letra de Disco</label>
-                        <input type="text" value="${escaparHTML(letra)}" placeholder="Ej: D:" class="sg-drive w-full bg-[#122f4a] border border-slate-600 text-[10px] p-1.5 rounded text-white focus:outline-none">
+                        <select class="sg-drive w-full bg-[#122f4a] border border-slate-600 text-[10px] p-1.5 rounded text-white focus:outline-none" onchange="actualizarSelectsGruposAlmacenamiento()">
+                            ${opcionesLetras}
+                        </select>
                     </div>
-                    <div>
-                        <label class="block text-[8px] text-slate-300 mb-0.5">Nombre de Carpeta</label>
-                        <input type="text" value="${escaparHTML(carpeta)}" placeholder="Ej: GV_Data" class="sg-folder w-full bg-[#122f4a] border border-slate-600 text-[10px] p-1.5 rounded text-white focus:outline-none">
+                    <div class="col-span-2">
+                        <label class="block text-[8px] text-slate-300 mb-0.5">Ruta / Carpeta (ej: Record)</label>
+                        <input type="text" value="${escaparHTML(ruta)}" placeholder="Ej: Record" class="sg-folder w-full bg-[#122f4a] border border-slate-600 text-[10px] p-1.5 rounded text-white focus:outline-none" oninput="actualizarSelectsGruposAlmacenamiento()">
                     </div>
                 </div>
             `;
@@ -901,11 +903,15 @@
         }
 
         function extraerGruposAlmacenamiento() {
-            return [...document.querySelectorAll('.storage-group-item')].map(item => ({
-                name: item.querySelector('.sg-name').value.trim() || 'Sin Nombre',
-                drive: item.querySelector('.sg-drive').value.trim() || 'C:',
-                folder: item.querySelector('.sg-folder').value.trim() || 'GeoVision'
-            }));
+            return [...document.querySelectorAll('.storage-group-item')].map(item => {
+                const drive = item.querySelector('.sg-drive').value || 'D:';
+                const folder = item.querySelector('.sg-folder').value.trim() || 'Record';
+                return {
+                    drive: drive,
+                    folder: folder,
+                    display: `${drive}\\${folder}`
+                };
+            });
         }
 
         function actualizarSelectsGruposAlmacenamiento() {
@@ -913,7 +919,7 @@
             document.querySelectorAll('.cam-storage-group').forEach(select => {
                 const valorActual = select.value;
                 select.innerHTML = '<option value="">-- Sin Asignar --</option>' + grupos.map(g => `
-                    <option value="${escaparHTML(g.name)}">${escaparHTML(g.name)} (${escaparHTML(g.drive)}\\${escaparHTML(g.folder)})</option>
+                    <option value="${escaparHTML(g.display)}">${escaparHTML(g.display)}</option>
                 `).join('');
                 select.value = valorActual;
             });
@@ -936,7 +942,7 @@
             let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('cam_item_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
             const grupos = extraerGruposAlmacenamiento();
             const opcionesGrupos = '<option value="">-- Sin Asignar --</option>' + grupos.map(g => `
-                <option value="${escaparHTML(g.name)}" ${data.storageGroup === g.name ? 'selected' : ''}>${escaparHTML(g.name)} (${escaparHTML(g.drive)}\\${escaparHTML(g.folder)})</option>
+                <option value="${escaparHTML(g.display)}" ${data.storageGroup === g.display ? 'selected' : ''}>${escaparHTML(g.display)}</option>
             `).join('');
 
             const mainCodecVal = data.mainCodec || 'H.264';
@@ -979,7 +985,7 @@
                         </select>
                     </div>
 
-                    <!-- NUEVOS CAMPOS: MODO DE GRABACIÓN, STREAM Y GRUPO DE ALMACENAMIENTO -->
+                    <!-- MODO DE GRABACIÓN, STREAM Y GRUPO DE ALMACENAMIENTO -->
                     <div class="col-span-2 grid grid-cols-3 gap-2 bg-slate-900 p-2.5 rounded border border-slate-800">
                         <div>
                             <label class="block text-[8px] text-slate-400 mb-0.5">Modo Grabación</label>
@@ -1080,7 +1086,7 @@
                 <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-2 pt-2">
                     <div class="flex items-center justify-between text-xs">
                         <span class="font-bold text-slate-200">Diagnóstico Cámara</span>
-                        <div class="grid grid-cols-2 gap-1 w-[45%]">
+                        <div class="grid grid-cols-2 gap-1 w-[45%]" >
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" ${data.status !== 'FALLO' ? 'checked' : ''} class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA (OK)</span></label>
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" ${data.status === 'FALLO' ? 'checked' : ''} class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
                         </div>
@@ -1215,15 +1221,11 @@
             document.getElementById('wrapper-discos').innerHTML = getDiskTemplate(contadorDiscos, false);
             crearFilaPuerto();
             
-            // Añadir un grupo de almacenamiento por defecto
-            agregarGrupoAlmacenamiento("Grupo Principal", "D:", "GV_Data");
+            // Añadir un grupo de almacenamiento por defecto con disco D: y ruta Record
+            agregarGrupoAlmacenamiento("D:", "Record");
             
             cargarProgresoLocal();
         });
-
-        function calcularSemaforoPonderadoDesdeFormulario() {
-            return { score: 100, nivel: 'SANO', fallas: [] };
-        }
 
         function actualizarSemaforoSalud() {
             const badge = document.getElementById('health-score-badge');
@@ -1260,11 +1262,11 @@
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v2_6', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v2_7', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v2_6');
+            const saved = localStorage.getItem('geovision_diag_autosave_v2_7');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1292,7 +1294,7 @@
                 if (Array.isArray(data.gruposAlmacenamiento) && data.gruposAlmacenamiento.length > 0) {
                     document.getElementById('wrapper-storage-groups').innerHTML = '';
                     contadorGruposAlmacenamiento = 0;
-                    data.gruposAlmacenamiento.forEach(g => agregarGrupoAlmacenamiento(g.name, g.drive, g.folder));
+                    data.gruposAlmacenamiento.forEach(g => agregarGrupoAlmacenamiento(g.drive, g.folder));
                 }
 
                 if (Array.isArray(data.colaServidores)) {
@@ -1310,7 +1312,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo?")) {
-                localStorage.removeItem('geovision_diag_autosave_v2_6');
+                localStorage.removeItem('geovision_diag_autosave_v2_7');
                 location.reload();
             }
         }
@@ -1361,7 +1363,7 @@
                 <div class="bg-slate-800/80 p-2.5 rounded-lg border border-slate-700 flex justify-between items-center shadow-md">
                     <div>
                         <p class="font-bold text-slate-100 text-sm">${escaparHTML(s.nombre)} <span class="text-xs text-sky-300 font-normal">[IP: ${escaparHTML(s.ip)}]</span></p>
-                        <p class="text-[10px] text-slate-300">Grupos de Almacenamiento: ${s.gruposAlmacenamiento.length} | Cámaras: ${s.camarasIP.length}</p>
+                        <p class="text-[10px] text-slate-300">Rutas de Almacenamiento: ${s.gruposAlmacenamiento.length} | Cámaras: ${s.camarasIP.length}</p>
                     </div>
                     <button onclick="backendColaServidores.splice(${idx}, 1); sincronizarHistorialPantalla(); dispararAutoguardado();" class="text-rose-400 bg-rose-500/10 px-2 py-1.6 rounded-lg text-xs font-bold">Eliminar</button>
                 </div>
@@ -1414,7 +1416,7 @@
             const templateMaestroPDF = document.getElementById('pdf-servers-container');
 
             templateMaestroPDF.innerHTML = backendColaServidores.map((srv) => {
-                let gruposHtml = (srv.gruposAlmacenamiento || []).map(g => `<li><b>${escaparHTML(g.name)}</b>: Disco ${escaparHTML(g.drive)}\\${escaparHTML(g.folder)}</li>`).join('');
+                let gruposHtml = (srv.gruposAlmacenamiento || []).map(g => `<li>Ruta asignada: <b>${escaparHTML(g.drive)}\\${escaparHTML(g.folder)}</b></li>`).join('');
                 let camarasHtml = (srv.camarasIP || []).map(c => `
                     <tr>
                         <td style="padding: 4px; border: 1px solid #cbd5e1;">[Canal ${escaparHTML(c.channel)}] ${escaparHTML(c.name)}</td>
@@ -1434,8 +1436,8 @@
                         SERVIDOR: ${escaparHTML(srv.nombre)} [IP: ${escaparHTML(srv.ip)}]
                     </div>
                     <div style="font-size: 9px; margin-bottom: 6px;">
-                        <strong>Grupos de Almacenamiento Configurados:</strong>
-                        <ul style="margin: 2px 0 6px 15px; padding: 0;">${gruposHtml || '<li>Ninguno configurado</li>'}</ul>
+                        <strong>Rutas de Almacenamiento Configuradas:</strong>
+                        <ul style="margin: 2px 0 6px 15px; padding: 0;">${gruposHtml || '<li>Ninguna configurada</li>'}</ul>
                     </div>
                     <div style="font-size: 9px; font-weight: bold; color: #122f4a; margin-bottom: 4px;">Cámaras IP Configuradas</div>
                     <table style="width: 100%; border-collapse: collapse; font-size: 8.5px;">
