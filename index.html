@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>Diagnóstico e Inventario para servidores Geovision | Uso interno autorizado</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -110,20 +111,10 @@
                 break-before: page;
                 page-break-before: always;
             }
+            /* El pie legal del PDF se inserta directamente en cada página mediante jsPDF.
+               Así queda fuera del contenido y no se superpone. */
             .pdf-legal-footer {
-                position: fixed;
-                left: 0;
-                right: 0;
-                bottom: -12mm;
-                padding: 2.5mm 0 0;
-                border-top: 0.4pt solid #94a3b8;
-                color: #475569 !important;
-                background: #ffffff !important;
-                font-family: Arial, sans-serif;
-                font-size: 7pt;
-                line-height: 1.25;
-                text-align: center;
-                z-index: 9999;
+                display: none !important;
             }
 
         }
@@ -166,7 +157,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Iniciar una nueva ficha y borrar el borrador y la sesión local de este aplicativo" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Nueva ficha</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.3</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.4</span>
             </div>
         </div>
     </header>
@@ -1228,10 +1219,6 @@
     </footer>
 
     <div id="pdf-wrapper" style="display: none;">
-        <div class="pdf-legal-footer" aria-label="Aviso legal de uso interno">
-            Desarrollado por el Departamento de Ingeniería de Geovision de Colombia S.A.S. · NIT 830.069.756-8 · Aplicativo de uso interno y exclusivo para personal autorizado.
-            <span style="display:block; margin-top:1mm;">Prohibida su reproducción, distribución, modificación o utilización por terceros sin autorización expresa de Geovision de Colombia S.A.S.</span>
-        </div>
         <div id="pdf-template" class="bg-white text-slate-900 font-sans text-[10px] space-y-4" style="padding: 10px; margin: 0 auto;">
             
             <div class="border-b-2 border-[#2B4763] pb-3 flex justify-between items-end">
@@ -1240,7 +1227,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v4.3</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v4.4</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -3424,17 +3411,59 @@
             }).join('');
 
             const pdfWrapper = document.getElementById('pdf-wrapper');
+            const pdfTemplate = document.getElementById('pdf-template');
             pdfWrapper.style.display = 'block';
 
-            const restaurarVista = () => {
-                pdfWrapper.style.display = 'none';
-                window.removeEventListener('afterprint', restaurarVista);
+            // Generación directa del PDF: evita los encabezados/pies automáticos del navegador
+            // (incluida la URL de la página) y permite colocar el aviso legal en cada hoja.
+            const nombreArchivo = `Informe_Geovision_${new Date().toISOString().slice(0,10)}.pdf`;
+            const opcionesPDF = {
+                margin: [10, 10, 18, 10],
+                filename: nombreArchivo,
+                image: { type: 'jpeg', quality: 0.96 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                },
+                pagebreak: { mode: ['css', 'legacy'] },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
-            window.addEventListener('afterprint', restaurarVista);
 
-            setTimeout(() => {
-                window.print();
-            }, 150);
+            html2pdf()
+                .set(opcionesPDF)
+                .from(pdfTemplate)
+                .toPdf()
+                .get('pdf')
+                .then((pdf) => {
+                    const totalPaginas = pdf.internal.getNumberOfPages();
+                    const anchoPagina = pdf.internal.pageSize.getWidth();
+                    const altoPagina = pdf.internal.pageSize.getHeight();
+                    const texto1 = 'Desarrollado por el Departamento de Ingeniería de Geovision de Colombia S.A.S. · NIT 830.069.756-8';
+                    const texto2 = 'Uso interno y exclusivo para personal autorizado. Prohibida su reproducción, distribución, modificación o utilización por terceros sin autorización expresa.';
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(6.2);
+                    pdf.setTextColor(90, 100, 110);
+                    for (let pagina = 1; pagina <= totalPaginas; pagina++) {
+                        pdf.setPage(pagina);
+                        const yLinea = altoPagina - 11;
+                        pdf.setDrawColor(180, 190, 200);
+                        pdf.setLineWidth(0.15);
+                        pdf.line(10, yLinea - 4, anchoPagina - 10, yLinea - 4);
+                        pdf.text(texto1, anchoPagina / 2, yLinea, { align: 'center' });
+                        pdf.text(texto2, anchoPagina / 2, yLinea + 3.2, { align: 'center', maxWidth: anchoPagina - 20 });
+                    }
+                })
+                .save()
+                .then(() => {
+                    pdfWrapper.style.display = 'none';
+                })
+                .catch((err) => {
+                    pdfWrapper.style.display = 'none';
+                    console.error('Error al generar el PDF:', err);
+                    alert('No fue posible generar el PDF. Verifique la conexión a Internet y vuelva a intentarlo.');
+                });
         }
     </script>
 </body>
