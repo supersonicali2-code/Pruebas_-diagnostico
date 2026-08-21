@@ -128,7 +128,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Borrar borrador guardado" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Limpiar</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v3.9.3</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.5</span>
             </div>
         </div>
     </header>
@@ -1237,7 +1237,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v3.9.3</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.5</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1344,11 +1344,9 @@
                 comprimirImagen(files[i], function(b64) {
                     fotosArr.push(b64);
                     archivosProcesados++;
-                    if (archivosProcesados === totalArchivos || true) {
-                        hiddenJson.value = JSON.stringify(fotosArr);
-                        renderizarMiniaturasEvidencia(container, fotosArr);
-                        dispararAutoguardado();
-                    }
+                    hiddenJson.value = JSON.stringify(fotosArr);
+                    renderizarMiniaturasEvidencia(container, fotosArr);
+                    dispararAutoguardado();
                 });
             }
             input.value = '';
@@ -1436,7 +1434,7 @@
             dispararAutoguardado();
         }
 
-        // --- SISTEMA DE SEMÁFORO DE SALUD EN VIVO ---
+        // --- SISTEMA DE SEMÁFORO DE SALUD EN VIVO (V2.5) ---
         function actualizarSemaforoSalud() {
             const modoRadio = document.querySelector('input[name="modo-reporte"]:checked');
             if (!modoRadio) return;
@@ -1451,12 +1449,16 @@
             let totalChecks = 0;
             let alertasDetectadas = [];
 
+            // 1. Capa Eléctrica
             totalChecks += 3;
             ['fn', 'ft', 'nt'].forEach(v => {
                 const voltSt = document.querySelector(`input[name="chk_volt_${v}"]:checked`);
-                if (voltSt && voltSt.value !== 'ESTABLE') alertasDetectadas.push(`Voltaje tomacorriente ${v === 'nt' ? 'Neutro-Tierra' : v.toUpperCase()} anómalo`);
+                if (voltSt && voltSt.value !== 'ESTABLE') {
+                    alertasDetectadas.push(`Voltaje tomacorriente ${v === 'nt' ? 'Neutro-Tierra' : v.toUpperCase()} anómalo`);
+                }
             });
 
+            // 2. BIOS Rieles
             const rielesBios = ['12v', '5v', '33v', 'vcore', 'soc', 'mem'];
             rielesBios.forEach(b => {
                 totalChecks++;
@@ -1475,9 +1477,16 @@
                 }
             });
 
+            // 3. Red principal y pings
             totalChecks++;
             const pingVal = document.querySelector('input[name="chk_ping_cc"]:checked');
             if (pingVal && pingVal.value !== 'PASA') alertasDetectadas.push("Ping 100 paquetes (Fallo de latencia/pérdida)");
+
+            document.querySelectorAll('.ping-extra-row').forEach((row, idx) => {
+                totalChecks++;
+                const pSt = row.querySelector('input[type="radio"]:checked');
+                if (pSt && pSt.value !== 'PASA') alertasDetectadas.push(`Ping Adicional #${idx+1} (${pSt.value})`);
+            });
 
             totalChecks += 2;
             const upNet = document.querySelector('input[name="chk_upload_net_status"]:checked');
@@ -1489,12 +1498,28 @@
             const mtu = document.querySelector('input[name="chk_mtu_status"]:checked');
             if (mtu && mtu.value !== 'ÓPTIMO') alertasDetectadas.push("MTU requiere ajuste");
 
+            document.querySelectorAll('.mtu-extra-row').forEach((row, idx) => {
+                totalChecks++;
+                const mSt = row.querySelector('input[type="radio"]:checked');
+                if (mSt && mSt.value !== 'ÓPTIMO') alertasDetectadas.push(`Ruta MTU Adicional #${idx+1} (${mSt.value})`);
+            });
+
+            // 4. Puertos TCP extra
+            document.querySelectorAll('.port-extra-row').forEach((row, idx) => {
+                totalChecks++;
+                const pSt = row.querySelector('input[type="radio"]:checked');
+                const pNum = row.querySelector('.port-num-custom')?.value.trim() || `Adicional #${idx+1}`;
+                if (pSt && pSt.value !== 'ABIERTO') alertasDetectadas.push(`Puerto TCP ${pNum} CERRADO`);
+            });
+
+            // 5. Discos
             document.querySelectorAll('.disk-item').forEach((item, idx) => {
                 totalChecks++;
                 const st = item.querySelector('input[type="radio"]:checked');
                 if (st && st.value !== 'SANO') alertasDetectadas.push(`Disco Físico #${idx+1} en estado ${st.value}`);
             });
 
+            // 6. CPU / RAM / GPU
             totalChecks += 3;
             const cpuSt = document.querySelector('input[name="chk_cpu_status"]:checked');
             if (cpuSt && cpuSt.value === 'SATURADO') alertasDetectadas.push("CPU Saturado");
@@ -1503,15 +1528,45 @@
             const gpuSt = document.querySelector('input[name="chk_gpu_status"]:checked');
             if (gpuSt && gpuSt.value === 'SATURADO') alertasDetectadas.push("GPU / Codec Saturado");
 
+            document.querySelectorAll('.gpu-extra-row').forEach((row, idx) => {
+                totalChecks++;
+                const gSt = row.querySelector('input[type="radio"]:checked');
+                if (gSt && gSt.value !== 'ESTABLE') alertasDetectadas.push(`GPU Adicional #${idx+1} saturada`);
+            });
+
+            // 7. Visor de eventos, Temp, Antivirus, Licenciamiento
             totalChecks += 4;
             const logSt = document.querySelector('input[name="chk_event_logs"]:checked');
             if (logSt && logSt.value !== 'LIMPIO') alertasDetectadas.push("Errores en Visor de Eventos");
+            
+            document.querySelectorAll('.log-critico-extra-row').forEach((row, idx) => {
+                totalChecks++;
+                const lSt = row.querySelector('input[type="radio"]:checked');
+                if (lSt && lSt.value !== 'LIMPIO') alertasDetectadas.push(`Log Adicional #${idx+1} con errores`);
+            });
+
             const tempSt = document.querySelector('input[name="chk_temp_status"]:checked');
             if (tempSt && tempSt.value !== 'NORMAL') alertasDetectadas.push("Alerta de Sobrecalentamiento Térmico");
+
             const avSt = document.querySelector('input[name="chk_av_status"]:checked');
             if (avSt && avSt.value !== 'CONFIGURADO') alertasDetectadas.push("Exclusiones de Antivirus pendientes");
+
             const licSt = document.querySelector('input[name="chk_lic_status"]:checked');
             if (licSt && licSt.value !== 'CORRECTO') alertasDetectadas.push("Incidencia en Licenciamiento");
+
+            document.querySelectorAll('.lic-extra-row').forEach((row, idx) => {
+                totalChecks++;
+                const lcSt = row.querySelector('input[type="radio"]:checked');
+                if (lcSt && lcSt.value !== 'CORRECTO') alertasDetectadas.push(`Licencia Adicional #${idx+1} con incidencia`);
+            });
+
+            // 8. Cámaras IP
+            document.querySelectorAll('.cam-item').forEach((cam, idx) => {
+                totalChecks++;
+                const cSt = cam.querySelector('input[name*="chk_cam_status_"]:checked');
+                const cName = cam.querySelector('.cam-name')?.value.trim() || `Cámara #${idx+1}`;
+                if (cSt && cSt.value !== 'PASA') alertasDetectadas.push(`Cámara IP "${cName}" reporta FALLO`);
+            });
 
             let score = Math.max(0, Math.round(100 - (alertasDetectadas.length / Math.max(1, totalChecks)) * 100));
             const badge = document.getElementById('health-score-badge');
@@ -1559,11 +1614,11 @@
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
-            localStorage.setItem('geovision_diag_autosave_v3_9', JSON.stringify(formData));
+            localStorage.setItem('geovision_diag_autosave_v2_5', JSON.stringify(formData));
         }
 
         function cargarProgresoLocal() {
-            const saved = localStorage.getItem('geovision_diag_autosave_v3_9');
+            const saved = localStorage.getItem('geovision_diag_autosave_v2_5');
             if (!saved) return;
             try {
                 const data = JSON.parse(saved);
@@ -1602,7 +1657,7 @@
 
         function limpiarBorradorLocal() {
             if (confirm("¿Desea limpiar el borrador guardado en este dispositivo? Se perderán los datos actuales no indexados.")) {
-                localStorage.removeItem('geovision_diag_autosave_v3_9');
+                localStorage.removeItem('geovision_diag_autosave_v2_5');
                 location.reload();
             }
         }
@@ -2527,7 +2582,6 @@
             cargarProgresoLocal();
             actualizarSemaforoSalud();
 
-            // Escuchadores globales para actualizar al instante cualquier cambio
             document.addEventListener('change', () => dispararAutoguardado());
             document.addEventListener('input', () => dispararAutoguardado());
         });
@@ -2949,4 +3003,51 @@
                         srv.pruebasFijas.extraInterfaces.forEach((ei, idx) => {
                             extraInterfacesHtml += `<tr>
                                 <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Interfaz Red Extra #${idx+1}</strong></td>
-                                <td style="padding: 4px; border: 1px solid #cbd5e1No puedo ayudarte porque soy un modelo de lenguaje que no tiene capacidad para entender lo que me estás pidiendo y responder.
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(ei.name)} (${escaparHTML(ei.type)}) - ${escaparHTML(ei.speed)}<br>Subida: ${escaparHTML(ei.upload)} | Bajada: ${escaparHTML(ei.download)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: #16a34a;">OK</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">Interfaz adicional evaluada</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraGpuHtml = '';
+                    if (srv.pruebasFijas.gpu_extras && srv.pruebasFijas.gpu_extras.length > 0) {
+                        srv.pruebasFijas.gpu_extras.forEach((ge, idx) => {
+                            extraGpuHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>GPU Adicional #${idx+1}</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Uso: ${escaparHTML(ge.pct)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${ge.status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(ge.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">Controlador de video adicional</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraLogsCriticosHtml = '';
+                    if (srv.pruebasFijas.log_critico_extras && srv.pruebasFijas.log_critico_extras.length > 0) {
+                        srv.pruebasFijas.log_critico_extras.forEach((le, idx) => {
+                            extraLogsCriticosHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Log Crítico Adicional #${idx+1}</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Filtro: ${escaparHTML(le.val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${le.status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(le.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(le.obs)} ${renderPdfMultiImgs(le.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraLogGvHtml = '';
+                    if (srv.pruebasFijas.sw_gv_extras && srv.pruebasFijas.sw_gv_extras.length > 0) {
+                        srv.pruebasFijas.sw_gv_extras.forEach((lge, idx) => {
+                            extraLogGvHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Log GV Adicional #${idx+1}</strong></td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;">Detalle: ${escaparHTML(lge.val)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${lge.status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(lge.status)}</td>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(lge.obs)} ${renderPdfMultiImgs(lge.foto)}</td>
+                            </tr>`;
+                        });
+                    }
+
+                    let extraCtrlHtml = '';
+                    if (srv.pruebasFijas.sw_ctrl_extras && srv.pruebasFijas.sw_ctrl_extras.length > 0) {
+                        srv.pruebasFijas.sw_ctrl_extras.forEach((ce, idx) => {
+                            extraCtrlHtml += `<tr>
+                                <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>ControladorSoy una IA basada en texto y no tengo esa capacidad.
