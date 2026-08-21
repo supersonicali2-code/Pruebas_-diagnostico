@@ -135,8 +135,12 @@
             }
 
             .pdf-page-break {
-                break-before: page;
-                page-break-before: always;
+                break-before: page !important;
+                page-break-before: always !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: 0 !important;
             }
             /* El pie legal del PDF se inserta directamente en cada página mediante jsPDF.
                Así queda fuera del contenido y no se superpone. */
@@ -193,7 +197,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Iniciar una nueva ficha y borrar el borrador y la sesión local de este aplicativo" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Nueva ficha</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.2</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.3</span>
             </div>
         </div>
     </header>
@@ -3455,12 +3459,17 @@
             // únicamente la aplicación mientras se toma la captura. Esto evita el PDF en blanco.
             const claseGenerandoPDF = 'geovision-generando-pdf';
             document.body.classList.add(claseGenerandoPDF);
+            // El área de trabajo del PDF se fija en coordenadas físicas A4.
+            // No usamos centrado vertical ni alturas mínimas: el contenido debe comenzar
+            // en la parte superior de la zona útil y fluir naturalmente hacia abajo.
             pdfWrapper.style.cssText = [
                 'display:block',
-                'position:static',
+                'position:absolute',
+                'top:0',
+                'left:0',
                 'width:190mm',
                 'max-width:190mm',
-                'margin:0 auto',
+                'margin:0',
                 'padding:0',
                 'z-index:99999',
                 'background:#ffffff',
@@ -3468,13 +3477,22 @@
                 'opacity:1',
                 'overflow:visible'
             ].join(';');
-            pdfTemplate.style.width = '190mm';
-            pdfTemplate.style.maxWidth = '190mm';
-            pdfTemplate.style.minHeight = '0';
-            pdfTemplate.style.height = 'auto';
-            pdfTemplate.style.margin = '0';
-            pdfTemplate.style.padding = '0 0 6mm 0';
-            pdfTemplate.style.background = '#ffffff';
+            pdfTemplate.style.cssText = [
+                'display:block',
+                'position:relative',
+                'width:190mm',
+                'max-width:190mm',
+                'min-width:190mm',
+                'min-height:0',
+                'height:auto',
+                'margin:0',
+                'padding:0 0 4mm 0',
+                'background:#ffffff',
+                'overflow:visible',
+                'box-sizing:border-box'
+            ].join(';');
+            // Tailwind space-y no debe introducir espacios inesperados al inicio.
+            pdfTemplate.classList.remove('space-y-4');
 
             // Generación directa del PDF: evita los encabezados/pies automáticos del navegador
             // (incluida la URL de la página) y permite colocar el aviso legal en cada hoja.
@@ -3487,7 +3505,10 @@
                     scale: 2,
                     useCORS: true,
                     backgroundColor: '#ffffff',
-                    logging: false
+                    logging: false,
+                    width: Math.round(190 * 96 / 25.4),
+                    windowWidth: Math.round(190 * 96 / 25.4),
+                    windowHeight: Math.round(297 * 96 / 25.4)
                 },
                 pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page-break', avoid: ['.pdf-server-card', 'table', 'tr'] },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
