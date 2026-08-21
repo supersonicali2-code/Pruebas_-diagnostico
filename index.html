@@ -49,8 +49,9 @@
                 position: static !important;
                 visibility: visible !important;
                 opacity: 1 !important;
-                width: 100% !important;
-                margin: 0 !important;
+                width: 190mm !important;
+                max-width: 190mm !important;
+                margin: 0 auto !important;
                 padding: 0 !important;
                 background: #ffffff !important;
                 color: #000000 !important;
@@ -66,24 +67,50 @@
             }
 
             #pdf-template {
-                width: 100% !important;
+                width: 190mm !important;
+                max-width: 190mm !important;
+                min-height: 0 !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 0 0 6mm 0 !important;
                 background: #ffffff !important;
-                padding-bottom: 8mm !important;
+                overflow: visible !important;
+            }
+
+            #pdf-template > * {
+                max-width: 190mm !important;
+                box-sizing: border-box !important;
+            }
+
+            #pdf-template img {
+                max-width: 100% !important;
+                height: auto !important;
+                object-fit: contain !important;
             }
 
             .pdf-server-card {
+                width: 100% !important;
+                max-width: 190mm !important;
+                box-sizing: border-box !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
-                margin-bottom: 8mm !important;
+                margin: 0 0 6mm 0 !important;
                 background: #ffffff !important;
                 border: 1px solid #94a3b8 !important;
             }
 
             table {
                 width: 100% !important;
+                max-width: 100% !important;
+                table-layout: fixed !important;
                 border-collapse: collapse !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
+            }
+
+            th, td {
+                overflow-wrap: anywhere !important;
+                word-break: break-word !important;
             }
 
             th {
@@ -166,7 +193,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Iniciar una nueva ficha y borrar el borrador y la sesión local de este aplicativo" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Nueva ficha</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.4</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.2</span>
             </div>
         </div>
     </header>
@@ -3430,17 +3457,23 @@
             document.body.classList.add(claseGenerandoPDF);
             pdfWrapper.style.cssText = [
                 'display:block',
-                'position:absolute',
-                'left:0',
-                'top:0',
-                'width:794px',
-                'min-height:1123px',
+                'position:static',
+                'width:190mm',
+                'max-width:190mm',
+                'margin:0 auto',
+                'padding:0',
                 'z-index:99999',
                 'background:#ffffff',
                 'visibility:visible',
-                'opacity:1'
+                'opacity:1',
+                'overflow:visible'
             ].join(';');
-            pdfTemplate.style.width = '794px';
+            pdfTemplate.style.width = '190mm';
+            pdfTemplate.style.maxWidth = '190mm';
+            pdfTemplate.style.minHeight = '0';
+            pdfTemplate.style.height = 'auto';
+            pdfTemplate.style.margin = '0';
+            pdfTemplate.style.padding = '0 0 6mm 0';
             pdfTemplate.style.background = '#ffffff';
 
             // Generación directa del PDF: evita los encabezados/pies automáticos del navegador
@@ -3456,7 +3489,7 @@
                     backgroundColor: '#ffffff',
                     logging: false
                 },
-                pagebreak: { mode: ['css', 'legacy'] },
+                pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page-break', avoid: ['.pdf-server-card', 'table', 'tr'] },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
             };
 
