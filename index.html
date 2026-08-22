@@ -793,7 +793,7 @@
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.6: Verificación de MTU y Fragmentación (Path MTU)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Símbolo del Sistema (CMD).</p>
-                            <p>🌐 <strong>Metodología de Campo:</strong> Esta prueba se realiza de forma bidireccional (ej. Estación de Monitoreo ➔ Servidor, o Servidor ➔ Cámara 1).</p>
+                            <p>🌐 <strong>Metodología de Campo:</strong> Esta prueba se realiza de forma bidireccional entre la Estación de Monitoreo y el Servidor, tambien realice la prueba en la ruta Servidor ➔ Cámara IP.</p>
                             <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">ping [IP_Destino] -f -l [Bytes_Buffer]</code></p>
                             <p>⚙️ <strong>Ejemplo práctico:</strong></p>
                             <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -f -l 1472</code>
@@ -853,8 +853,8 @@
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 2.1: Diagnóstico de Discos Duros (S.M.A.R.T. y Rendimiento I/O)</h4>
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
-                            <p>💡 <strong>Software / Herramienta:</strong> CrystalDiskInfo (para S.M.A.R.T.) y CrystalDiskMark (para velocidad I/O).</p>
-                            <p>⚙️ <strong>Uso y aplicación:</strong> Abrir CrystalDiskInfo para verificar el estado de salud general de cada unidad física. Luego, abrir CrystalDiskMark y seleccionar la unidad para realizar pruebas de escritura secuencial (SeqQ32T1) con bloques de 1GiB.</p>
+                            <p>💡 <strong>Software / Herramientas:</strong> CrystalDiskInfo, Victoria, HDDscan o herramienta propia del fabricante (para S.M.A.R.T.) y CrystalDiskMark (para velocidad I/O).</p>
+                            <p>⚙️ <strong>Uso y aplicación:</strong> Abrir el software seleccionado para verificar el estado de salud general de cada unidad física. Luego, abrir CrystalDiskMark y seleccionar la unidad para realizar pruebas de escritura secuencial (SeqQ32T1) con bloques de 1GiB.</p>
                         </div>
                         <div id="wrapper-discos" class="space-y-3 pt-1 w-full"></div>
                     </div>
@@ -2577,14 +2577,8 @@
                                 <label class="block text-[8px] text-slate-400 mb-0.5">Codec</label>
                                 <select class="cam-main-codec w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
                                     <option value="H.264" selected>H.264</option>
-                                    <option value="H.264+">H.264+</option>
                                     <option value="H.265">H.265</option>
-                                    <option value="H.265+">H.265+</option>
-                                    <option value="H.265 AI">H.265 AI</option>
-                                    <option value="Smart H.264">Smart H.264</option>
-                                    <option value="Smart H.265">Smart H.265</option>
                                     <option value="MJPEG">MJPEG</option>
-                                    <option value="MPEG-4">MPEG-4</option>
                                 </select>
                             </div>
                             <div>
@@ -2617,14 +2611,8 @@
                                 <label class="block text-[8px] text-slate-400 mb-0.5">Codec</label>
                                 <select class="cam-sub-codec w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
                                     <option value="H.264" selected>H.264</option>
-                                    <option value="H.264+">H.264+</option>
                                     <option value="H.265">H.265</option>
-                                    <option value="H.265+">H.265+</option>
-                                    <option value="H.265 AI">H.265 AI</option>
-                                    <option value="Smart H.264">Smart H.264</option>
-                                    <option value="Smart H.265">Smart H.265</option>
                                     <option value="MJPEG">MJPEG</option>
-                                    <option value="MPEG-4">MPEG-4</option>
                                 </select>
                             </div>
                             <div>
