@@ -3530,9 +3530,15 @@
             // y cada tabla a permanecer en una sola página: un informe largo se cortaba
             // o quedaba fuera del lienzo. Ahora el contenido puede fluir entre páginas.
             const claseGenerandoPDF = 'geovision-generando-pdf';
+            // Corrección de recorte/desplazamiento en el PDF: si el usuario genera el
+            // reporte sin estar arriba del todo (formulario muy largo), html2canvas
+            // capturaba el lienzo desplazado según el scroll del documento. Forzamos
+            // scroll a (0,0) y anclamos el wrapper a la ventana (position:fixed) para
+            // que la captura sea siempre desde el origen, sin importar el scroll previo.
+            window.scrollTo(0, 0);
             document.body.classList.add(claseGenerandoPDF);
             pdfWrapper.style.cssText = [
-                'display:block', 'position:absolute', 'top:0', 'left:0',
+                'display:block', 'position:fixed', 'top:0', 'left:0',
                 'width:190mm', 'max-width:190mm', 'margin:0', 'padding:0',
                 'z-index:99999', 'background:#ffffff', 'visibility:visible',
                 'opacity:1', 'overflow:visible'
@@ -3594,6 +3600,8 @@
                     allowTaint: false,
                     backgroundColor: '#ffffff',
                     logging: false,
+                    x: 0,
+                    y: 0,
                     scrollX: 0,
                     scrollY: 0,
                     width: Math.round(190 * 96 / 25.4),
