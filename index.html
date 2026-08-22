@@ -6,6 +6,7 @@
     <title>Diagnóstico e Inventario para servidores Geovision | Uso interno autorizado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -510,13 +511,13 @@
                         </div>
 
                         <div class="overflow-x-auto">
-                            <table class="w-full text-[9px] border-collapse">
+                            <table class="w-full text-[9px] border-collapse table-fixed">
                                 <thead>
                                     <tr class="bg-slate-800 text-slate-200">
-                                        <th class="p-1.5 border border-slate-700 text-left">Voltaje / Sensor</th>
-                                        <th class="p-1.5 border border-slate-700 text-left">Referencia estándar inicial</th>
-                                        <th class="p-1.5 border border-slate-700 text-left">Valor medido</th>
-                                        <th class="p-1.5 border border-slate-700 text-center">Estatus</th>
+                                        <th class="p-1.5 border border-slate-700 text-left w-[15%]">Voltaje / Sensor</th>
+                                        <th class="p-1.5 border border-slate-700 text-left w-[30%]">Referencia estándar inicial</th>
+                                        <th class="p-1.5 border border-slate-700 text-left w-[17%]">Valor medido</th>
+                                        <th class="p-1.5 border border-slate-700 text-center w-[38%]">Estatus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -525,7 +526,7 @@
                                         <td class="p-1.5 border border-slate-800">12.00 V nominal · 11.40–12.60 V</td>
                                         <td class="p-1.5 border border-slate-800"><input type="text" id="bios_12v_val" placeholder="Ej: 12.10 V" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white"></td>
                                         <td class="p-1.5 border border-slate-800"><div class="grid grid-cols-2 gap-1">
-                                            <label class="status-btn"><input type="radio" name="bios_12v_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                            <label class="status-btn"><input type="radio" name="bios_12v_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                             <label class="status-btn"><input type="radio" name="bios_12v_status" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                                         </div></td>
                                     </tr>
@@ -534,7 +535,7 @@
                                         <td class="p-1.5 border border-slate-800">5.00 V nominal · 4.75–5.25 V</td>
                                         <td class="p-1.5 border border-slate-800"><input type="text" id="bios_5v_val" placeholder="Ej: 5.02 V" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white"></td>
                                         <td class="p-1.5 border border-slate-800"><div class="grid grid-cols-2 gap-1">
-                                            <label class="status-btn"><input type="radio" name="bios_5v_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                            <label class="status-btn"><input type="radio" name="bios_5v_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                             <label class="status-btn"><input type="radio" name="bios_5v_status" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                                         </div></td>
                                     </tr>
@@ -543,7 +544,7 @@
                                         <td class="p-1.5 border border-slate-800">3.30 V nominal · 3.135–3.465 V</td>
                                         <td class="p-1.5 border border-slate-800"><input type="text" id="bios_3v3_val" placeholder="Ej: 3.31 V" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white"></td>
                                         <td class="p-1.5 border border-slate-800"><div class="grid grid-cols-2 gap-1">
-                                            <label class="status-btn"><input type="radio" name="bios_3v3_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                            <label class="status-btn"><input type="radio" name="bios_3v3_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                             <label class="status-btn"><input type="radio" name="bios_3v3_status" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                                         </div></td>
                                     </tr>
@@ -552,7 +553,7 @@
                                         <td class="p-1.5 border border-slate-800">Referencia inicial 0.80–1.40 V; validar contra CPU/placa</td>
                                         <td class="p-1.5 border border-slate-800"><input type="text" id="bios_vcore_val" placeholder="Ej: 1.05 V" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white"></td>
                                         <td class="p-1.5 border border-slate-800"><div class="grid grid-cols-2 gap-1">
-                                            <label class="status-btn"><input type="radio" name="bios_vcore_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                            <label class="status-btn"><input type="radio" name="bios_vcore_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                             <label class="status-btn"><input type="radio" name="bios_vcore_status" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                                         </div></td>
                                     </tr>
@@ -561,7 +562,7 @@
                                         <td class="p-1.5 border border-slate-800">Referencia inicial 0.90–1.25 V; validar contra plataforma</td>
                                         <td class="p-1.5 border border-slate-800"><input type="text" id="bios_soc_val" placeholder="Ej: 1.10 V" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white"></td>
                                         <td class="p-1.5 border border-slate-800"><div class="grid grid-cols-2 gap-1">
-                                            <label class="status-btn"><input type="radio" name="bios_soc_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                            <label class="status-btn"><input type="radio" name="bios_soc_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                             <label class="status-btn"><input type="radio" name="bios_soc_status" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                                         </div></td>
                                     </tr>
@@ -570,7 +571,7 @@
                                         <td class="p-1.5 border border-slate-800">DDR4: 1.20 V nominal · DDR5: 1.10 V nominal; validar perfil</td>
                                         <td class="p-1.5 border border-slate-800"><input type="text" id="bios_vdimm_val" placeholder="Ej: 1.20 V" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white"></td>
                                         <td class="p-1.5 border border-slate-800"><div class="grid grid-cols-2 gap-1">
-                                            <label class="status-btn"><input type="radio" name="bios_vdimm_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                            <label class="status-btn"><input type="radio" name="bios_vdimm_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                             <label class="status-btn"><input type="radio" name="bios_vdimm_status" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                                         </div></td>
                                     </tr>
@@ -627,10 +628,9 @@
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
-                                <div class="grid grid-cols-3 gap-1">
+                                <div class="grid grid-cols-2 gap-1">
                                     <label class="status-btn"><input type="radio" name="chk_ping_cc" value="PASA" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">PASA</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="FALLA" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">FAIL</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="N/A" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-slate-400">N/A</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="FALLA" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">FALLA</span></label>
                                 </div>
                             </div>
                         </div>
@@ -955,7 +955,7 @@
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Base</label>
                                 <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">LIMPIO</span></label>
                                     <label class="status-btn"><input type="radio" name="chk_event_logs" value="ERRORES" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
                                 </div>
                             </div>
@@ -1113,7 +1113,7 @@
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus de Exclusión</label>
                                 <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="CONFIGURADO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="CONFIGURADO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">CONFIGURADO</span></label>
                                     <label class="status-btn"><input type="radio" name="chk_av_status" value="PENDIENTE" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">PENDIENTE</span></label>
                                 </div>
                             </div>
@@ -1152,7 +1152,7 @@
                                 <span class="text-[10px] font-bold text-slate-300">Controladores (Administrador de Dispositivos: <code class="text-sky-300 font-mono">devmgmt.msc</code>)</span>
                                 <div class="flex items-center space-x-2">
                                     <div class="grid grid-cols-2 gap-1 w-[100px]">
-                                        <label class="status-btn"><input type="radio" name="chk_sw_ctrl" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_sw_ctrl" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                         <label class="status-btn"><input type="radio" name="chk_sw_ctrl" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                                     </div>
                                     <button type="button" onclick="agregarControladorExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
@@ -1182,7 +1182,7 @@
                                 <span class="text-[10px] font-bold text-slate-300">Actualización de Drivers</span>
                                 <div class="flex items-center space-x-2">
                                     <div class="grid grid-cols-2 gap-1 w-[100px]">
-                                        <label class="status-btn"><input type="radio" name="chk_sw_upd" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_sw_upd" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                         <label class="status-btn"><input type="radio" name="chk_sw_upd" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                                     </div>
                                     <button type="button" onclick="agregarActualizacionExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
@@ -1212,7 +1212,7 @@
                                 <span class="text-[10px] font-bold text-sky-300">Tipo de Licenciamiento</span>
                                 <div class="flex items-center space-x-2">
                                     <div class="grid grid-cols-2 gap-1 w-[100px]">
-                                        <label class="status-btn"><input type="radio" name="chk_lic_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_lic_status" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                                         <label class="status-btn"><input type="radio" name="chk_lic_status" value="ERROR" class="sr-only"><span class="block text-center bg-slate-900 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                                     </div>
                                     <button type="button" onclick="agregarLicenciamientoExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
@@ -1293,10 +1293,10 @@
 
         <div class="space-y-2 pt-2">
             <button type="button" onclick="compilarInformeFinalA4PDF()" class="w-full bg-[#E52724] hover:bg-red-700 active:bg-red-800 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald">
-                <span>📄 Generar Informe Técnico Simple</span>
+                <span>📄 Informe Técnico · Diseño Compacto</span>
             </button>
             <button type="button" onclick="generarInformePDFNativo()" class="w-full bg-gradient-to-r from-sky-600 to-[#2B4763] hover:from-sky-500 hover:to-[#1d3350] active:from-sky-700 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald border border-sky-400/40">
-                <span>🆕 Generar Informe Técnico Completo</span>
+                <span>🆕 Informe Técnico · Diseño Ampliado</span>
             </button>
 
             <div class="grid grid-cols-2 gap-2 pt-1">
@@ -1943,10 +1943,9 @@
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
-                        <div class="grid grid-cols-3 gap-1">
+                        <div class="grid grid-cols-2 gap-1">
                             <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1 rounded font-bold text-emerald-400">PASA</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="FALLA" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1 rounded font-bold text-rose-400">FAIL</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="N/A" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1 rounded font-bold text-slate-400">N/A</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_ping_extra_${id}" value="FALLA" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1 rounded font-bold text-rose-400">FALLA</span></label>
                         </div>
                     </div>
                 </div>
@@ -2144,7 +2143,7 @@
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                         <div class="grid grid-cols-2 gap-1">
-                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">LIMPIO</span></label>
                             <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="ERRORES" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
                     </div>
@@ -2254,7 +2253,7 @@
                     <span class="text-[9px] font-bold text-slate-300">Controlador Adicional #${id}</span>
                     <div class="flex items-center space-x-2">
                         <div class="grid grid-cols-2 gap-1 w-[100px]">
-                            <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                             <label class="status-btn"><input type="radio" name="chk_ctrl_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
                         <button type="button" onclick="document.getElementById('ctrl_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
@@ -2305,7 +2304,7 @@
                     <span class="text-[9px] font-bold text-slate-300">Actualización Adicional #${id}</span>
                     <div class="flex items-center space-x-2">
                         <div class="grid grid-cols-2 gap-1 w-[100px]">
-                            <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                             <label class="status-btn"><input type="radio" name="chk_upd_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
                         <button type="button" onclick="document.getElementById('upd_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
@@ -2356,7 +2355,7 @@
                     <span class="text-[9px] font-bold text-sky-300">Licencia Adicional #${id}</span>
                     <div class="flex items-center space-x-2">
                         <div class="grid grid-cols-2 gap-1 w-[100px]">
-                            <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">OK</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                             <label class="status-btn"><input type="radio" name="chk_lic_extra_${id}" value="ERROR" class="sr-only"><span class="block text-center bg-slate-950 text-[9px] py-1 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
                         <button type="button" onclick="document.getElementById('lic_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
@@ -2663,7 +2662,7 @@
                     <div class="flex items-center justify-between text-xs">
                         <span class="font-bold text-slate-200">Diagnóstico Cámara</span>
                         <div class="grid grid-cols-2 gap-1 w-[45%]">
-                            <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA (OK)</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="PASA" checked class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-emerald-400">PASA</span></label>
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
                         </div>
                     </div>
@@ -2745,8 +2744,8 @@
                     <span class="text-[9px] font-semibold text-slate-300">S.M.A.R.T</span>
                     <div class="grid grid-cols-3 gap-1 w-[55%]">
                         <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="SANO" checked class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-emerald-400">SANO</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="ALERTA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-amber-400">ALERT</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="FALLA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-rose-400">FAIL</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="ALERTA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-amber-400">ALERTA</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="FALLA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-rose-400">FALLA</span></label>
                     </div>
                 </div>
                 <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Observaciones...">
@@ -2802,7 +2801,7 @@
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
                         <div class="grid grid-cols-2 gap-1">
-                            <label class="status-btn"><input type="radio" name="bios_extra_status_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">OK</span></label>
+                            <label class="status-btn"><input type="radio" name="bios_extra_status_${id}" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-emerald-400">CORRECTO</span></label>
                             <label class="status-btn"><input type="radio" name="bios_extra_status_${id}" value="FALLA" class="sr-only"><span class="block text-center bg-slate-900 py-1 rounded font-bold text-rose-400">FALLA</span></label>
                         </div>
                     </div>
@@ -3809,7 +3808,7 @@
         }
 
         // ============================================================================
-        // NUEVO DISEÑO DE PDF (BETA) — generación nativa con jsPDF + autoTable.
+        // INFORME TÉCNICO · DISEÑO AMPLIADO — generación nativa con jsPDF + autoTable.
         // No usa html2canvas: dibuja texto, tablas e imágenes directamente, por lo que
         // el texto siempre sale nítido (vectorial) y el layout es más controlable.
         // Esta función es independiente de compilarInformeFinalA4PDF(): no la modifica
