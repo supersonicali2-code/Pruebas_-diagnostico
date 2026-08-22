@@ -210,7 +210,7 @@
             </div>
             <div class="flex items-center space-x-2">
                 <button type="button" onclick="limpiarBorradorLocal()" title="Iniciar una nueva ficha y borrar el borrador y la sesión local de este aplicativo" class="bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 text-[10px] px-2 py-1 rounded border border-rose-500/30 transition">🗑️ Nueva ficha</button>
-                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.8</span>
+                <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2.5 py-1 rounded border border-sky-500/20 whitespace-nowrap">v2.2</span>
             </div>
         </div>
     </header>
@@ -1158,6 +1158,21 @@
                                 </div>
                             </div>
                             <input type="text" id="obs_sw_ctrl" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_sw_ctrl" class="foto-base64-custom">
+                                </div>
+                            </div>
                             <div id="wrapper-extra-ctrl" class="space-y-2 mt-2"></div>
                         </div>
 
@@ -1173,6 +1188,21 @@
                                 </div>
                             </div>
                             <input type="text" id="obs_sw_upd" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_sw_upd" class="foto-base64-custom">
+                                </div>
+                            </div>
                             <div id="wrapper-extra-upd" class="space-y-2 mt-2"></div>
                         </div>
 
@@ -1205,6 +1235,21 @@
                                 </div>
                             </div>
                             <input type="text" id="obs_lic" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                                <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
+                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                    <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
+                                    <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📷 Cámara
+                                        <input type="file" accept="image/*" capture="environment" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <label class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2 py-1 rounded cursor-pointer font-bold transition">
+                                        📁 Galería
+                                        <input type="file" accept="image/*" multiple class="sr-only" onchange="procesarFotoEvidencia(this)">
+                                    </label>
+                                    <input type="hidden" id="b64_lic" class="foto-base64-custom">
+                                </div>
+                            </div>
                             <div id="wrapper-extra-lic" class="space-y-2 mt-2"></div>
                         </div>
 
@@ -1280,7 +1325,7 @@
                     <p id="pdf-subtitle" class="text-xs font-bold text-slate-600">Diagnóstico e Inventario para servidores Geovision</p>
                 </div>
                 <div class="text-right text-[9px] text-slate-500">
-                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v4.4</p>
+                    <p class="font-bold text-[#E52724]">Ficha de Control Móvil v2.2</p>
                     <p id="pdf-global-date"></p>
                 </div>
             </div>
@@ -1781,6 +1826,11 @@
                 colaServidores: backendColaServidores,
                 fotosGenerales: fotosActualesBase64
             };
+            try {
+                formData.pruebasFijasActuales = capturarPruebasFijasServidorActual();
+            } catch (e) {
+                console.error('No fue posible capturar las pruebas del servidor en edición para el autoguardado:', e);
+            }
             localStorage.setItem('geovision_diag_autosave_v3_5', JSON.stringify(formData));
         }
 
@@ -1818,6 +1868,7 @@
                     fotosActualesBase64 = data.fotosGenerales;
                     renderizarMosaicoFotos();
                 }
+                if (data.pruebasFijasActuales) restaurarPruebasFijasServidorActual(data.pruebasFijasActuales);
                 actualizarSemaforoSalud();
             } catch(e) {
                 console.error("Error al restaurar borrador local:", e);
@@ -2815,36 +2866,8 @@
             cargarProgresoLocal();
         });
 
-        function almacenarServidorEnMemoria() {
-            const idServidor = document.getElementById('srv-name').value.trim();
-            if (!idServidor) {
-                alert("Asigne un nombre identificador al servidor antes de indexar.");
-                return;
-            }
-
-            const modoActual = document.querySelector('input[name="modo-reporte"]:checked').value;
-
-            const srvPackage = {
-                nombre: idServidor,
-                ip: document.getElementById('srv-ip').value || 'No Especifica',
-                os: document.getElementById('srv-os').value || 'No Especifica',
-                brand: document.getElementById('srv-brand').value || 'No Especifica',
-                serial: document.getElementById('srv-serial').value || 'No Especifica',
-                purchaseDate: document.getElementById('srv-purchase-date').value || 'No registrada',
-                cpu: document.getElementById('srv-cpu').value || 'No Especifica',
-                ram: document.getElementById('srv-ram').value || 'No Especifica',
-                gpu: document.getElementById('srv-gpu').value || 'No Especifica',
-                disk_qty: document.getElementById('srv-disk-qty').value || '0',
-                disk_cap: document.getElementById('srv-disk-cap').value || 'No Especifica',
-                camQty: document.getElementById('srv-cam-qty').value || '0',
-                screenQty: document.getElementById('srv-screen-qty').value || '1',
-                ups: document.getElementById('srv-ups').value || 'No Especifica',
-                software: document.getElementById('srv-software').value || 'No Especifica',
-                timestamp: new Date().toLocaleString('es-CO'),
-                modoReporte: modoActual,
-                semaforo: modoActual === 'inventario' ? null : calcularSemaforoPonderadoDesdeFormulario(),
-
-                pruebasFijas: {
+        function capturarPruebasFijasServidorActual() {
+            return {
                     volt_fn_val: document.getElementById('val_volt_fn').value || 'N/R',
                     volt_fn_status: document.querySelector('input[name="chk_volt_fn"]:checked').value,
                     volt_fn_obs: document.getElementById('obs_volt_fn').value || '-',
@@ -2958,7 +2981,99 @@
                     lic_obs: document.getElementById('obs_lic').value || '-',
                     lic_foto: document.getElementById('b64_lic') ? document.getElementById('b64_lic').value : '',
                     lic_extras: extraerLicenciasExtra()
-                },
+            };
+        }
+
+        // Campos simples (id -> valor) y grupos de radio (name -> valor) que se restauran
+        // literalmente al recargar el borrador. No incluye las filas dinámicas ("➕ Añadir"),
+        // que por ahora no se reconstruyen automáticamente al recargar.
+        const CAMPOS_TEXTO_PRUEBAS_FIJAS = {
+            volt_fn_val: 'val_volt_fn', volt_fn_obs: 'obs_volt_fn', volt_fn_foto: 'b64_volt_fn',
+            volt_ft_val: 'val_volt_ft', volt_ft_obs: 'obs_volt_ft', volt_ft_foto: 'b64_volt_ft',
+            volt_nt_val: 'val_volt_nt', volt_nt_obs: 'obs_volt_nt', volt_nt_foto: 'b64_volt_nt',
+            bios_12v_val: 'bios_12v_val', bios_5v_val: 'bios_5v_val', bios_3v3_val: 'bios_3v3_val',
+            bios_vcore_val: 'bios_vcore_val', bios_soc_val: 'bios_soc_val', bios_vdimm_val: 'bios_vdimm_val',
+            bios_voltages_obs: 'obs_bios_voltages', bios_voltages_foto: 'b64_bios_voltages',
+            ping_lat: 'val_ping_lat', ping_loss: 'val_ping_loss', ping_cc_obs: 'obs_ping_cc', ping_cc_foto: 'b64_ping_cc',
+            portTestType: 'val_port_test_type', ports_obs: 'obs_ports', ports_foto: 'b64_ports',
+            netName: 'val_net_name', netType: 'val_net_type', netSpeed: 'val_net_speed',
+            net_upload_val: 'val_net_upload', net_download_val: 'val_net_download',
+            red_global_obs: 'obs_ping_cam', red_global_foto: 'b64_net',
+            mtu_route: 'val_mtu_route', mtu_val: 'val_mtu', mtu_obs: 'obs_mtu', mtu_foto: 'b64_mtu',
+            cpu_pct: 'val_cpu_pct', ram_pct: 'val_ram_pct', gpu_pct: 'val_gpu_pct',
+            hw_stress_obs: 'obs_hardware_stress', hw_stress_foto: 'b64_hw_stress',
+            event_logs_val: 'val_event_base', event_logs_obs: 'obs_event_logs', event_logs_foto: 'b64_event_logs',
+            temp_cpu: 'val_temp_cpu', temp_gpu: 'val_temp_gpu', temp_hdd: 'val_temp_hdd',
+            temp_obs: 'obs_temp', temp_foto: 'b64_temp',
+            sw_gv_events_val: 'val_event_gv', sw_core_obs: 'obs_software_core', sw_core_foto: 'b64_sw_core',
+            av_name: 'val_av_name', av_obs: 'obs_av', av_foto: 'b64_av',
+            sw_ctrl_obs: 'obs_sw_ctrl', sw_ctrl_foto: 'b64_sw_ctrl',
+            sw_upd_obs: 'obs_sw_upd', sw_upd_foto: 'b64_sw_upd',
+            lic_type: 'val_lic_type', lic_name: 'val_lic_name', lic_num: 'val_lic_num',
+            lic_obs: 'obs_lic', lic_foto: 'b64_lic'
+        };
+        const GRUPOS_RADIO_PRUEBAS_FIJAS = {
+            volt_fn_status: 'chk_volt_fn', volt_ft_status: 'chk_volt_ft', volt_nt_status: 'chk_volt_nt',
+            bios_12v_status: 'bios_12v_status', bios_5v_status: 'bios_5v_status', bios_3v3_status: 'bios_3v3_status',
+            bios_vcore_status: 'bios_vcore_status', bios_soc_status: 'bios_soc_status', bios_vdimm_status: 'bios_vdimm_status',
+            ping_cc_status: 'chk_ping_cc',
+            net_upload_status: 'chk_upload_net_status', net_download_status: 'chk_download_net_status',
+            mtu_status: 'chk_mtu_status', cpu_status: 'chk_cpu_status', ram_status: 'chk_ram_status', gpu_status: 'chk_gpu_status',
+            event_logs_status: 'chk_event_logs', temp_status: 'chk_temp_status',
+            sw_gv_events_status: 'chk_sw_gv_events', av_status: 'chk_av_status',
+            sw_ctrl_status: 'chk_sw_ctrl', sw_upd_status: 'chk_sw_upd', lic_status: 'chk_lic_status'
+        };
+
+        function restaurarPruebasFijasServidorActual(p) {
+            if (!p) return;
+            try {
+                Object.entries(CAMPOS_TEXTO_PRUEBAS_FIJAS).forEach(([clave, id]) => {
+                    if (p[clave] === undefined || p[clave] === null || p[clave] === '') return;
+                    const el = document.getElementById(id);
+                    if (el) el.value = p[clave];
+                });
+                Object.entries(GRUPOS_RADIO_PRUEBAS_FIJAS).forEach(([clave, name]) => {
+                    if (!p[clave]) return;
+                    const input = document.querySelector(`input[name="${name}"][value="${CSS.escape(p[clave])}"]`);
+                    if (input) input.checked = true;
+                });
+                // Refrescar la vista previa de fotos ya restauradas en los campos ocultos.
+                document.querySelectorAll('.evidence-slot').forEach(slot => renderizarFotosEvidencia(slot));
+            } catch (e) {
+                console.error('No fue posible restaurar por completo las pruebas del servidor en edición:', e);
+            }
+        }
+
+        function almacenarServidorEnMemoria() {
+            const idServidor = document.getElementById('srv-name').value.trim();
+            if (!idServidor) {
+                alert("Asigne un nombre identificador al servidor antes de indexar.");
+                return;
+            }
+
+            const modoActual = document.querySelector('input[name="modo-reporte"]:checked').value;
+
+            const srvPackage = {
+                nombre: idServidor,
+                ip: document.getElementById('srv-ip').value || 'No Especifica',
+                os: document.getElementById('srv-os').value || 'No Especifica',
+                brand: document.getElementById('srv-brand').value || 'No Especifica',
+                serial: document.getElementById('srv-serial').value || 'No Especifica',
+                purchaseDate: document.getElementById('srv-purchase-date').value || 'No registrada',
+                cpu: document.getElementById('srv-cpu').value || 'No Especifica',
+                ram: document.getElementById('srv-ram').value || 'No Especifica',
+                gpu: document.getElementById('srv-gpu').value || 'No Especifica',
+                disk_qty: document.getElementById('srv-disk-qty').value || '0',
+                disk_cap: document.getElementById('srv-disk-cap').value || 'No Especifica',
+                camQty: document.getElementById('srv-cam-qty').value || '0',
+                screenQty: document.getElementById('srv-screen-qty').value || '1',
+                ups: document.getElementById('srv-ups').value || 'No Especifica',
+                software: document.getElementById('srv-software').value || 'No Especifica',
+                timestamp: new Date().toLocaleString('es-CO'),
+                modoReporte: modoActual,
+                semaforo: modoActual === 'inventario' ? null : calcularSemaforoPonderadoDesdeFormulario(),
+
+                pruebasFijas: capturarPruebasFijasServidorActual(),
                 gruposAlmacenamiento: extraerGruposAlmacenamiento(),
                 camarasIP: extraerCamaras(),
                 discosFisicos: extraerDiscos(),
