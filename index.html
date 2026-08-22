@@ -6,8 +6,6 @@
     <title>Diagnóstico e Inventario para servidores Geovision | Uso interno autorizado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -1293,10 +1291,7 @@
 
         <div class="space-y-2 pt-2">
             <button type="button" onclick="compilarInformeFinalA4PDF()" class="w-full bg-[#E52724] hover:bg-red-700 active:bg-red-800 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald">
-                <span>📄 Informe Técnico · Diseño Compacto</span>
-            </button>
-            <button type="button" onclick="generarInformePDFNativo()" class="w-full bg-gradient-to-r from-sky-600 to-[#2B4763] hover:from-sky-500 hover:to-[#1d3350] active:from-sky-700 text-white font-bold py-4 px-4 rounded-xl shadow-xl flex justify-center items-center text-base transition font-oswald border border-sky-400/40">
-                <span>🆕 Informe Técnico · Diseño Ampliado</span>
+                <span>📄 Generar informe técnico completo</span>
             </button>
 
             <div class="grid grid-cols-2 gap-2 pt-1">
@@ -3186,6 +3181,14 @@
             <tr><td colspan="4" style="background-color: #E52724; color: white; font-weight: bold; padding: 5px 7px; border: 1px solid #cbd5e1; font-size: 9px; letter-spacing: 0.3px;">${titulo}</td></tr>
         `;
 
+        // Submenú visual para diferenciar cada prueba dentro de las cuatro secciones principales.
+        // Mantiene todos los datos y resultados existentes; únicamente mejora la jerarquía visual del PDF.
+        const pdfSubMenu = (titulo) => `
+            <tr>
+                <td colspan="4" style="background-color: #eef3f8; color: #122f4a; font-weight: bold; padding: 4px 7px; border: 1px solid #cbd5e1; border-top: 2px solid #2B4763; font-size: 8.5px; letter-spacing: 0.15px;">▸ ${titulo}</td>
+            </tr>
+        `;
+
         function calcularSaludServidorPDF(srv) {
             if (srv.modoReporte === 'inventario') {
                 return {
@@ -3459,6 +3462,7 @@
                             </thead>
                             <tbody>
                                 ${pdfSeccionBanner('⚡ PRUEBAS ELÉCTRICAS Y BIOS/UEFI')}
+                                ${pdfSubMenu('A. Mediciones eléctricas: Fase–Neutro, Fase–Tierra y Neutro–Tierra')}
                                 <!-- Capa Eléctrica -->
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Voltaje Fase - Neutro</strong></td>
@@ -3479,6 +3483,7 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.volt_nt_obs)} ${renderPdfImg(srv.pruebasFijas.volt_nt_foto)}</td>
                                 </tr>
 
+                                ${pdfSubMenu('B. Voltajes BIOS/UEFI y alimentación interna')}
                                 <!-- Fuente / BIOS-UEFI -->
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>BIOS/UEFI +12V</strong></td>
@@ -3530,6 +3535,7 @@
 
                                 <!-- Red -->
                                 ${pdfSeccionBanner('🌐 RED Y CONECTIVIDAD')}
+                                ${pdfSubMenu('A. Ping y conectividad ICMP')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ping (100 Pings)</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Latencia: ${escaparHTML(srv.pruebasFijas.ping_lat)}<br>Pérdida: ${escaparHTML(srv.pruebasFijas.ping_loss)}</td>
@@ -3537,12 +3543,14 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ping_cc_obs)} ${renderPdfImg(srv.pruebasFijas.ping_cc_foto)}</td>
                                 </tr>
                                 ${extraPingsHtml}
+                                ${pdfSubMenu('B. Sockets TCP y puertos de servicio')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Sockets TCP</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${extraPortsHtml}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; background-color: #f8fafc; font-weight: bold;">SOCKETS</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.ports_obs)} ${renderPdfImg(srv.pruebasFijas.ports_foto)}</td>
                                 </tr>
+                                ${pdfSubMenu('C. Ancho de banda de red')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Ancho de Banda</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.netName)} (${escaparHTML(srv.pruebasFijas.netType)}) - ${escaparHTML(srv.pruebasFijas.netSpeed)}<br>Subida: ${escaparHTML(srv.pruebasFijas.net_upload_val)} | Bajada: ${escaparHTML(srv.pruebasFijas.net_download_val)}</td>
@@ -3550,6 +3558,7 @@
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.red_global_obs)} ${renderPdfImg(srv.pruebasFijas.red_global_foto)}</td>
                                 </tr>
                                 ${extraInterfacesHtml}
+                                ${pdfSubMenu('D. Verificación MTU y rutas')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Verificación MTU</strong><br>(${escaparHTML(srv.pruebasFijas.mtu_route)})</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Valor: ${escaparHTML(srv.pruebasFijas.mtu_val)}</td>
@@ -3560,19 +3569,23 @@
 
                                 <!-- Hardware -->
                                 ${pdfSeccionBanner('🖥️ RENDIMIENTO Y HARDWARE')}
+                                ${pdfSubMenu('A. Discos físicos y almacenamiento')}
                                 ${discosHtml}
+                                ${pdfSubMenu('B. Stress y rendimiento de hardware')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Stress Hardware</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.cpu_pct)} | RAM: ${escaparHTML(srv.pruebasFijas.ram_pct)} | GPU: ${escaparHTML(srv.pruebasFijas.gpu_pct)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.cpu_status === 'ESTABLE' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.cpu_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.hw_stress_obs)} ${renderPdfImg(srv.pruebasFijas.hw_stress_foto)}</td>
                                 </tr>
+                                ${pdfSubMenu('C. Logs críticos del sistema')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Logs Críticos</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Base: ${escaparHTML(srv.pruebasFijas.event_logs_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.event_logs_status === 'LIMPIO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.event_logs_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.event_logs_obs)} ${renderPdfImg(srv.pruebasFijas.event_logs_foto)}</td>
                                 </tr>
+                                ${pdfSubMenu('D. Temperaturas de hardware')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Temp. Hardware</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">CPU: ${escaparHTML(srv.pruebasFijas.temp_cpu)} | GPU: ${escaparHTML(srv.pruebasFijas.temp_gpu)} | HDD: ${escaparHTML(srv.pruebasFijas.temp_hdd)}</td>
@@ -3584,6 +3597,7 @@
                                 ${logCriticosExtrasHtml}
 
                                 <!-- Cámaras -->
+                                ${pdfSubMenu('E. Configuración y estado de cámaras IP')}
                                 <tr>
                                     <td colspan="4" style="background-color: #7e22ce; color: white; font-weight: bold; padding: 5px 7px; border: 1px solid #cbd5e1; font-size: 9px; letter-spacing: 0.3px;">🎥 CONFIGURACIÓN CÁMARAS IP</td>
                                 </tr>
@@ -3591,27 +3605,46 @@
 
                                 <!-- Software -->
                                 ${pdfSeccionBanner('💻 SOFTWARE Y LICENCIAMIENTO')}
+                                ${pdfSubMenu('A. Eventos y logs de GeoVision')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Log Eventos GeoVision</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.sw_gv_events_val)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.sw_gv_events_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_gv_events_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.sw_core_obs)} ${renderPdfImg(srv.pruebasFijas.sw_core_foto)}</td>
                                 </tr>
+                                ${gvExtrasHtml}
+
+                                ${pdfSubMenu('B. Exclusiones y protección antivirus')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Exclusiones Antivirus</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">Antivirus: ${escaparHTML(srv.pruebasFijas.av_name)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.av_status === 'CONFIGURADO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.av_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.av_obs)} ${renderPdfImg(srv.pruebasFijas.av_foto)}</td>
                                 </tr>
+
+                                ${pdfSubMenu('C. Controladores y actualización de drivers')}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Controladores</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">-</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align:center; font-weight:bold; color:white; background-color:${srv.pruebasFijas.sw_ctrl_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_ctrl_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style:italic;">${escaparHTML(srv.pruebasFijas.sw_ctrl_obs)} ${renderPdfImg(srv.pruebasFijas.sw_ctrl_foto)}</td>
+                                </tr>
+                                ${ctrlExtrasHtml}
+                                <tr>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Actualización de Drivers</strong></td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1;">-</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; text-align:center; font-weight:bold; color:white; background-color:${srv.pruebasFijas.sw_upd_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.sw_upd_status)}</td>
+                                    <td style="padding: 4px; border: 1px solid #cbd5e1; font-style:italic;">${escaparHTML(srv.pruebasFijas.sw_upd_obs)} ${renderPdfImg(srv.pruebasFijas.sw_upd_foto)}</td>
+                                </tr>
+                                ${updExtrasHtml}
+
+                                ${pdfSubMenu('D. Licenciamiento GeoVision')}
                                 <tr>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;"><strong>Licenciamiento</strong></td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1;">${escaparHTML(srv.pruebasFijas.lic_type)} | ${escaparHTML(srv.pruebasFijas.lic_name)} (${escaparHTML(srv.pruebasFijas.lic_num)})</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: white; background-color: ${srv.pruebasFijas.lic_status === 'CORRECTO' ? '#16a34a' : '#E52724'};">${escaparHTML(srv.pruebasFijas.lic_status)}</td>
                                     <td style="padding: 4px; border: 1px solid #cbd5e1; font-style: italic;">${escaparHTML(srv.pruebasFijas.lic_obs)} ${renderPdfImg(srv.pruebasFijas.lic_foto)}</td>
                                 </tr>
-                                ${gvExtrasHtml}
-                                ${ctrlExtrasHtml}
-                                ${updExtrasHtml}
                                 ${licExtrasHtml}
                             </tbody>
                         </table>
@@ -3807,433 +3840,6 @@
                 });
         }
 
-        // ============================================================================
-        // INFORME TÉCNICO · DISEÑO AMPLIADO — generación nativa con jsPDF + autoTable.
-        // No usa html2canvas: dibuja texto, tablas e imágenes directamente, por lo que
-        // el texto siempre sale nítido (vectorial) y el layout es más controlable.
-        // Esta función es independiente de compilarInformeFinalA4PDF(): no la modifica
-        // ni depende de ella, para poder comparar ambos resultados sin riesgo.
-        // ============================================================================
-
-        function listaFotosPDFNativo(b64) {
-            if (!b64) return [];
-            let lista = [];
-            try {
-                const parsed = typeof b64 === 'string' ? JSON.parse(b64) : b64;
-                lista = Array.isArray(parsed) ? parsed : [parsed];
-            } catch (e) {
-                lista = [b64];
-            }
-            return lista.filter(Boolean);
-        }
-
-        function colorEstadoPDFNativo(estado) {
-            const e = String(estado || '').toUpperCase();
-            const malos = ['FALLA', 'FALLO', 'ANOMALO', 'ANÓMALO', 'ERROR', 'CRÍTICO', 'CRITICO', 'SATURADO', 'ALERTA', 'SOBRECALENTAMIENTO', 'CERRADO'];
-            const buenos = ['ESTABLE', 'CORRECTO', 'PASA', 'ÓPTIMO', 'OPTIMO', 'LIMPIO', 'CONFIGURADO', 'SANO', 'NORMAL', 'OK', 'ABIERTO'];
-            if (malos.some(m => e.includes(m))) return [225, 29, 72];
-            if (buenos.some(b => e.includes(b))) return [22, 163, 74];
-            return [71, 85, 105];
-        }
-
-        function celdaMetricaPDFNativo(referencia, medido) {
-            return `Ref: ${referencia}\nMedido: ${medido}`;
-        }
-
-        function generarInformePDFNativo() {
-            if (backendColaServidores.length === 0) {
-                alert("⚠️ Debe hacer clic en 'Guardar e Indexar Servidor' antes de generar el reporte.");
-                return;
-            }
-            if (typeof jspdf === 'undefined' || !jspdf.jsPDF) {
-                alert('La librería de generación de PDF (jsPDF) no está disponible. Verifique su conexión a internet e intente nuevamente.');
-                return;
-            }
-            const doc = new jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
-            if (typeof doc.autoTable !== 'function') {
-                alert('El complemento de tablas (autoTable) no cargó correctamente. Verifique su conexión a internet e intente nuevamente.');
-                return;
-            }
-
-            const MARGEN = 12;
-            const ANCHO_PAG = doc.internal.pageSize.getWidth();
-            const ALTO_PAG = doc.internal.pageSize.getHeight();
-            const ANCHO_UTIL = ANCHO_PAG - MARGEN * 2;
-            const COLOR_PRIMARIO = [43, 71, 99];
-            const COLOR_ACENTO = [229, 39, 36];
-            const COLOR_TEXTO = [30, 41, 59];
-            const COLOR_GRIS = [100, 116, 139];
-
-            let y = MARGEN;
-            const espacioDisponible = (minimo) => {
-                if (y + minimo > ALTO_PAG - 16) {
-                    doc.addPage();
-                    y = MARGEN;
-                    return true;
-                }
-                return false;
-            };
-
-            const estiloTablaBase = {
-                theme: 'grid',
-                margin: { left: MARGEN, right: MARGEN },
-                styles: { fontSize: 7.8, cellPadding: 1.8, textColor: COLOR_TEXTO, lineColor: [203, 213, 225], lineWidth: 0.1, overflow: 'linebreak', valign: 'top' },
-                headStyles: { fillColor: COLOR_PRIMARIO, textColor: 255, fontStyle: 'bold', fontSize: 7.8, halign: 'left' }
-            };
-
-            const dibujarBanner = (titulo, color = COLOR_ACENTO) => {
-                espacioDisponible(12);
-                doc.setFillColor(...color);
-                doc.rect(MARGEN, y, ANCHO_UTIL, 6.5, 'F');
-                doc.setTextColor(255, 255, 255);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(8.5);
-                doc.text(titulo, MARGEN + 3, y + 4.5);
-                y += 6.5 + 3;
-            };
-
-            const dibujarTitulo = (texto, tamano = 9.5) => {
-                espacioDisponible(10);
-                doc.setTextColor(...COLOR_PRIMARIO);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(tamano);
-                doc.text(texto, MARGEN, y);
-                doc.setDrawColor(...COLOR_PRIMARIO);
-                doc.setLineWidth(0.6);
-                doc.line(MARGEN, y + 1.5, MARGEN + 3, y + 1.5);
-                y += 5.5;
-            };
-
-            const tablaColoreada = (opciones) => {
-                doc.autoTable({
-                    ...estiloTablaBase,
-                    startY: y,
-                    didParseCell: (data) => {
-                        if (data.section === 'body' && opciones.colEstatus !== undefined && data.column.index === opciones.colEstatus) {
-                            const color = colorEstadoPDFNativo(data.cell.raw);
-                            data.cell.styles.fillColor = color;
-                            data.cell.styles.textColor = 255;
-                            data.cell.styles.fontStyle = 'bold';
-                            data.cell.styles.halign = 'center';
-                            data.cell.styles.valign = 'middle';
-                        }
-                    },
-                    ...opciones
-                });
-                y = doc.lastAutoTable.finalY + 5;
-            };
-
-            // ---------- ENCABEZADO GENERAL DEL INFORME ----------
-            doc.setFillColor(...COLOR_PRIMARIO);
-            doc.rect(0, 0, ANCHO_PAG, 24, 'F');
-            doc.setFillColor(...COLOR_ACENTO);
-            doc.rect(0, 24, ANCHO_PAG, 1.2, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(15);
-            doc.text('GEOVISION DE COLOMBIA S.A.S.', MARGEN, 11);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8.5);
-            doc.text('Diagnóstico e Inventario para Servidores Geovision', MARGEN, 16.8);
-            doc.setFontSize(7.3);
-            doc.text(`Ficha de Control Móvil  ·  Emisión: ${new Date().toLocaleString('es-CO')}`, ANCHO_PAG - MARGEN, 11, { align: 'right' });
-            y = 31;
-
-            const techName = document.getElementById('tech-name').value || 'Robert Enrique Muriel';
-            const clientName = document.getElementById('client-name').value || 'No Suministrado';
-            const endClientName = document.getElementById('end-client-name').value || 'No Suministrado';
-            const address = document.getElementById('physical-address').value || 'No Suministrado';
-            const gps = document.getElementById('gps-coords').value || 'Sin fijar';
-
-            doc.autoTable({
-                startY: y,
-                margin: { left: MARGEN, right: MARGEN },
-                theme: 'plain',
-                styles: { fontSize: 8.3, textColor: COLOR_TEXTO, cellPadding: 1 },
-                columnStyles: { 0: { cellWidth: 40, fontStyle: 'bold' }, 1: { cellWidth: 53 }, 2: { cellWidth: 42, fontStyle: 'bold' }, 3: { cellWidth: 'auto' } },
-                body: [
-                    ['Ingeniero / Técnico Revisor:', techName, 'Dirección Física Evaluada:', address],
-                    ['Cliente / Integrador Comercial:', clientName, 'Cliente Final / Sede Operativa:', endClientName],
-                    ['Coordenadas GPS:', gps, '', '']
-                ]
-            });
-            y = doc.lastAutoTable.finalY + 6;
-
-            // ---------- POR CADA SERVIDOR INDEXADO ----------
-            backendColaServidores.forEach((srv, index) => {
-                const salud = calcularSaludServidorPDF(srv);
-                const hayCritica = (salud.alertas || []).some(a => a.startsWith('CRÍTICA'));
-
-                espacioDisponible(14);
-                dibujarTitulo(`EQUIPO EVALUADO #${index + 1}: ${String(srv.nombre).toUpperCase()}  [${srv.modoReporte === 'inventario' ? 'Inventario Técnico' : 'Diagnóstico Completo'}]`, 10.5);
-
-                // Caja de estado general + insignia de salud
-                let lineasAlertas = [];
-                if (srv.modoReporte !== 'completo') {
-                    lineasAlertas.push('Levantamiento físico activo. Sin matriz de fallas requerida.');
-                } else if (salud.alertas.length === 0) {
-                    lineasAlertas.push('✔ Sin alertas críticas. Todos los parámetros eléctricos, de red y hardware operan correctamente.');
-                } else {
-                    salud.alertas.forEach(a => lineasAlertas.push('• ' + a));
-                }
-                doc.setFontSize(7.4);
-                const anchoTextoAlertas = ANCHO_UTIL - 42;
-                let lineasFinal = [];
-                lineasAlertas.forEach(l => { lineasFinal = lineasFinal.concat(doc.splitTextToSize(l, anchoTextoAlertas)); });
-                const altoCaja = Math.max(16, 9 + lineasFinal.length * 3.6);
-                espacioDisponible(altoCaja + 4);
-                doc.setFillColor(248, 250, 252);
-                doc.setDrawColor(203, 213, 225);
-                doc.setLineWidth(0.15);
-                doc.roundedRect(MARGEN, y, ANCHO_UTIL, altoCaja, 1.5, 1.5, 'FD');
-                doc.setTextColor(...COLOR_PRIMARIO);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(7.8);
-                doc.text('⚡ ESTADO GENERAL DEL SERVIDOR', MARGEN + 3, y + 5);
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(7.4);
-                doc.setTextColor(71, 85, 105);
-                let ly = y + 9;
-                lineasFinal.forEach(l => { doc.text(l, MARGEN + 3, ly); ly += 3.6; });
-
-                let colorBadge = [2, 132, 199];
-                let textoBadge = 'MODO INVENTARIO';
-                if (salud.score !== null) {
-                    textoBadge = `${salud.score}% Sano`;
-                    colorBadge = [22, 163, 74];
-                    if (hayCritica || salud.score < 50) { colorBadge = [225, 29, 72]; textoBadge = `${salud.score}% Crítico`; }
-                    else if (salud.score < 90 && salud.score >= 70) { colorBadge = [217, 119, 6]; textoBadge = `${salud.score}% Atención`; }
-                    else if (salud.score < 70) { colorBadge = [234, 88, 12]; textoBadge = `${salud.score}% Precaución`; }
-                }
-                const bx = ANCHO_PAG - MARGEN - 34, by = y + 3;
-                doc.setFillColor(...colorBadge);
-                doc.roundedRect(bx, by, 32, 7.5, 2, 2, 'F');
-                doc.setTextColor(255, 255, 255);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(7.6);
-                doc.text(textoBadge, bx + 16, by + 5, { align: 'center' });
-                y += altoCaja + 5;
-
-                // Inventario y Arquitectura Técnica
-                dibujarTitulo('I. INVENTARIO Y ARQUITECTURA TÉCNICA', 9);
-                doc.autoTable({
-                    startY: y,
-                    margin: { left: MARGEN, right: MARGEN },
-                    theme: 'grid',
-                    styles: { fontSize: 7.8, cellPadding: 1.8, textColor: COLOR_TEXTO, lineColor: [203, 213, 225], lineWidth: 0.1 },
-                    columnStyles: { 0: { cellWidth: 38, fontStyle: 'bold', fillColor: [248, 250, 252] }, 1: { cellWidth: 55 }, 2: { cellWidth: 38, fontStyle: 'bold', fillColor: [248, 250, 252] }, 3: { cellWidth: 'auto' } },
-                    body: [
-                        ['Dirección IP:', srv.ip, 'Sistema Operativo:', srv.os],
-                        ['Marca / Modelo:', srv.brand, 'Serial:', srv.serial],
-                        ['CPU / RAM:', `${srv.cpu} / ${srv.ram}`, 'Respaldo UPS:', srv.ups],
-                        ['Almacenamiento Principal:', `${srv.disk_cap} (${srv.disk_qty} discos)`, 'Cámaras / Pantallas:', `${srv.camQty} Cámaras / ${srv.screenQty} Pantallas`],
-                        ['Fecha de Compra:', formatearFechaISO(srv.purchaseDate), 'Almacenamiento Total de Grabaciones:', sumarAlmacenamientoTotal(srv.gruposAlmacenamiento)]
-                    ]
-                });
-                y = doc.lastAutoTable.finalY + 5;
-
-                // Grupos de almacenamiento
-                const grupos = srv.gruposAlmacenamiento || [];
-                if (grupos.length > 0) {
-                    dibujarTitulo('ALMACENAMIENTO — GRUPOS, UNIDADES, RUTAS Y CÁMARAS', 9);
-                    tablaColoreada({
-                        head: [['Grupo', 'Cantidad / Capacidad', 'Unidades, tamaños y rutas', 'Cámaras asignadas']],
-                        body: grupos.map(g => {
-                            const unidades = (g.unidades || []).map(u => `${u.drive || ''}${u.size ? ' — ' + u.size : ''}${u.folder ? ' — ' + u.folder : ''}`).join('\n') || 'Sin unidades';
-                            const cams = (g.camaras || []).map(c => `CH ${c.channel} — ${c.name}`).join('\n') || 'Sin cámaras asignadas';
-                            return [g.name || `Grupo ${g.id}`, `Discos: ${g.cantidadDiscos || 0}\nCapacidad: ${g.capacidadTotal || 'N/R'}\nCámaras: ${g.cantidadCamaras || 0}`, unidades, cams];
-                        }),
-                        columnStyles: { 0: { cellWidth: 26 }, 1: { cellWidth: 40 }, 2: { cellWidth: 60 }, 3: { cellWidth: 'auto' } }
-                    });
-                }
-
-                if (srv.modoReporte !== 'completo') {
-                    return; // Modo inventario: sin matriz de pruebas.
-                }
-
-                const p = srv.pruebasFijas || {};
-                const fotosAnexo = [];
-                const registrarFoto = (titulo, b64) => {
-                    listaFotosPDFNativo(b64).forEach(src => fotosAnexo.push({ titulo, src }));
-                };
-
-                // -- Sección eléctrica --
-                dibujarBanner('⚡ PRUEBAS ELÉCTRICAS Y BIOS/UEFI');
-                registrarFoto('Voltaje Fase-Neutro', p.volt_fn_foto);
-                registrarFoto('Voltaje Fase-Tierra', p.volt_ft_foto);
-                registrarFoto('Voltaje Neutro-Tierra', p.volt_nt_foto);
-                registrarFoto('Observaciones BIOS/UEFI', p.bios_voltages_foto);
-                const filasElectrico = [
-                    ['Voltaje Fase - Neutro', `Valor: ${p.volt_fn_val}`, p.volt_fn_status, p.volt_fn_obs || '-'],
-                    ['Voltaje Fase - Tierra', `Valor: ${p.volt_ft_val}`, p.volt_ft_status, p.volt_ft_obs || '-'],
-                    ['Voltaje Neutro - Tierra', `Valor: ${p.volt_nt_val}`, p.volt_nt_status, p.volt_nt_obs || '-'],
-                    ['BIOS/UEFI +12V', celdaMetricaPDFNativo('12.00 V (11.50–12.60 V)', p.bios_12v_val), p.bios_12v_status, 'Fuente de alimentación'],
-                    ['BIOS/UEFI +5V', celdaMetricaPDFNativo('5.00 V (4.75–5.25 V)', p.bios_5v_val), p.bios_5v_status, 'Fuente de alimentación'],
-                    ['BIOS/UEFI +3.3V', celdaMetricaPDFNativo('3.30 V (3.135–3.465 V)', p.bios_3v3_val), p.bios_3v3_status, 'Placa base / RAM / M.2'],
-                    ['Vcore', celdaMetricaPDFNativo('0.80–1.50 V (inicial)', p.bios_vcore_val), p.bios_vcore_status, 'CPU'],
-                    ['CPU SOC / Chipset', celdaMetricaPDFNativo('0.90–1.25 V (inicial)', p.bios_soc_val), p.bios_soc_status, 'Controlador / chipset'],
-                    ['VDD / VDIMM', celdaMetricaPDFNativo('DDR4 1.20 V / DDR5 1.30 V (nominal)', p.bios_vdimm_val), p.bios_vdimm_status, 'Memoria RAM'],
-                    ...(p.bios_extra_voltages || []).map(v => [v.name, celdaMetricaPDFNativo(v.reference, v.value), v.status, 'Voltaje adicional']),
-                    ['Observaciones BIOS/UEFI', '-', '—', p.bios_voltages_obs || '-']
-                ];
-                tablaColoreada({
-                    head: [['Prueba Ejecutada', 'Métrica / Parámetro', 'Estatus', 'Observaciones']],
-                    body: filasElectrico,
-                    colEstatus: 2,
-                    columnStyles: { 0: { cellWidth: 36 }, 1: { cellWidth: 55 }, 2: { cellWidth: 24 }, 3: { cellWidth: 'auto' } }
-                });
-
-                // -- Sección red --
-                dibujarBanner('🌐 RED Y CONECTIVIDAD');
-                registrarFoto('Ping (100 Pings)', p.ping_cc_foto);
-                registrarFoto('Sockets TCP', p.ports_foto);
-                registrarFoto('Ancho de Banda', p.red_global_foto);
-                registrarFoto('Verificación MTU', p.mtu_foto);
-                let extraPortsTxt = `[Tipo: ${p.portTestType}]`;
-                (p.extraPorts || []).forEach(ep => { extraPortsTxt += `\nPuerto ${ep.num}: ${ep.status}`; });
-                const filasRed = [
-                    ['Ping (100 Pings)', `Latencia: ${p.ping_lat}\nPérdida: ${p.ping_loss}`, p.ping_cc_status, p.ping_cc_obs || '-'],
-                    ...(p.ping_extras || []).map(pe => ['Ping Adicional', `Latencia: ${pe.lat} | Pérdida: ${pe.loss}`, pe.status, pe.obs || '-']),
-                    ['Sockets TCP', extraPortsTxt, 'SOCKETS', p.ports_obs || '-'],
-                    ['Ancho de Banda', `${p.netName} (${p.netType}) - ${p.netSpeed}\nSubida: ${p.net_upload_val} | Bajada: ${p.net_download_val}`, 'RED OK', p.red_global_obs || '-'],
-                    ...(p.extraInterfaces || []).map(ei => ['Interfaz Red Extra', `${ei.name} (${ei.type}) - ${ei.speed}\nSubida: ${ei.upload} | Bajada: ${ei.download}`, 'RED', 'Interfaz adicional registrada']),
-                    ['Verificación MTU', `Valor: ${p.mtu_val}`, p.mtu_status, p.mtu_obs || '-'],
-                    ...(p.mtu_extras || []).map(me => [`Ruta MTU: ${me.route || ''}`, `Valor: ${me.val}`, me.status, me.obs || '-'])
-                ];
-                tablaColoreada({
-                    head: [['Prueba Ejecutada', 'Métrica / Parámetro', 'Estatus', 'Observaciones']],
-                    body: filasRed,
-                    colEstatus: 2,
-                    columnStyles: { 0: { cellWidth: 36 }, 1: { cellWidth: 55 }, 2: { cellWidth: 24 }, 3: { cellWidth: 'auto' } }
-                });
-
-                // -- Sección hardware --
-                dibujarBanner('🖥️ RENDIMIENTO Y HARDWARE');
-                (srv.discosFisicos || []).forEach((d, i) => registrarFoto(`Disco Físico #${i + 1}`, d.foto));
-                registrarFoto('Stress Hardware', p.hw_stress_foto);
-                registrarFoto('Logs Críticos', p.event_logs_foto);
-                registrarFoto('Temp. Hardware', p.temp_foto);
-                const filasHardware = [
-                    ...(srv.discosFisicos || []).map((d, i) => [`Disco Físico #${i + 1}`, `Ref: ${d.ref} | Cap: ${d.cap}\nSN: ${d.serial} | Escritura: ${d.writeSpeed}\nHoras de uso: ${d.hoursUsed || 'N/R'}`, d.status, d.obs || '-']),
-                    ['Stress Hardware', `CPU: ${p.cpu_pct} | RAM: ${p.ram_pct} | GPU: ${p.gpu_pct}`, p.cpu_status, p.hw_stress_obs || '-'],
-                    ...(p.gpu_extras || []).map(g => ['GPU adicional', `Carga: ${g.pct}`, g.status, 'GPU/Codec adicional']),
-                    ['Logs Críticos', `Base: ${p.event_logs_val}`, p.event_logs_status, p.event_logs_obs || '-'],
-                    ...(p.log_critico_extras || []).map(x => ['Log crítico adicional', `Filtro/ID: ${x.val}`, x.status, x.obs || '-']),
-                    ['Temp. Hardware', `CPU: ${p.temp_cpu} | GPU: ${p.temp_gpu} | HDD: ${p.temp_hdd}`, p.temp_status, p.temp_obs || '-'],
-                    ...(p.temp_extras || []).map(t => ['Temperatura adicional', `${t.label}: ${t.val}`, 'REGISTRADA', 'Sensor adicional'])
-                ];
-                tablaColoreada({
-                    head: [['Prueba Ejecutada', 'Métrica / Parámetro', 'Estatus', 'Observaciones']],
-                    body: filasHardware,
-                    colEstatus: 2,
-                    columnStyles: { 0: { cellWidth: 36 }, 1: { cellWidth: 55 }, 2: { cellWidth: 24 }, 3: { cellWidth: 'auto' } }
-                });
-
-                // -- Cámaras IP --
-                if ((srv.camarasIP || []).length > 0) {
-                    dibujarBanner('🎥 CONFIGURACIÓN CÁMARAS IP', [126, 34, 206]);
-                    srv.camarasIP.forEach(c => registrarFoto(`Cámara CH ${c.channel} — ${c.name}`, c.fotoGen));
-                    tablaColoreada({
-                        head: [['Cámara', 'Detalle', 'Estatus', 'Observaciones']],
-                        body: srv.camarasIP.map(c => [
-                            `[CH ${c.channel}]\n${c.name}`,
-                            `Ubicación: ${c.loc} | IP: ${c.ip}\nGrupo: ${c.storageGroupName || 'Sin asignar'} | Protocolo: ${c.protocol}\nMain: ${c.mainCodec}/${c.mainRes}/${c.mainFps}fps  Sub: ${c.subCodec}/${c.subRes}/${c.subFps}fps`,
-                            c.status,
-                            c.obs || '-'
-                        ]),
-                        colEstatus: 2,
-                        columnStyles: { 0: { cellWidth: 30 }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 22 }, 3: { cellWidth: 45 } }
-                    });
-                }
-
-                // -- Software y licenciamiento --
-                dibujarBanner('💻 SOFTWARE Y LICENCIAMIENTO');
-                registrarFoto('Log Eventos GeoVision', p.sw_core_foto);
-                registrarFoto('Exclusiones Antivirus', p.av_foto);
-                registrarFoto('Controladores', p.sw_ctrl_foto);
-                registrarFoto('Actualización de Drivers', p.sw_upd_foto);
-                registrarFoto('Licenciamiento', p.lic_foto);
-                const filasSoftware = [
-                    ['Log Eventos GeoVision', p.sw_gv_events_val, p.sw_gv_events_status, p.sw_core_obs || '-'],
-                    ...(p.sw_gv_extras || []).map(x => ['Log GeoVision adicional', x.val, x.status, x.obs || '-']),
-                    ['Exclusiones Antivirus', `Antivirus: ${p.av_name}`, p.av_status, p.av_obs || '-'],
-                    ['Controladores', '-', p.sw_ctrl_status, p.sw_ctrl_obs || '-'],
-                    ...(p.sw_ctrl_extras || []).map(x => ['Controlador adicional', x.name || '', x.status, x.obs || '-']),
-                    ['Actualización de Drivers', '-', p.sw_upd_status, p.sw_upd_obs || '-'],
-                    ...(p.sw_upd_extras || []).map(x => ['Actualización adicional', x.name || '', x.status, x.obs || '-']),
-                    ['Licenciamiento', `${p.lic_type} | ${p.lic_name} (${p.lic_num})`, p.lic_status, p.lic_obs || '-'],
-                    ...(p.lic_extras || []).map(x => ['Licenciamiento adicional', `${x.type || ''} | ${x.name || ''} | ${x.num || ''}`, x.status, x.obs || '-'])
-                ];
-                tablaColoreada({
-                    head: [['Prueba Ejecutada', 'Métrica / Parámetro', 'Estatus', 'Observaciones']],
-                    body: filasSoftware,
-                    colEstatus: 2,
-                    columnStyles: { 0: { cellWidth: 36 }, 1: { cellWidth: 55 }, 2: { cellWidth: 24 }, 3: { cellWidth: 'auto' } }
-                });
-
-                // -- Anexo fotográfico del servidor (pruebas puntuales + evidencia general) --
-                (srv.fotosEvidencia || []).forEach(src => fotosAnexo.push({ titulo: 'Evidencia general del sitio', src }));
-                if (fotosAnexo.length > 0) {
-                    doc.addPage();
-                    y = MARGEN;
-                    dibujarTitulo(`ANEXO: EVIDENCIA FOTOGRÁFICA — ${String(srv.nombre).toUpperCase()}`, 10);
-                    const anchoImg = (ANCHO_UTIL - 6) / 2;
-                    let columna = 0;
-                    let xBase = MARGEN;
-                    fotosAnexo.forEach((item) => {
-                        let altoImg = 60;
-                        try {
-                            const props = doc.getImageProperties(item.src);
-                            altoImg = Math.min(75, anchoImg * (props.height / props.width));
-                        } catch (e) { /* si la imagen no es decodificable, se usa el alto por defecto */ }
-                        const altoBloque = altoImg + 9;
-                        if (columna === 0) espacioDisponible(altoBloque + 4);
-                        xBase = MARGEN + columna * (anchoImg + 6);
-                        doc.setDrawColor(203, 213, 225);
-                        doc.setLineWidth(0.1);
-                        doc.rect(xBase, y, anchoImg, altoBloque);
-                        try {
-                            doc.addImage(item.src, xBase + 2, y + 2, anchoImg - 4, altoImg - 2, undefined, 'FAST');
-                        } catch (e) { /* imagen inválida u origen no soportado: se omite sin interrumpir el resto del anexo */ }
-                        doc.setFont('helvetica', 'normal');
-                        doc.setFontSize(6.8);
-                        doc.setTextColor(...COLOR_GRIS);
-                        doc.text(doc.splitTextToSize(item.titulo, anchoImg - 4), xBase + 2, y + altoBloque - 2.5);
-                        columna++;
-                        if (columna === 2) { columna = 0; y += altoBloque + 4; }
-                    });
-                    if (columna !== 0) y += 75;
-                }
-
-                if (index < backendColaServidores.length - 1) {
-                    doc.addPage();
-                    y = MARGEN;
-                }
-            });
-
-            // ---------- PIE LEGAL + CONTADOR DE PÁGINAS EN TODAS LAS HOJAS ----------
-            const totalPaginas = doc.internal.getNumberOfPages();
-            const texto1 = 'Desarrollado por el Departamento de Ingeniería de Geovision de Colombia S.A.S. · NIT 830.069.756-8';
-            const texto2 = 'Uso interno y exclusivo para personal autorizado. Prohibida su reproducción, distribución, modificación o utilización por terceros sin autorización expresa.';
-            for (let pagina = 1; pagina <= totalPaginas; pagina++) {
-                doc.setPage(pagina);
-                const yLinea = ALTO_PAG - 11;
-                doc.setDrawColor(180, 190, 200);
-                doc.setLineWidth(0.15);
-                doc.line(MARGEN, yLinea - 4, ANCHO_PAG - MARGEN, yLinea - 4);
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(6.2);
-                doc.setTextColor(90, 100, 110);
-                doc.text(texto1, ANCHO_PAG / 2, yLinea, { align: 'center' });
-                doc.text(texto2, ANCHO_PAG / 2, yLinea + 3.2, { align: 'center', maxWidth: ANCHO_PAG - 20 });
-                doc.setFontSize(7.5);
-                doc.setTextColor(50, 60, 70);
-                doc.text(`Página ${pagina} de ${totalPaginas}`, ANCHO_PAG - MARGEN, 7, { align: 'right' });
-            }
-
-            const nombreArchivoNativo = `Informe_Geovision_${new Date().toISOString().slice(0, 10)}_v2.pdf`;
-            doc.save(nombreArchivoNativo);
-        }
     </script>
 </body>
 </html>
