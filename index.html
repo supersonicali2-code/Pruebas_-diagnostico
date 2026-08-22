@@ -339,7 +339,7 @@
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Cantidad de Pantallas</label>
                     <input type="number" id="srv-screen-qty" placeholder="Ej: 2" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400">
                 </div>
-                <div>
+                <div class="flex flex-col justify-end">
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Sistema de Respaldo Eléctrico (UPS)</label>
                     <select id="srv-ups" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white font-bold focus:outline-none">
                         <option value="UPS Individual Monitoreable" selected>UPS Individual</option>
@@ -347,7 +347,7 @@
                         <option value="Sin UPS">Sin UPS</option>
                     </select>
                 </div>
-                <div>
+                <div class="flex flex-col justify-end">
                     <label class="block text-[11px] text-slate-300 font-medium mb-1">Fecha de Compra</label>
                     <input type="date" id="srv-purchase-date" class="w-full bg-[#122f4a] border border-slate-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-sky-400" title="Seleccione día, mes y año">
                 </div>
@@ -391,7 +391,7 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Valor Medido (V)</label>
-                                    <input type="text" id="val_volt_fn" placeholder="Ej: 120.5 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_volt_fn" placeholder="Ej: 120.5 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
@@ -401,11 +401,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" id="obs_volt_fn" placeholder="Observaciones Fase-Neutro..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_volt_fn" placeholder="Observaciones Fase-Neutro..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -426,7 +426,7 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Valor Medido (V)</label>
-                                    <input type="text" id="val_volt_ft" placeholder="Ej: 120.0 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_volt_ft" placeholder="Ej: 120.0 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
@@ -436,11 +436,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" id="obs_volt_ft" placeholder="Observaciones Fase-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_volt_ft" placeholder="Observaciones Fase-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -461,7 +461,7 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Valor Medido (V)</label>
-                                    <input type="text" id="val_volt_nt" placeholder="Ej: 0.8 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_volt_nt" placeholder="Ej: 0.8 V" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
@@ -471,11 +471,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" id="obs_volt_nt" placeholder="Observaciones Neutro-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_volt_nt" placeholder="Observaciones Neutro-Tierra..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -611,33 +611,33 @@
                             <p>💡 <strong>Software / Herramienta:</strong> Símbolo del Sistema (CMD) de Windows.</p>
                             <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">ping [IP_o_Host_Destino] -n [Cantidad_Paquetes]</code></p>
                             <p>⚙️ <strong>Ejemplo práctico:</strong> Abrir CMD y ejecutar el siguiente comando para evaluar 100 paquetes continuos:</p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -n 100</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -n 100</code>
                             <p class="text-[9px] text-slate-400"><strong>Criterio de éxito:</strong> 0% de paquetes perdidos y latencia estable (&lt; 5ms en red local).</p>
                         </div>
                         
                         <div class="grid grid-cols-3 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Latencia</label>
-                                <input type="text" id="val_ping_lat" placeholder="Ej: 3 ms" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                <input type="text" id="val_ping_lat" placeholder="Ej: 3 ms" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">% Pérdida</label>
-                                <input type="text" id="val_ping_loss" placeholder="Ej: 0%" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                <input type="text" id="val_ping_loss" placeholder="Ej: 0%" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                                 <div class="grid grid-cols-3 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="PASA" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">PASA</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="FALLA" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">FAIL</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="N/A" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-slate-400">N/A</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="PASA" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">PASA</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="FALLA" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">FAIL</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_ping_cc" value="N/A" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-slate-400">N/A</span></label>
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_ping_cc" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_ping_cc" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -661,27 +661,27 @@
                             <button type="button" onclick="crearFilaPuerto()" class="text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir Puerto</button>
                         </div>
                         <h4 class="text-xs font-bold text-slate-200 mt-1 font-oswald">Prueba 1.4: Conexión de Sockets TCP (Puerto por Puerto)</h4>
-                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.6">
+                        <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1.5">
                             <p>💡 <strong>Software / Herramienta:</strong> PowerShell de Windows.</p>
                             <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">Test-NetConnection -ComputerName [IP_o_Host] -Port [Puerto]</code></p>
                             <p>⚙️ <strong>Ejemplo práctico:</strong> Abrir PowerShell y ejecutar el cmdlet para probar sockets TCP en puertos específicos de GeoVision (ej. 4550):</p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Test-NetConnection -ComputerName 192.168.10.100 -Port 4550</code>
                         </div>
 
                         <div class="mb-2">
                             <label class="block text-[10px] text-slate-300 mb-0.5">Tipo de Prueba</label>
-                            <select id="val_port_test_type" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white font-bold focus:outline-none">
+                            <select id="val_port_test_type" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                                 <option value="Interna (Misma máquina)" selected>Interna (Misma máquina)</option>
                                 <option value="Externa (Otra máquina)">Externa (Otra máquina)</option>
                             </select>
                         </div>
 
                         <div id="wrapper-ports" class="space-y-2 w-full"></div>
-                        <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_ports" placeholder="Anotaciones sobre respuestas TCP..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -706,18 +706,18 @@
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Monitor de Recursos de Windows (`resmon`) o Administrador de Tareas.</p>
                             <p>⚙️ <strong>Sintaxis general / Comando:</strong> Presionar <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> > Pestaña Rendimiento > Ethernet, o abrir Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>) y digitar:</p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">resmon</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">resmon</code>
                         </div>
                         
                         <div class="space-y-2 mb-2">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Nombre de la Interfaz</label>
-                                <input type="text" id="val_net_name" value="Ethernet" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white font-bold focus:outline-none">
+                                <input type="text" id="val_net_name" value="Ethernet" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Tipo de Interfaz</label>
-                                    <select id="val_net_type" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white font-bold focus:outline-none">
+                                    <select id="val_net_type" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                                         <option value="Ethernet" selected>Ethernet</option>
                                         <option value="Wi-Fi">Wi-Fi</option>
                                         <option value="Fibra">Fibra (SFP)</option>
@@ -725,7 +725,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Velocidad Enlace</label>
-                                    <select id="val_net_speed" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white font-bold focus:outline-none">
+                                    <select id="val_net_speed" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white font-bold focus:outline-none">
                                         <option value="10/100 Mbps">10/100 Mbps</option>
                                         <option value="10/100/1000 Mbps" selected>1 Gbps</option>
                                         <option value="10 Gbps">10 Gbps</option>
@@ -735,41 +735,41 @@
                         </div>
 
                         <div class="space-y-3 pt-1">
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.6 sm:space-y-0 sm:space-x-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
                                     <label class="block text-[10px] text-slate-300">Carga / Subida</label>
-                                    <input type="text" id="val_net_upload" placeholder="Ej: 95 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_net_upload" placeholder="Ej: 95 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Carga</label>
                                     <div class="grid grid-cols-2 gap-1">
-                                        <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_upload_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.6 sm:space-y-0 sm:space-x-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
                                     <label class="block text-[10px] text-slate-300">Descarga / Bajada</label>
-                                    <input type="text" id="val_net_download" placeholder="Ej: 320 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_net_download" placeholder="Ej: 320 Mbps" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Descarga</label>
                                     <div class="grid grid-cols-2 gap-1">
-                                        <label class="status-btn"><input type="radio" name="chk_download_net_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_download_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_download_net_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_download_net_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div id="wrapper-net" class="space-y-2 mt-2 w-full"></div>
-                        <input type="text" id="obs_ping_cam" placeholder="Anotaciones de red..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_ping_cam" placeholder="Anotaciones de red..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -796,32 +796,32 @@
                             <p>🌐 <strong>Metodología de Campo:</strong> Esta prueba se realiza de forma bidireccional (ej. Estación de Monitoreo ➔ Servidor, o Servidor ➔ Cámara 1).</p>
                             <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">ping [IP_Destino] -f -l [Bytes_Buffer]</code></p>
                             <p>⚙️ <strong>Ejemplo práctico:</strong></p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -f -l 1472</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">ping 192.168.10.100 -f -l 1472</code>
                         </div>
 
                         <div class="space-y-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Ruta de la Prueba (Origen ➔ Destino)</label>
-                                <input type="text" id="val_mtu_route" placeholder="Ej: PC Monitoreo ➔ Servidor NVR" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                <input type="text" id="val_mtu_route" placeholder="Ej: PC Monitoreo ➔ Servidor NVR" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
-                                    <input type="text" id="val_mtu" placeholder="Ej: 1500" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_mtu" placeholder="Ej: 1500" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                                     <div class="grid grid-cols-2 gap-1">
-                                        <label class="status-btn"><input type="radio" name="chk_mtu_status" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_mtu_status" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">AJUSTAR</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_mtu_status" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_mtu_status" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">AJUSTAR</span></label>
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" id="obs_mtu" placeholder="Observaciones de MTU..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" id="obs_mtu" placeholder="Observaciones de MTU..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             
-                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -869,56 +869,56 @@
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Administrador de Tareas (`taskmgr`).</p>
                             <p>⚙️ <strong>Sintaxis / Acceso directo:</strong> Presionar <code class="text-sky-300 font-mono">Ctrl + Shift + Esc</code> para abrir el Administrador de Tareas > Pestaña Rendimiento, o ejecutar en Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>):</p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">taskmgr</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">taskmgr</code>
                         </div>
 
                         <div class="space-y-3 pt-1">
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.6 sm:space-y-0 sm:space-x-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
                                     <label class="block text-[10px] text-slate-300">Uso CPU (%)</label>
-                                    <input type="text" id="val_cpu_pct" placeholder="Ej: 45%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_cpu_pct" placeholder="Ej: 45%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <div class="grid grid-cols-2 gap-1 mt-3 sm:mt-0">
-                                        <label class="status-btn"><input type="radio" name="chk_cpu_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_cpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_cpu_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_cpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.6 sm:space-y-0 sm:space-x-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
                                     <label class="block text-[10px] text-slate-300">Uso RAM (%)</label>
-                                    <input type="text" id="val_ram_pct" placeholder="Ej: 62%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_ram_pct" placeholder="Ej: 62%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <div class="grid grid-cols-2 gap-1 mt-3 sm:mt-0">
-                                        <label class="status-btn"><input type="radio" name="chk_ram_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_ram_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_ram_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_ram_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.6 sm:space-y-0 sm:space-x-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2">
                                 <div class="w-full sm:w-1/3">
                                     <label class="block text-[10px] text-slate-300">Uso GPU (%)</label>
-                                    <input type="text" id="val_gpu_pct" placeholder="Ej: 80%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_gpu_pct" placeholder="Ej: 80%" class="w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="w-full sm:w-2/3">
                                     <div class="grid grid-cols-2 gap-1 mt-3 sm:mt-0">
-                                        <label class="status-btn"><input type="radio" name="chk_gpu_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_gpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-rose-400">SATURADO</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_gpu_status" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_gpu_status" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div id="wrapper-gpu-extra" class="space-y-2 mt-2 w-full"></div>
-                        <input type="text" id="obs_hardware_stress" placeholder="Notas sobre el comportamiento..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_hardware_stress" placeholder="Notas sobre el comportamiento..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -943,27 +943,27 @@
                         <div class="text-[10px] text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800 space-y-1">
                             <p>💡 <strong>Software / Herramienta:</strong> Visor de Eventos de Windows.</p>
                             <p>⚙️ <strong>Sintaxis / Comando:</strong> Ejecutar en la ventana Ejecutar (<code class="text-sky-300 font-mono">Win + R</code>):</p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">eventvwr.msc</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">eventvwr.msc</code>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Filtro / ID Base Evaluado</label>
-                                <input type="text" id="val_event_base" placeholder="Ej: Logs de Sistema" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                <input type="text" id="val_event_base" placeholder="Ej: Logs de Sistema" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Base</label>
                                 <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">OK</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="ERRORES" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">ERROR</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_event_logs" value="ERRORES" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_event_logs" placeholder="Observaciones generales..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_event_logs" placeholder="Observaciones generales..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -996,34 +996,34 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Temp. CPU (°C)</label>
-                                    <input type="text" id="val_temp_cpu" placeholder="Ej: 55°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_temp_cpu" placeholder="Ej: 55°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Temp. GPU (°C)</label>
-                                    <input type="text" id="val_temp_gpu" placeholder="Ej: 60°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_temp_gpu" placeholder="Ej: 60°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Temp. Discos (°C)</label>
-                                    <input type="text" id="val_temp_hdd" placeholder="Ej: 38°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_temp_hdd" placeholder="Ej: 38°C" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-[10px] text-slate-300 mb-0.5">Estatus Térmico</label>
                                     <div class="grid grid-cols-2 gap-1 pt-0.5">
-                                        <label class="status-btn"><input type="radio" name="chk_temp_status" value="NORMAL" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">NORMAL</span></label>
-                                        <label class="status-btn"><input type="radio" name="chk_temp_status" value="SOBRECALENTAMIENTO" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">ALERTA</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_temp_status" value="NORMAL" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">NORMAL</span></label>
+                                        <label class="status-btn"><input type="radio" name="chk_temp_status" value="SOBRECALENTAMIENTO" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ALERTA</span></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div id="wrapper-temp-extra" class="space-y-2 mt-2 w-full"></div>
-                        <input type="text" id="obs_temp" placeholder="Observaciones térmicas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none mt-2">
+                        <input type="text" id="obs_temp" placeholder="Observaciones térmicas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none mt-2">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -1042,7 +1042,7 @@
                 <div class="space-y-4 pt-4 border-t border-slate-600">
                     <div class="flex justify-between items-center pb-2">
                         <span class="text-xs font-bold text-purple-300 font-oswald">🔧 4. CAPA DE SOFTWARE Y CÁMARAS IP</span>
-                        <button type="button" onclick="crearFilaCamara()" class="bg-[#E52724] hover:bg-red-600 text-white font-bold text-[10px] px-2.5 py-1.6 rounded transition shadow">
+                        <button type="button" onclick="crearFilaCamara()" class="bg-[#E52724] hover:bg-red-600 text-white font-bold text-[10px] px-2.5 py-1.5 rounded transition shadow">
                             ➕ Añadir otra Cámara IP
                         </button>
                     </div>
@@ -1064,21 +1064,21 @@
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Eventos de Sistema</label>
-                                <input type="text" id="val_event_gv" placeholder="Ej: Sin errores" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                <input type="text" id="val_event_gv" placeholder="Ej: Sin errores" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                                 <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">CORRECTO</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="ERROR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">ERROR</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="CORRECTO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">CORRECTO</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_sw_gv_events" value="ERROR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
                                 </div>
                             </div>
                         </div>
-                        <input type="text" id="obs_software_core" placeholder="Observaciones detalladas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_software_core" placeholder="Observaciones detalladas..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -1105,27 +1105,27 @@
                             <p>💡 <strong>Software / Herramienta:</strong> Windows Security / PowerShell.</p>
                             <p>⚙️ <strong>Sintaxis general:</strong> <code class="text-sky-300 font-mono">Add-MpPreference -ExclusionPath "[Ruta_Carpeta]"</code></p>
                             <p>⚙️ <strong>Ejemplo práctico:</strong> Excluir la carpeta raíz de instalación y rutas de video:</p>
-                            <code class="block bg-slate-950 p-1.6 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Add-MpPreference -ExclusionPath "C:\GV"</code>
+                            <code class="block bg-slate-950 p-1.5 rounded text-sky-300 font-mono text-[9px] border border-slate-800">Add-MpPreference -ExclusionPath "C:\GV"</code>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Estatus de Exclusión</label>
                                 <div class="grid grid-cols-2 gap-1">
-                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="CONFIGURADO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">OK</span></label>
-                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="PENDIENTE" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">PENDIENTE</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="CONFIGURADO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                                    <label class="status-btn"><input type="radio" name="chk_av_status" value="PENDIENTE" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">PENDIENTE</span></label>
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-[10px] text-slate-300 mb-0.5">Antivirus Detectado</label>
-                                <input type="text" id="val_av_name" placeholder="Ej: Windows Defender" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                                <input type="text" id="val_av_name" placeholder="Ej: Windows Defender" class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                             </div>
                         </div>
-                        <input type="text" id="obs_av" placeholder="Observaciones de exclusiones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" id="obs_av" placeholder="Observaciones de exclusiones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         
-                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                        <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                             <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                            <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                            <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                 <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                 <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                     📷 Cámara
@@ -1157,10 +1157,10 @@
                                     <button type="button" onclick="agregarControladorExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
                                 </div>
                             </div>
-                            <input type="text" id="obs_sw_ctrl" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <input type="text" id="obs_sw_ctrl" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -1187,10 +1187,10 @@
                                     <button type="button" onclick="agregarActualizacionExtra()" class="text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 text-[9px] font-bold px-2 py-1 rounded transition">➕ Añadir</button>
                                 </div>
                             </div>
-                            <input type="text" id="obs_sw_upd" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <input type="text" id="obs_sw_upd" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -1207,7 +1207,7 @@
                         </div>
 
                         <div class="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-2">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-1.6">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
                                 <span class="text-[10px] font-bold text-sky-300">Tipo de Licenciamiento</span>
                                 <div class="flex items-center space-x-2">
                                     <div class="grid grid-cols-2 gap-1 w-[100px]">
@@ -1220,24 +1220,24 @@
                             <div class="grid grid-cols-2 gap-2 text-xs">
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Modalidad</label>
-                                    <select id="val_lic_type" class="w-full bg-[#122f4a] border border-slate-600 p-1.6 rounded text-white font-bold focus:outline-none">
+                                    <select id="val_lic_type" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
                                         <option value="Físico (Dongle)" selected>Físico (Dongle USB)</option>
                                         <option value="Virtual">Virtual</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Nombre de Licencia</label>
-                                    <input type="text" id="val_lic_name" placeholder="Ej: Control Center" class="w-full bg-[#122f4a] border border-slate-600 p-1.6 rounded text-white focus:outline-none">
+                                    <input type="text" id="val_lic_name" placeholder="Ej: Control Center" class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                                 </div>
                                 <div class="col-span-2">
                                     <label class="block text-[9px] text-slate-300 mb-0.5">Número de Licencia / Serial</label>
-                                    <input type="text" id="val_lic_num" placeholder="SN-..." class="w-full bg-[#122f4a] border border-slate-600 p-1.6 rounded text-white font-mono focus:outline-none">
+                                    <input type="text" id="val_lic_num" placeholder="SN-..." class="w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                                 </div>
                             </div>
-                            <input type="text" id="obs_lic" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                            <input type="text" id="obs_lic" placeholder="Observaciones..." class="w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                            <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                                 <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                                <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                                <div class="flex items-center space-x-1.5 flex-1 justify-end">
                                     <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                                     <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                                         📷 Cámara
@@ -1262,11 +1262,11 @@
         <section class="bg-[#2B4763] rounded-xl p-4 border border-slate-600 shadow-sm space-y-3">
             <h2 class="text-xs font-bold text-sky-300 uppercase tracking-wider font-oswald">📸 5. Evidencia Fotográfica General (Rack/Site)</h2>
             <div class="grid grid-cols-2 gap-2 pt-1">
-                <label class="bg-sky-600 hover:bg-sky-500 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.6">
+                <label class="bg-sky-600 hover:bg-sky-500 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.5">
                     <span>📷 Tomar con Cámara</span>
                     <input type="file" accept="image/*" capture="environment" onchange="procesarFotosGenerales(this)" class="sr-only">
                 </label>
-                <label class="bg-[#E52724] hover:bg-red-700 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.6">
+                <label class="bg-[#E52724] hover:bg-red-700 text-white text-center py-2.5 px-3 rounded-lg font-bold text-xs cursor-pointer transition flex items-center justify-center space-x-1.5">
                     <span>📁 Abrir Galería</span>
                     <input type="file" accept="image/*" multiple onchange="procesarFotosGenerales(this)" class="sr-only">
                 </label>
@@ -1330,7 +1330,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-100 p-3 rounded border border-slate-200 grid grid-cols-2 gap-y-1.6 gap-x-4 text-[10px]">
+            <div class="bg-slate-100 p-3 rounded border border-slate-200 grid grid-cols-2 gap-y-1.5 gap-x-4 text-[10px]">
                 <div><strong>Ingeniero / Técnico Revisor:</strong> <span id="pdf-tech-name"></span></div>
                 <div><strong>Dirección Física Evaluada:</strong> <span id="pdf-address"></span></div>
                 <div><strong>Cliente / Integrador Comercial:</strong> <span id="pdf-client"></span></div>
@@ -1931,11 +1931,11 @@
                 <div class="grid grid-cols-3 gap-2 pt-1">
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Latencia</label>
-                        <input type="text" placeholder="Ej: 3 ms" class="ping-lat-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: 3 ms" class="ping-lat-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">% Pérdida</label>
-                        <input type="text" placeholder="Ej: 0%" class="ping-loss-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: 0%" class="ping-loss-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
@@ -1946,10 +1946,10 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones..." class="ping-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" placeholder="Observaciones..." class="ping-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -1996,26 +1996,26 @@
                 <div class="space-y-2 pt-1">
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Ruta de la Prueba (Origen ➔ Destino)</label>
-                        <input type="text" placeholder="Ej: Servidor ➔ Cámara 1 (192.168.10.51)" class="mtu-route-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Servidor ➔ Cámara 1 (192.168.10.51)" class="mtu-route-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Valor MTU / Resultado</label>
-                            <input type="text" placeholder="Ej: 1500" class="mtu-val-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" placeholder="Ej: 1500" class="mtu-val-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                             <div class="grid grid-cols-2 gap-1">
-                                <label class="status-btn"><input type="radio" name="chk_mtu_extra_${id}" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
-                                <label class="status-btn"><input type="radio" name="chk_mtu_extra_${id}" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">AJUSTAR</span></label>
+                                <label class="status-btn"><input type="radio" name="chk_mtu_extra_${id}" value="ÓPTIMO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">ÓPTIMO</span></label>
+                                <label class="status-btn"><input type="radio" name="chk_mtu_extra_${id}" value="AJUSTAR" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">AJUSTAR</span></label>
                             </div>
                         </div>
                     </div>
-                    <input type="text" placeholder="Observaciones..." class="mtu-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                    <input type="text" placeholder="Observaciones..." class="mtu-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 </div>
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2053,16 +2053,16 @@
             const wrapper = document.getElementById('wrapper-gpu-extra');
             const row = document.createElement('div');
             row.id = `gpu_extra_${id}`;
-            row.className = 'gpu-extra-row flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.6 sm:space-y-0 sm:space-x-2 mt-2';
+            row.className = 'gpu-extra-row flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-800 p-2 rounded border border-slate-700 space-y-1.5 sm:space-y-0 sm:space-x-2 mt-2';
             row.innerHTML = `
                 <div class="w-full sm:w-1/3">
                     <label class="block text-[10px] text-slate-300">GPU Adicional (%)</label>
-                    <input type="text" placeholder="Ej: 75%" class="gpu-pct-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                    <input type="text" placeholder="Ej: 75%" class="gpu-pct-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 </div>
                 <div class="w-full sm:w-2/3 flex items-center justify-between">
                     <div class="grid grid-cols-2 gap-1 w-full mr-2">
-                        <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-emerald-400">ESTABLE</span></label>
-                        <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.6 rounded font-bold text-rose-400">SATURADO</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="ESTABLE" checked class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-emerald-400">ESTABLE</span></label>
+                        <label class="status-btn"><input type="radio" name="chk_gpu_extra_${id}" value="SATURADO" class="sr-only"><span class="block text-center bg-slate-950 text-[10px] py-1.5 rounded font-bold text-rose-400">SATURADO</span></label>
                     </div>
                     <button type="button" onclick="document.getElementById('gpu_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                 </div>
@@ -2097,11 +2097,11 @@
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Sensor</label>
-                        <input type="text" placeholder="Ej: Chipset" class="temp-label-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Chipset" class="temp-label-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Valor (°C)</label>
-                        <input type="text" placeholder="Ej: 65°C" class="temp-val-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: 65°C" class="temp-val-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                 </div>
             `;
@@ -2135,20 +2135,20 @@
                 <div class="grid grid-cols-2 gap-2 pt-1">
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Filtro / ID Base</label>
-                        <input type="text" placeholder="Ej: Aplicación" class="log-base-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Aplicación" class="log-base-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Estatus</label>
                         <div class="grid grid-cols-2 gap-1">
-                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-emerald-400">OK</span></label>
-                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="ERRORES" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.6 rounded font-bold text-rose-400">ERROR</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="LIMPIO" checked class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-emerald-400">OK</span></label>
+                            <label class="status-btn"><input type="radio" name="chk_event_logs_extra_${id}" value="ERRORES" class="sr-only"><span class="block text-center bg-[#122f4a] text-[10px] py-1.5 rounded font-bold text-rose-400">ERROR</span></label>
                         </div>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2194,7 +2194,7 @@
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Eventos</label>
-                        <input type="text" placeholder="Detalle..." class="log-val-custom w-full bg-[#122f4a] border border-slate-600 p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Detalle..." class="log-val-custom w-full bg-[#122f4a] border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Estatus</label>
@@ -2204,10 +2204,10 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" placeholder="Observaciones..." class="log-obs-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2256,10 +2256,10 @@
                         <button type="button" onclick="document.getElementById('ctrl_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" placeholder="Observaciones..." class="ctrl-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2307,10 +2307,10 @@
                         <button type="button" onclick="document.getElementById('upd_extra_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[9px] font-bold bg-rose-500/10 px-2 py-1 rounded">Remover X</button>
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" placeholder="Observaciones..." class="upd-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2361,24 +2361,24 @@
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Modalidad</label>
-                        <select class="lic-type-custom w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white font-bold focus:outline-none">
+                        <select class="lic-type-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
                             <option value="Físico (Dongle)" selected>Físico (Dongle)</option>
                             <option value="Virtual">Virtual</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-[8px] text-slate-300 mb-0.5">Nombre</label>
-                        <input type="text" placeholder="Ej: Control Center" class="lic-name-custom w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Control Center" class="lic-name-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div class="col-span-2">
                         <label class="block text-[8px] text-slate-300 mb-0.5">Serial</label>
-                        <input type="text" placeholder="SN-..." class="lic-num-custom w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white font-mono focus:outline-none">
+                        <input type="text" placeholder="SN-..." class="lic-num-custom w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
                 </div>
-                <input type="text" placeholder="Observaciones..." class="lic-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" placeholder="Observaciones..." class="lic-obs-custom w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2420,7 +2420,7 @@
             row.className = 'port-extra-row flex items-center justify-between bg-[#122f4a] p-2 rounded border border-slate-600 space-x-2 mt-2';
             row.innerHTML = `
                 <div class="flex items-center space-x-2 flex-1">
-                    <input type="text" placeholder="Ej: 4550" class="port-num-custom w-32 bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white font-mono font-bold focus:outline-none">
+                    <input type="text" placeholder="Ej: 4550" class="port-num-custom w-32 bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white font-mono font-bold focus:outline-none">
                 </div>
                 <div class="flex items-center space-x-1">
                     <label class="status-btn"><input type="radio" name="chk_port_extra_${id}" value="ABIERTO" checked class="sr-only"><span class="px-2.5 py-1 block text-[10px] rounded font-bold bg-[#122f4a] text-emerald-400">ABIERTO</span></label>
@@ -2458,12 +2458,12 @@
                 <div class="space-y-2">
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-0.5">Nombre</label>
-                        <input type="text" placeholder="Ej: Ethernet 2" class="net-name-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Ethernet 2" class="net-name-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Tipo</label>
-                            <select class="net-type-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <select class="net-type-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 <option value="Ethernet" selected>Ethernet</option>
                                 <option value="Wi-Fi">Wi-Fi</option>
                                 <option value="Fibra">Fibra (SFP)</option>
@@ -2471,7 +2471,7 @@
                         </div>
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Velocidad</label>
-                            <select class="net-speed-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <select class="net-speed-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                                 <option value="10/100 Mbps">10/100 Mbps</option>
                                 <option value="10/100/1000 Mbps" selected>1 Gbps</option>
                                 <option value="10 Gbps">10 Gbps</option>
@@ -2481,11 +2481,11 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Subida (Mbps)</label>
-                            <input type="text" placeholder="Ej: 50" class="net-upload-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" placeholder="Ej: 50" class="net-upload-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[10px] text-slate-300 mb-0.5">Bajada (Mbps)</label>
-                            <input type="text" placeholder="Ej: 150" class="net-download-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                            <input type="text" placeholder="Ej: 150" class="net-download-custom w-full bg-[#122f4a] border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                         </div>
                     </div>
                 </div>
@@ -2534,36 +2534,36 @@
             let btnRemover = isRemovable ? `<button type="button" onclick="document.getElementById('cam_item_${id}').remove(); dispararAutoguardado();" class="text-rose-400 text-[10px] font-bold bg-rose-500/10 px-2 py-0.5 rounded">Remover X</button>` : '';
             return `
             <div class="cam-item bg-[#122f4a] p-3.5 rounded-lg border border-purple-500/40 space-y-3 shadow-inner" id="cam_item_${id}">
-                <div class="flex justify-between items-center border-b border-slate-700 pb-1.6">
+                <div class="flex justify-between items-center border-b border-slate-700 pb-1.5">
                     <span class="text-[10px] font-bold text-purple-300 uppercase font-oswald">Configuración Cámara IP #${id}</span>
                     ${btnRemover}
                 </div>
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Canal Número</label>
-                        <input type="text" value="${id}" class="cam-channel w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white font-bold focus:outline-none">
+                        <input type="text" value="${id}" class="cam-channel w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Nombre Cámara</label>
-                        <input type="text" placeholder="Ej: CAM-01" class="cam-name w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white font-bold focus:outline-none">
+                        <input type="text" placeholder="Ej: CAM-01" class="cam-name w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold focus:outline-none">
                     </div>
                     <div class="col-span-2">
                         <label class="block text-[9px] text-slate-300 mb-0.5">Ubicación Física</label>
-                        <input type="text" placeholder="Ej: Portería Norte" class="cam-loc w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" placeholder="Ej: Portería Norte" class="cam-loc w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Marca / Modelo</label>
-                        <input type="text" value="GeoVision" class="cam-brand w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white focus:outline-none">
+                        <input type="text" value="GeoVision" class="cam-brand w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Dirección IP</label>
-                        <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white font-mono focus:outline-none">
+                        <input type="text" placeholder="192.168.10.50" class="cam-ip w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-mono focus:outline-none">
                     </div>
-                    <div><label class="block text-[9px] text-slate-300 mb-0.5">Grupo de Almacenamiento</label><select class="cam-storage-group w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white font-bold"><option value="">-- Sin Asignar --</option></select></div>
+                    <div><label class="block text-[9px] text-slate-300 mb-0.5">Grupo de Almacenamiento</label><select class="cam-storage-group w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white font-bold"><option value="">-- Sin Asignar --</option></select></div>
 
                     <div class="col-span-2">
                         <label class="block text-[9px] text-slate-300 mb-0.5">Protocolo / Conexión</label>
-                        <select class="cam-protocol w-full bg-slate-700 border border-slate-600 p-1.6 rounded text-white text-xs font-bold focus:outline-none">
+                        <select class="cam-protocol w-full bg-slate-700 border border-slate-600 p-1.5 rounded text-white text-xs font-bold focus:outline-none">
                             <option value="IP Directo" selected>IP Directo</option>
                             <option value="RTSP">RTSP</option>
                             <option value="ONVIF">ONVIF</option>
@@ -2572,7 +2572,7 @@
 
                     <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
                         <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Principal (Main Stream)</span>
-                        <div class="grid grid-cols-5 gap-1.6">
+                        <div class="grid grid-cols-5 gap-1.5">
                             <div>
                                 <label class="block text-[8px] text-slate-400 mb-0.5">Codec</label>
                                 <select class="cam-main-codec w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
@@ -2596,14 +2596,6 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-[8px] text-slate-400 mb-0.5">Transmisión</label>
-                                <select class="cam-sub-transmission w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
-                                    <option value="VBR" selected>VBR</option>
-                                    <option value="CBR">CBR</option>
-                                    <option value="Smart">Smart</option>
-                                </select>
-                            </div>
-                            <div>
                                 <label class="block text-[8px] text-slate-400 mb-0.5">Resolución</label>
                                 <input type="text" placeholder="1080p" class="cam-main-res w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] focus:outline-none">
                             </div>
@@ -2620,7 +2612,7 @@
 
                     <div class="col-span-2 bg-slate-900 p-2.5 rounded border border-slate-800 space-y-2">
                         <span class="text-[9px] font-bold text-sky-300 uppercase block">Stream Secundario (Sub Stream)</span>
-                        <div class="grid grid-cols-5 gap-1.6">
+                        <div class="grid grid-cols-5 gap-1.5">
                             <div>
                                 <label class="block text-[8px] text-slate-400 mb-0.5">Codec</label>
                                 <select class="cam-sub-codec w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
@@ -2633,6 +2625,14 @@
                                     <option value="Smart H.265">Smart H.265</option>
                                     <option value="MJPEG">MJPEG</option>
                                     <option value="MPEG-4">MPEG-4</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[8px] text-slate-400 mb-0.5">Transmisión</label>
+                                <select class="cam-sub-transmission w-full bg-slate-700 border border-slate-600 p-1 rounded text-white text-[10px] font-bold focus:outline-none">
+                                    <option value="VBR" selected>VBR</option>
+                                    <option value="CBR">CBR</option>
+                                    <option value="Smart">Smart</option>
                                 </select>
                             </div>
                             <div>
@@ -2653,7 +2653,7 @@
                 
                 <div class="evidence-slot bg-slate-950 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px]">
                     <span class="text-purple-300 font-bold whitespace-nowrap mr-1">📸 Evidencia Cam:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2675,7 +2675,7 @@
                             <label class="status-btn"><input type="radio" name="chk_cam_status_${id}" value="FALLO" class="sr-only"><span class="block text-center bg-slate-900 text-[10px] py-1 rounded font-bold text-rose-400">FALLO</span></label>
                         </div>
                     </div>
-                    <input type="text" placeholder="Observaciones..." class="cam-obs w-full bg-slate-700 border border-slate-600 text-xs p-1.6 rounded text-white focus:outline-none">
+                    <input type="text" placeholder="Observaciones..." class="cam-obs w-full bg-slate-700 border border-slate-600 text-xs p-1.5 rounded text-white focus:outline-none">
                 </div>
             </div>
             `;
@@ -2730,23 +2730,23 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="text-[9px] text-slate-300 block mb-0.5">Ref / Marca</label>
-                        <input type="text" class="disk-ref w-full bg-slate-700 text-[10px] p-1.6 rounded text-white focus:outline-none" placeholder="WD Purple">
+                        <input type="text" class="disk-ref w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="WD Purple">
                     </div>
                     <div>
                         <label class="text-[9px] text-slate-300 block mb-0.5">Capacidad</label>
-                        <input type="text" class="disk-cap w-full bg-slate-700 text-[10px] p-1.6 rounded text-white focus:outline-none" placeholder="4TB">
+                        <input type="text" class="disk-cap w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="4TB">
                     </div>
                     <div>
                         <label class="text-[9px] text-slate-300 block mb-0.5">Serial</label>
-                        <input type="text" class="disk-serial w-full bg-slate-700 text-[10px] p-1.6 rounded text-white focus:outline-none" placeholder="S/N...">
+                        <input type="text" class="disk-serial w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="S/N...">
                     </div>
                     <div>
                         <label class="text-[9px] text-slate-300 block mb-0.5">Escritura I/O (MB/s)</label>
-                        <input type="text" class="disk-write-speed w-full bg-slate-700 text-[10px] p-1.6 rounded text-white focus:outline-none" placeholder="Ej: 150 MB/s">
+                        <input type="text" class="disk-write-speed w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 150 MB/s">
                     </div>
                     <div>
                         <label class="text-[9px] text-slate-300 block mb-0.5">Horas de uso</label>
-                        <input type="number" min="0" step="1" class="disk-hours w-full bg-slate-700 text-[10px] p-1.6 rounded text-white focus:outline-none" placeholder="Ej: 28500">
+                        <input type="number" min="0" step="1" class="disk-hours w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Ej: 28500">
                     </div>
                 </div>
                 <div class="flex items-center justify-between pt-1">
@@ -2757,10 +2757,10 @@
                         <label class="status-btn"><input type="radio" name="chk_disk_${id}" value="FALLA" class="sr-only disk-status"><span class="block text-center bg-slate-700 text-[9px] py-1 rounded font-bold text-rose-400">FAIL</span></label>
                     </div>
                 </div>
-                <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.6 rounded text-white focus:outline-none" placeholder="Observaciones...">
-                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.6">
+                <input type="text" class="disk-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white focus:outline-none" placeholder="Observaciones...">
+                <div class="evidence-slot bg-slate-900 p-2 rounded border border-slate-800 flex items-center justify-between text-[9px] mt-1.5">
                     <span class="text-slate-300 font-bold whitespace-nowrap mr-1">📸 Evidencia:</span>
-                    <div class="flex items-center space-x-1.6 flex-1 justify-end">
+                    <div class="flex items-center space-x-1.5 flex-1 justify-end">
                         <span class="preview-status text-slate-400 italic truncate max-w-[80px]">Sin foto</span><div class="evidence-preview-grid grid grid-cols-3 gap-1 ml-1 max-w-[180px]"></div>
                         <label class="bg-sky-600 hover:bg-sky-500 text-white px-2 py-1 rounded cursor-pointer font-bold transition">
                             📷 Cámara
@@ -2797,15 +2797,15 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Nombre del voltaje / sensor</label>
-                        <input type="text" class="bios-extra-name w-full bg-slate-700 text-[10px] p-1.6 rounded text-white" placeholder="Ej: PCH Voltage">
+                        <input type="text" class="bios-extra-name w-full bg-slate-700 text-[10px] p-1.5 rounded text-white" placeholder="Ej: PCH Voltage">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Referencia</label>
-                        <input type="text" class="bios-extra-ref w-full bg-slate-700 text-[10px] p-1.6 rounded text-white" placeholder="Ej: 1.15 V">
+                        <input type="text" class="bios-extra-ref w-full bg-slate-700 text-[10px] p-1.5 rounded text-white" placeholder="Ej: 1.15 V">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Valor medido</label>
-                        <input type="text" class="bios-extra-val w-full bg-slate-700 text-[10px] p-1.6 rounded text-white" placeholder="Ej: 1.14 V">
+                        <input type="text" class="bios-extra-val w-full bg-slate-700 text-[10px] p-1.5 rounded text-white" placeholder="Ej: 1.14 V">
                     </div>
                     <div>
                         <label class="block text-[9px] text-slate-300 mb-0.5">Estatus</label>
@@ -2815,7 +2815,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" class="bios-extra-obs w-full bg-slate-700 text-[10px] p-1.6 rounded text-white" placeholder="Observación...">
+                <input type="text" class="bios-extra-obs w-full bg-slate-700 text-[10px] p-1.5 rounded text-white" placeholder="Observación...">
             `;
             wrapper.appendChild(row);
             dispararAutoguardado();
@@ -3101,7 +3101,7 @@
                         <p class="font-bold text-slate-100 text-sm">${escaparHTML(s.nombre)} <span class="text-xs text-sky-300 font-normal">[IP: ${escaparHTML(s.ip)}]</span></p>
                         <p class="text-[10px] text-slate-300">Modo: ${s.modoReporte === 'inventario' ? '📋 Inventario' : '🔧 Diagnóstico'} | Grupos: ${(s.gruposAlmacenamiento || []).length} | Discos: ${(s.discosFisicos || []).length} | Cámaras: ${s.camarasIP.length}</p>
                     </div>
-                    <button onclick="removerServidorLista(${idx})" class="text-rose-400 bg-rose-500/10 px-2 py-1.6 rounded-lg text-xs font-bold">Eliminar</button>
+                    <button onclick="removerServidorLista(${idx})" class="text-rose-400 bg-rose-500/10 px-2 py-1.5 rounded-lg text-xs font-bold">Eliminar</button>
                 </div>
             `).join('');
         }
